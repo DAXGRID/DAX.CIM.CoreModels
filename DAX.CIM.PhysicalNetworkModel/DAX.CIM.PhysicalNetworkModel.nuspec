@@ -4,8 +4,8 @@
     <id>DAX.CIM.PhysicalNetworkModel</id>
     <title>DAX.CIM.PhysicalNetworkModel</title>
     <version>$version$</version>
-    <authors></authors>
-    <owners></owners>
+    <authors>jesper_dax,mookid8000</authors>
+    <owners>jesper_dax</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Contains CIM classes</description>
     <dependencies>
