@@ -12,7 +12,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\DAX.CIM.PhysicalNetworkModel.dll" target="lib\NET452" />
-    <file src="bin\Release\DAX.CIM.PhysicalNetworkModel.xml" target="lib\NET452" />
+    <file src="bin\Release\DAX.CIM.PhysicalNetworkModel.dll" target="lib\NET45" />
+    <file src="bin\Release\DAX.CIM.PhysicalNetworkModel.xml" target="lib\NET45" />
   </files>
 </package>
