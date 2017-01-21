@@ -7291,7 +7291,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private Voltage lowVoltageLimitField;
 
-        private VoltageLevelBaseVoltage baseVoltageField;
+        private double baseVoltageField;
 
         private VoltageLevelEquipmentContainer equipmentContainer1Field;
 
@@ -7322,7 +7322,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public VoltageLevelBaseVoltage BaseVoltage
+        public double BaseVoltage
         {
             get
             {
