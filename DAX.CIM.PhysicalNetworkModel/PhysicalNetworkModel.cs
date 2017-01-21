@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAX.CIM.PhysicalNetworkModel
 {
-    /// <remarks/>
+    /// <summary>
+    /// Envelope that can be used for XML serialization and deserialisation
+    /// However, DON'T USE IT! Because it's gonna die in the fucture.
+    /// Serialize/deserialize collection/enumerable of identified objects instead.
+    /// </summary>
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1", IsNullable = false)]
     public partial class PhysicalNetworkModelEnvelope
@@ -23,11 +27,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private Location[] locationField;
 
-        private PositionPoint[] positionPointField;
-
         private UsagePoint[] usagePointField;
-
-        private BaseVoltage[] baseVoltageField;
 
         private Bay[] bayField;
 
@@ -38,8 +38,6 @@ namespace DAX.CIM.PhysicalNetworkModel
         private Name[] nameField;
 
         private NameType[] nameTypeField;
-
-        private PSRType[] pSRTypeField;
 
         private SubGeographicalRegion[] subGeographicalRegionField;
 
@@ -198,20 +196,6 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("PositionPoint")]
-        public PositionPoint[] PositionPoint
-        {
-            get
-            {
-                return this.positionPointField;
-            }
-            set
-            {
-                this.positionPointField = value;
-            }
-        }
-
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("UsagePoint")]
         public UsagePoint[] UsagePoint
         {
@@ -222,20 +206,6 @@ namespace DAX.CIM.PhysicalNetworkModel
             set
             {
                 this.usagePointField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("BaseVoltage")]
-        public BaseVoltage[] BaseVoltage
-        {
-            get
-            {
-                return this.baseVoltageField;
-            }
-            set
-            {
-                this.baseVoltageField = value;
             }
         }
 
@@ -308,21 +278,7 @@ namespace DAX.CIM.PhysicalNetworkModel
                 this.nameTypeField = value;
             }
         }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("PSRType")]
-        public PSRType[] PSRType
-        {
-            get
-            {
-                return this.pSRTypeField;
-            }
-            set
-            {
-                this.pSRTypeField = value;
-            }
-        }
-
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("SubGeographicalRegion")]
         public SubGeographicalRegion[] SubGeographicalRegion
@@ -828,22 +784,23 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A base class for all objects that may contain connectivity nodes or topological nodes.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(EquipmentContainer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VoltageLevel))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Substation))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bay))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BayExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ConnectivityNodeContainer : PowerSystemResource
     {
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A power system resource can be an item of equipment such as a switch, an equipment container containing many individual items of equipment such as a substation, or an organisational entity such as sub-control area. Power system resources can have measurements associated.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TapChanger))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RatioTapChanger))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Equipment))]
@@ -887,22 +844,19 @@ namespace DAX.CIM.PhysicalNetworkModel
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Substation))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bay))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BayExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class PowerSystemResource : IdentifiedObject
     {
 
-        private PowerSystemResourcePSRType pSRTypeField;
+        private string pSRTypeField;
 
         private PowerSystemResourceLocation locationField;
 
         private PowerSystemResourceAssets assetsField;
 
         /// <remarks/>
-        public PowerSystemResourcePSRType PSRType
+        public string PSRType
         {
             get
             {
@@ -941,53 +895,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class PowerSystemResourcePSRType
-    {
-
-        private string referenceTypeField;
-
-        private string refField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string referenceType
-        {
-            get
-            {
-                return this.referenceTypeField;
-            }
-            set
-            {
-                this.referenceTypeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string @ref
-        {
-            get
-            {
-                return this.refField;
-            }
-            set
-            {
-                this.refField = value;
-            }
-        }
-    }
+  
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class TapSchedule
     {
@@ -1009,10 +920,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class TapScheduleTapChanger
     {
@@ -1051,20 +959,14 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ReactiveCapabilityCurve
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class NonlinearShuntCompensatorPoint
     {
@@ -1161,11 +1063,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Imaginary part of admittance.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Susceptance
     {
@@ -1257,7 +1158,6 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public enum UnitMultiplier
@@ -1298,7 +1198,6 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public enum UnitSymbol
@@ -1386,11 +1285,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         Wh,
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Factor by which voltage must be multiplied to give corresponding power lost from a circuit. Real part of admittance.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Conductance
     {
@@ -1482,10 +1380,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class NonlinearShuntCompensatorPointNonlinearShuntCompensator
     {
@@ -1524,10 +1419,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class NameType
     {
@@ -1564,10 +1456,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Name
     {
@@ -1604,10 +1493,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class NameNameType
     {
@@ -1646,125 +1532,9 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class PositionPoint
-    {
-
-        private string sequenceNumberField;
-
-        private string xPositionField;
-
-        private string yPositionField;
-
-        private PositionPointLocation locationField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
-        public string sequenceNumber
-        {
-            get
-            {
-                return this.sequenceNumberField;
-            }
-            set
-            {
-                this.sequenceNumberField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string xPosition
-        {
-            get
-            {
-                return this.xPositionField;
-            }
-            set
-            {
-                this.xPositionField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string yPosition
-        {
-            get
-            {
-                return this.yPositionField;
-            }
-            set
-            {
-                this.yPositionField = value;
-            }
-        }
-
-        /// <remarks/>
-        public PositionPointLocation Location
-        {
-            get
-            {
-                return this.locationField;
-            }
-            set
-            {
-                this.locationField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class PositionPointLocation
-    {
-
-        private string referenceTypeField;
-
-        private string refField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string referenceType
-        {
-            get
-            {
-                return this.referenceTypeField;
-            }
-            set
-            {
-                this.referenceTypeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string @ref
-        {
-            get
-            {
-                return this.refField;
-            }
-            set
-            {
-                this.refField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Maintainer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AssetOwner))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class AssetOrganisationRole
     {
@@ -1801,30 +1571,21 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Maintainer : AssetOrganisationRole
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class AssetOwner : AssetOrganisationRole
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class KiloActivePower
     {
@@ -1900,10 +1661,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class VoltagePerReactivePower
     {
@@ -1979,10 +1737,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Seconds
     {
@@ -2058,10 +1813,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class RotationSpeed
     {
@@ -2137,10 +1889,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Frequency
     {
@@ -2218,10 +1967,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PerCent
     {
@@ -2296,11 +2042,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Product of the RMS value of the voltage and the RMS value of the current.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ApparentPower
     {
@@ -2375,11 +2120,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Per Unit - a positive or negative value referred to a defined base. Values typically range from -10 to +10.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PU
     {
@@ -2454,11 +2198,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Product of RMS value of the voltage and the RMS value of the quadrature component of the current.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ReactivePower
     {
@@ -2533,11 +2276,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Product of RMS value of the voltage and the RMS value of the in-phase component of the current.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ActivePower
     {
@@ -2613,10 +2355,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ActivePowerPerFrequency
     {
@@ -2691,11 +2430,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Electrical current with sign convention: positive flow is out of the conducting equipment into the connectivity node. Can be both AC and DC.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class CurrentFlow
     {
@@ -2786,11 +2524,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Capacitive part of reactance (imaginary part of impedance), at rated frequency.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Capacitance
     {
@@ -2881,11 +2618,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Reactance (imaginary part of impedance), at rated frequency.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Reactance
     {
@@ -2960,11 +2696,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Resistance (real part of impedance).
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Resistance
     {
@@ -3040,10 +2775,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Length
     {
@@ -3119,10 +2851,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Voltage
     {
@@ -3198,10 +2927,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class TelephoneNumber
     {
@@ -3282,11 +3008,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Current status information relevant to an entity.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Status
     {
@@ -3369,10 +3094,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class TownDetail
     {
@@ -3454,10 +3176,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class StreetDetail
     {
@@ -3630,10 +3349,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class StreetAddress
     {
@@ -3685,10 +3401,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class LifecycleDate
     {
@@ -3886,12 +3599,13 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// This is a root class to provide common identification for all classes needing identification and naming attributes.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransformerEnd))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PowerTransformerEnd))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PowerTransformerEndExt))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SubGeographicalRegion))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PSRType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PowerSystemResource))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TapChanger))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RatioTapChanger))]
@@ -3938,17 +3652,13 @@ namespace DAX.CIM.PhysicalNetworkModel
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BayExt))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GeographicalRegion))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ConnectivityNode))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseVoltage))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACDCTerminal))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Terminal))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(UsagePoint))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Location))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CoordinateSystem))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Asset))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class IdentifiedObject
     {
@@ -4016,10 +3726,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class IdentifiedObjectNames
     {
@@ -4057,13 +3764,12 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A conducting connection point of a power transformer. It corresponds to a physical transformer winding terminal.  In earlier CIM versions, the TransformerWinding class served a similar purpose, but this class is more flexible because it associates to terminal but is not a specialization of ConductingEquipment.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PowerTransformerEnd))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PowerTransformerEndExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class TransformerEnd : IdentifiedObject
     {
@@ -4076,7 +3782,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private Reactance xgroundField;
 
-        private TransformerEndBaseVoltage baseVoltageField;
+        private double baseVoltageField;
 
         private TransformerEndTerminal terminalField;
 
@@ -4133,8 +3839,10 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        public TransformerEndBaseVoltage BaseVoltage
+        /// <summary>
+        /// Base voltage in volts
+        /// </summary>
+        public double BaseVoltage
         {
             get
             {
@@ -4160,53 +3868,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class TransformerEndBaseVoltage
-    {
-
-        private string referenceTypeField;
-
-        private string refField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string referenceType
-        {
-            get
-            {
-                return this.referenceTypeField;
-            }
-            set
-            {
-                this.referenceTypeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string @ref
-        {
-            get
-            {
-                return this.refField;
-            }
-            set
-            {
-                this.refField = value;
-            }
-        }
-    }
+  
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class TransformerEndTerminal
     {
@@ -4244,12 +3909,15 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A PowerTransformerEnd is associated with each Terminal of a PowerTransformer.
+    /// The impedance values r, r0, x, and x0 of a PowerTransformerEnd represents a star equivalent as follows
+    ///1) for a two Terminal PowerTransformer the high voltage PowerTransformerEnd has non zero values on r, r0, x, and x0 while the low voltage PowerTransformerEnd has zero values for r, r0, x, and x0.
+    ///2) for a three Terminal PowerTransformer the three PowerTransformerEnds represents a star equivalent with each leg in the star represented by r, r0, x, and x0 values.
+    ///3) for a PowerTransformer with more than three Terminals the PowerTransformerEnd impedance values cannot be used.Instead use the TransformerMeshImpedance or split the transformer into multiple PowerTransformers.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PowerTransformerEndExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PowerTransformerEnd : TransformerEnd
     {
@@ -4437,10 +4105,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PowerTransformerEndPowerTransformer
     {
@@ -4478,11 +4143,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// PowerTransformerEnd extension containing losses, uk and exicingCurrentZero
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PowerTransformerEndExt : PowerTransformerEnd
     {
@@ -4564,10 +4228,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class SubGeographicalRegion : IdentifiedObject
     {
@@ -4590,10 +4251,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class SubGeographicalRegionSubstations
     {
@@ -4632,70 +4290,29 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class PSRType : IdentifiedObject
-    {
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class GeographicalRegion : IdentifiedObject
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Connectivity nodes are points where terminals of AC conducting equipment are connected together with zero impedance.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ConnectivityNode : IdentifiedObject
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class BaseVoltage : IdentifiedObject
-    {
-
-        private Voltage nominalVoltageField;
-
-        /// <remarks/>
-        public Voltage nominalVoltage
-        {
-            get
-            {
-                return this.nominalVoltageField;
-            }
-            set
-            {
-                this.nominalVoltageField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
+    /// <summary>
+    /// An electrical connection point (AC or DC) to a piece of conducting equipment. Terminals are connected at physical connection points called connectivity nodes.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Terminal))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class ACDCTerminal : IdentifiedObject
     {
-
         private string sequenceNumberField;
 
         /// <remarks/>
@@ -4713,11 +4330,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// An AC electrical connection point to a piece of conducting equipment. Terminals are connected at physical connection points called connectivity nodes.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Terminal : ACDCTerminal
     {
@@ -4785,7 +4401,6 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public enum PhaseCode
@@ -4856,10 +4471,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class TerminalConductingEquipment
     {
@@ -4898,10 +4510,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class TerminalConnectivityNode
     {
@@ -4939,11 +4548,14 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// CIM description:
+    /// Logical or physical point in the network to which readings or events may be attributed.Used at the place where a physical or virtual meter may be located; however, it is not required that a meter be present.
+    /// Danish stuff:
+    /// Represents what in daily words is referred to as installation. The EAN(18 digit installationsnumber should be put in the name attribute).
+    /// Repræsenter en installation/aftagepunkt, hvor der typisk sidder en maaler. EAN-/Aftagenummer skrives i navn. Bemaerk at der en 1-mange relation mellem ConductionEquipment og UsagePoint, som fx kan udnyttes i etageejendomme, hvor der kan vaere mange maalere tilknyttet en stikledning.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class UsagePoint : IdentifiedObject
     {
@@ -4965,10 +4577,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class UsagePointEquipments
     {
@@ -5006,16 +4615,14 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// The place, scene, or point of something where someone or something has been, is, and/or will be at a given moment in time. It can be defined with one or more postition points (coordinates) in a given coordinate system.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LocationExt))]
     public partial class Location : IdentifiedObject
     {
-
         private string directionField;
 
         private StreetAddress mainAddressField;
@@ -5093,10 +4700,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class LocationCoordinateSystem
     {
@@ -5135,10 +4739,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class CoordinateSystem : IdentifiedObject
     {
@@ -5159,11 +4760,11 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Tangible resource of the utility, including power system equipment, various end devices, cabinets, buildings, etc. For electrical network equipment, the role of the asset is defined through PowerSystemResource and its subclasses, defined mainly in the Wires model (refer to IEC61970-301 and model package IEC61970::Wires). Asset description places emphasis on the physical characteristics of the equipment fulfilling that role.
+    /// TODO: Move out of this model. Asset is another bounded context than the physical network model.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Asset : IdentifiedObject
     {
@@ -5246,10 +4847,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class AssetOrganisationRoles
     {
@@ -5288,10 +4886,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PowerSystemResourceLocation
     {
@@ -5330,10 +4925,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PowerSystemResourceAssets
     {
@@ -5371,12 +4963,11 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// Mechanism for changing transformer winding tap positions.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RatioTapChanger))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class TapChanger : PowerSystemResource
     {
@@ -5476,11 +5067,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A tap changer that changes the voltage ratio impacting the voltage magnitude but not the phase angle across the transformer.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class RatioTapChanger : TapChanger
     {
@@ -5517,10 +5107,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class RatioTapChangerTransformerEnd
     {
@@ -5558,7 +5145,9 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// The parts of a power system that are physical devices, electronic or mechanical.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AuxiliaryEquipment))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sensor))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CurrentTransformer))]
@@ -5593,10 +5182,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Conductor))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegment))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegmentExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class Equipment : PowerSystemResource
     {
@@ -5649,10 +5235,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class EquipmentEquipmentContainer
     {
@@ -5690,16 +5273,16 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// AuxiliaryEquipment describe equipment that is not performing any primary functions but support for the equipment performing the primary function.
+    /// AuxiliaryEquipment is attached to primary eqipment via an association with Terminal.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sensor))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CurrentTransformer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CurrentTransformerExt))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FaultIndicator))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FaultIndicatorExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class AuxiliaryEquipment : Equipment
     {
@@ -5721,10 +5304,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class AuxiliaryEquipmentTerminal
     {
@@ -5765,10 +5345,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CurrentTransformer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CurrentTransformerExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Sensor : AuxiliaryEquipment
     {
@@ -5776,20 +5353,16 @@ namespace DAX.CIM.PhysicalNetworkModel
 
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CurrentTransformerExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class CurrentTransformer : Sensor
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Instrument transformer used to measure electrical qualities of the circuit that is being protected and/or monitored. Typically used as current transducer for the purpose of metering or protection. A typical secondary current rating would be 5A.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class CurrentTransformerExt : CurrentTransformer
     {
@@ -5810,22 +5383,20 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A FaultIndicator is typically only an indicator (which may or may not be remotely monitored), and not a piece of equipment that actually initiates a protection event. It is used for FLISR (Fault Location, Isolation and Restoration) purposes, assisting with the dispatch of crews to "most likely" part of the network (i.e. assists with determining circuit section where the fault most likely happened).
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FaultIndicatorExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class FaultIndicator : AuxiliaryEquipment
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// FaultIndicator extension containing resetKind attribute.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class FaultIndicatorExt : FaultIndicator
     {
@@ -5863,7 +5434,6 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public enum FaultIndicatorResetKind
@@ -5882,7 +5452,9 @@ namespace DAX.CIM.PhysicalNetworkModel
         remote,
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// The parts of the AC power system that are designed to carry current or that are conductively connected through terminals.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Switch))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProtectedSwitch))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LoadBreakSwitch))]
@@ -5910,20 +5482,16 @@ namespace DAX.CIM.PhysicalNetworkModel
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Conductor))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegment))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegmentExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class ConductingEquipment : Equipment
     {
+        private double baseVoltageField;
 
-        private ConductingEquipmentBaseVoltage baseVoltageField;
-
-        private Terminal[] terminalsField;
-
-        /// <remarks/>
-        public ConductingEquipmentBaseVoltage BaseVoltage
+        /// <summary>
+        /// Base voltage in volts
+        /// </summary>
+        public double BaseVoltage
         {
             get
             {
@@ -5934,75 +5502,18 @@ namespace DAX.CIM.PhysicalNetworkModel
                 this.baseVoltageField = value;
             }
         }
-
-        /// <remarks/>
-        public Terminal[] Terminals
-        {
-            get
-            {
-                return this.terminalsField;
-            }
-            set
-            {
-                this.terminalsField = value;
-            }
-        }
-
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class ConductingEquipmentBaseVoltage
-    {
-
-        private string referenceTypeField;
-
-        private string refField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string referenceType
-        {
-            get
-            {
-                return this.referenceTypeField;
-            }
-            set
-            {
-                this.referenceTypeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string @ref
-        {
-            get
-            {
-                return this.refField;
-            }
-            set
-            {
-                this.refField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
+    /// <summary>
+    /// A generic device designed to close, or open, or both, one or more electric circuits.  All switches are two terminal devices including grounding switches.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProtectedSwitch))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LoadBreakSwitch))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Breaker))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroundDisconnector))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Fuse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Disconnector))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Switch : ConductingEquipment
     {
@@ -6038,33 +5549,30 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A ProtectedSwitch is a switching device that can be operated by ProtectionEquipment.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LoadBreakSwitch))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Breaker))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class ProtectedSwitch : Switch
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A mechanical switching device capable of making, carrying, and breaking currents under normal operating conditions.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class LoadBreakSwitch : ProtectedSwitch
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A mechanical switching device capable of making, carrying, and breaking currents under normal circuit conditions and also making, carrying for a specified time, and breaking currents under specified abnormal circuit conditions e.g.  those of short circuit.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Breaker : ProtectedSwitch
     {
@@ -6085,41 +5593,37 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A manually operated or motor operated mechanical switching device used for isolating a circuit or equipment from ground.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class GroundDisconnector : Switch
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// An overcurrent protective device with a circuit opening fusible part that is heated and severed by the passage of overcurrent through it. A fuse is considered a switching device because it breaks current.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Fuse : Switch
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A manually operated or motor operated mechanical switching device used for changing the connections in a circuit, or for isolating a circuit or equipment from a source of power. It is required to open or close circuits when negligible current is broken or made.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Disconnector : Switch
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A Series Compensator is a series capacitor or reactor or an AC transmission line without charging susceptance.  It is a two terminal device.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class SeriesCompensator : ConductingEquipment
     {
@@ -6193,22 +5697,18 @@ namespace DAX.CIM.PhysicalNetworkModel
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SynchronousMachine))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AsynchronousMachine))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ExternalNetworkInjection))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class RegulatingCondEq : ConductingEquipment
     {
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A shunt capacitor or reactor or switchable bank of shunt capacitors or reactors. A section of a shunt compensator is an individual capacitor or reactor.  A negative value for reactivePerSection indicates that the compensator is a reactor. ShuntCompensator is a single terminal device.  Ground is implied.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NonlinearShuntCompensator))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LinearShuntCompensator))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class ShuntCompensator : RegulatingCondEq
     {
@@ -6369,21 +5869,19 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A non linear shunt compensator has bank or section admittance values that differs.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class NonlinearShuntCompensator : ShuntCompensator
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A linear shunt compensator has banks or sections with equal admittance values.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class LinearShuntCompensator : ShuntCompensator
     {
@@ -6449,13 +5947,12 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A rotating machine which may be used as a generator or motor.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SynchronousMachine))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AsynchronousMachine))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class RotatingMachine : RegulatingCondEq
     {
@@ -6522,11 +6019,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// An electromechanical device that operates with shaft rotating synchronously with the network. It is a single machine operating either as a generator or synchronous condenser or pump.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class SynchronousMachine : RotatingMachine
     {
@@ -6806,7 +6302,6 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public enum ShortCircuitRotorKind
@@ -6826,7 +6321,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public enum SynchronousMachineKind
@@ -6855,10 +6350,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class SynchronousMachineInitialReactiveCapabilityCurve
     {
@@ -6896,11 +6388,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A rotating machine whose shaft rotates asynchronously with the electrical field. Also known as an induction machine with no external connection to the rotor windings, e.g squirrel-cage induction machine.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class AsynchronousMachine : RotatingMachine
     {
@@ -7058,11 +6549,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// This class represents external network and it is used for IEC 60909 calculations.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ExternalNetworkInjection : RegulatingCondEq
     {
@@ -7309,31 +6799,29 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// An electrical device consisting of  two or more coupled windings, with or without a magnetic core, for introducing mutual coupling between electric circuits. Transformers can be used to control voltage and phase shift (active power flow).
+    /// A power transformer may be composed of separate transformer tanks that need not be identical.
+    /// A power transformer can be modeled with or without tanks and is intended for use in both balanced and unbalanced representations.A power transformer typically has two terminals, but may have one(grounding), three or more terminals.
+    /// The inherited association ConductingEquipment.BaseVoltage should not be used.The association from TransformerEnd to BaseVoltage should be used instead.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PowerTransformer : ConductingEquipment
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Ground : ConductingEquipment
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Generic user of energy - a  point of consumption on the power system model.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class EnergyConsumer : ConductingEquipment
     {
@@ -7342,10 +6830,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PetersenCoil))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroundingImpedance))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class EarthFaultCompensator : ConductingEquipment
     {
@@ -7366,11 +6851,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A tunable impedance device normally used to offset line charging during single line faults in an ungrounded section of network.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PetersenCoil : EarthFaultCompensator
     {
@@ -7482,7 +6966,6 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public enum PetersenCoilModeKind
@@ -7499,10 +6982,8 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class GroundingImpedance : EarthFaultCompensator
     {
@@ -7523,22 +7004,21 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A conductor, or group of conductors, with negligible impedance, that serve to connect other conducting equipment within a single substation and are modelled with a single logical terminal.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BusbarSection))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class Connector : ConductingEquipment
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A conductor, or group of conductors, with negligible impedance, that serve to connect other conducting equipment within a single substation. 
+    /// Voltage measurements are typically obtained from VoltageTransformers that are connected to busbar sections.A bus bar section may have many physical terminals but for analysis is modelled with exactly one logical terminal.</xs:documentation>
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class BusbarSection : Connector
     {
@@ -7559,13 +7039,12 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// Combination of conducting material with consistent electrical characteristics, building a single electrical system, used to carry current between points in the power system.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegment))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegmentExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class Conductor : ConductingEquipment
     {
@@ -7586,12 +7065,13 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A wire or combination of wires, with consistent electrical characteristics, building a single electrical system, used to carry alternating current between points in the power system.
+    /// For symmetrical, transposed 3ph lines, it is sufficient to use attributes of the line segment, which describe impedances and admittances for the entire length of the segment.Additionally impedances can be computed by using length and associated per length impedances.
+    /// The BaseVoltage at the two ends of ACLineSegments in a Line shall have the same BaseVoltage.nominalVoltage.However, boundary lines  may have slightly different BaseVoltage.nominalVoltages and  variation is allowed.Larger voltage difference in general requires use of an equivalent branch.</xs:documentation>
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegmentExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ACLineSegment : Conductor
     {
@@ -7717,11 +7197,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// ACLineSegment extension with maximum current and capacitance
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ACLineSegmentExt : ACLineSegment
     {
@@ -7787,25 +7266,23 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A modeling construct to provide a root class for containing equipment.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VoltageLevel))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Substation))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bay))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BayExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class EquipmentContainer : ConnectivityNodeContainer
     {
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// A collection of equipment at one common system voltage forming a switchgear. The equipment typically consist of breakers, busbars, instrumentation, control, regulation and protection devices as well as assemblies of all these.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class VoltageLevel : EquipmentContainer
     {
@@ -7873,10 +7350,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class VoltageLevelBaseVoltage
     {
@@ -7915,10 +7389,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class VoltageLevelEquipmentContainer
     {
@@ -7956,11 +7427,11 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+
+    /// <summary>
+    /// A collection of equipment for purposes other than generation or utilization, through which electric energy in bulk is passed for the purposes of switching or modifying its characteristics.
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Substation : EquipmentContainer
     {
@@ -7982,10 +7453,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class SubstationRegion
     {
@@ -8023,12 +7491,11 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
+    /// <summary>
+    /// A collection of power system resources (within a given substation) including conducting equipment, protection relays, measurements, and telemetry.  A bay typically represents a physical grouping related to modularization of equipment.
+    /// </summary>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BayExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class Bay : EquipmentContainer
     {
@@ -8050,10 +7517,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class BayVoltageLevel
     {
@@ -8091,11 +7555,10 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    /// <summary>
+    /// Bay extension with order attribut for automatic SLD generators
+    /// </summary>
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class BayExt : Bay
     {
@@ -8117,6 +7580,9 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
+    /// <summary>
+    /// Location extension that keeps coordinates in an array instead of references to position points
+    /// </summary>
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class LocationExt : Location
     {
@@ -8146,5 +7612,4 @@ namespace DAX.CIM.PhysicalNetworkModel
             Y = y;
         }
     }
-
 }
