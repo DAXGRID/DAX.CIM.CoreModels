@@ -1073,7 +1073,7 @@
 
         //private bool unitFieldSpecified;
 
-        private string valueField;
+        private double valueField;
 
         public Susceptance()
         {
@@ -1138,7 +1138,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value
+        public double Value
         {
             get
             {
@@ -1295,7 +1295,7 @@
 
         //private bool unitFieldSpecified;
 
-        private string valueField;
+        private double valueField;
 
         public Conductance()
         {
@@ -1360,7 +1360,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value
+        public double Value
         {
             get
             {
@@ -1590,7 +1590,7 @@
 
         //private bool unitFieldSpecified;
 
-        private string valueField;
+        private double valueField;
 
         public KiloActivePower()
         {
@@ -1641,7 +1641,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value
+        public double Value
         {
             get
             {
@@ -2440,7 +2440,7 @@
 
         //private bool unitFieldSpecified;
 
-        private string valueField;
+        private double valueField;
 
         public CurrentFlow()
         {
@@ -2505,7 +2505,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value
+        public double Value
         {
             get
             {
@@ -2534,7 +2534,7 @@
 
         //private bool unitFieldSpecified;
 
-        private string valueField;
+        private double valueField;
 
         public Capacitance()
         {
@@ -2599,7 +2599,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value
+        public double Value
         {
             get
             {
@@ -3010,7 +3010,7 @@
     public partial class Status
     {
 
-        private string valueField;
+        private double valueField;
 
         private System.DateTime dateTimeField;
 
@@ -3021,7 +3021,7 @@
         private string reasonField;
 
         /// <remarks/>
-        public string value
+        public double value
         {
             get
             {
