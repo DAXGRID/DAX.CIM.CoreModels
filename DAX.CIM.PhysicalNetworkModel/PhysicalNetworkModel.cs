@@ -2624,7 +2624,7 @@
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2661,19 +2661,19 @@
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2702,7 +2702,7 @@
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2740,18 +2740,18 @@
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2778,7 +2778,7 @@
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2815,19 +2815,19 @@
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2854,7 +2854,7 @@
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2891,19 +2891,19 @@
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
