@@ -19,9 +19,9 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private Asset[] assetField;
 
-        private AssetOwner[] assetOwnerField;
+        //private AssetOwner[] assetOwnerField;
 
-        private Maintainer[] maintainerField;
+        //private Maintainer[] maintainerField;
 
         private CoordinateSystem[] coordinateSystemField;
 
@@ -140,32 +140,32 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("AssetOwner")]
-        public AssetOwner[] AssetOwner
-        {
-            get
-            {
-                return this.assetOwnerField;
-            }
-            set
-            {
-                this.assetOwnerField = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlElementAttribute("AssetOwner")]
+        //public AssetOwner[] AssetOwner
+        //{
+        //    get
+        //    {
+        //        return this.assetOwnerField;
+        //    }
+        //    set
+        //    {
+        //        this.assetOwnerField = value;
+        //    }
+        //}
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Maintainer")]
-        public Maintainer[] Maintainer
-        {
-            get
-            {
-                return this.maintainerField;
-            }
-            set
-            {
-                this.maintainerField = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlElementAttribute("Maintainer")]
+        //public Maintainer[] Maintainer
+        //{
+        //    get
+        //    {
+        //        return this.maintainerField;
+        //    }
+        //    set
+        //    {
+        //        this.maintainerField = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("CoordinateSystem")]
@@ -1531,58 +1531,58 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
     }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Maintainer))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AssetOwner))]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public abstract partial class AssetOrganisationRole
-    {
+    ///// <remarks/>
+    //[System.Xml.Serialization.XmlIncludeAttribute(typeof(Maintainer))]
+    //[System.Xml.Serialization.XmlIncludeAttribute(typeof(AssetOwner))]
+    //[System.SerializableAttribute()]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    //public abstract partial class AssetOrganisationRole
+    //{
 
-        private string mRIDField;
+    //    private string mRIDField;
 
-        private string nameField;
+    //    private string nameField;
 
-        /// <remarks/>
-        public string mRID
-        {
-            get
-            {
-                return this.mRIDField;
-            }
-            set
-            {
-                this.mRIDField = value;
-            }
-        }
+    //    /// <remarks/>
+    //    public string mRID
+    //    {
+    //        get
+    //        {
+    //            return this.mRIDField;
+    //        }
+    //        set
+    //        {
+    //            this.mRIDField = value;
+    //        }
+    //    }
 
-        /// <remarks/>
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-    }
+    //    /// <remarks/>
+    //    public string name
+    //    {
+    //        get
+    //        {
+    //            return this.nameField;
+    //        }
+    //        set
+    //        {
+    //            this.nameField = value;
+    //        }
+    //    }
+    //}
 
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class Maintainer : AssetOrganisationRole
-    {
-    }
+    ///// <remarks/>
+    //[System.SerializableAttribute()]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    //public partial class Maintainer : AssetOrganisationRole
+    //{
+    //}
 
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class AssetOwner : AssetOrganisationRole
-    {
-    }
+    ///// <remarks/>
+    //[System.SerializableAttribute()]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    //public partial class AssetOwner : AssetOrganisationRole
+    //{
+    //}
 
     /// <remarks/>
     [System.SerializableAttribute()]
@@ -4777,7 +4777,23 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private LifecycleDate lifecycleField;
 
-        private AssetOrganisationRoles[] organisationRolesField;
+        //private AssetOrganisationRoles[] organisationRolesField;
+
+        private string ownerField;
+
+        private string maintainerField;
+
+        public string owner
+        {
+            get { return this.ownerField; }
+            set { ownerField = value; }
+        }
+
+        public string maintainer
+        {
+            get { return maintainerField; }
+            set { maintainerField = value; }
+        }
 
         /// <remarks/>
         public string lotNumber
@@ -4832,58 +4848,58 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("OrganisationRoles")]
-        public AssetOrganisationRoles[] OrganisationRoles
-        {
-            get
-            {
-                return this.organisationRolesField;
-            }
-            set
-            {
-                this.organisationRolesField = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlElementAttribute("OrganisationRoles")]
+        //public AssetOrganisationRoles[] OrganisationRoles
+        //{
+        //    get
+        //    {
+        //        return this.organisationRolesField;
+        //    }
+        //    set
+        //    {
+        //        this.organisationRolesField = value;
+        //    }
+        //}
     }
 
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class AssetOrganisationRoles
-    {
+    ///// <remarks/>
+    //[System.SerializableAttribute()]
+    //[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    //public partial class AssetOrganisationRoles
+    //{
 
-        private string referenceTypeField;
+    //    private string referenceTypeField;
 
-        private string refField;
+    //    private string refField;
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string referenceType
-        {
-            get
-            {
-                return this.referenceTypeField;
-            }
-            set
-            {
-                this.referenceTypeField = value;
-            }
-        }
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlAttributeAttribute()]
+    //    public string referenceType
+    //    {
+    //        get
+    //        {
+    //            return this.referenceTypeField;
+    //        }
+    //        set
+    //        {
+    //            this.referenceTypeField = value;
+    //        }
+    //    }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string @ref
-        {
-            get
-            {
-                return this.refField;
-            }
-            set
-            {
-                this.refField = value;
-            }
-        }
-    }
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlAttributeAttribute()]
+    //    public string @ref
+    //    {
+    //        get
+    //        {
+    //            return this.refField;
+    //        }
+    //        set
+    //        {
+    //            this.refField = value;
+    //        }
+    //    }
+    //}
 
     /// <remarks/>
     [System.SerializableAttribute()]
