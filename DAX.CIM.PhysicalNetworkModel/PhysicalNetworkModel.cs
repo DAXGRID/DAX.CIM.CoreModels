@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAX.CIM.PhysicalNetworkModel
+﻿namespace DAX.CIM.PhysicalNetworkModel
 {
     /// <summary>
     /// Envelope that can be used for XML serialization and deserialisation
@@ -1594,7 +1588,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private string valueField;
 
@@ -1631,19 +1625,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -1670,7 +1664,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -1707,19 +1701,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -1746,7 +1740,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -1783,19 +1777,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -1822,7 +1816,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -1859,19 +1853,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -1898,7 +1892,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -1938,18 +1932,18 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -1976,7 +1970,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2014,18 +2008,18 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2054,7 +2048,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2091,19 +2085,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2132,7 +2126,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2170,18 +2164,18 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2210,7 +2204,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2247,19 +2241,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2288,7 +2282,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2325,19 +2319,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2364,7 +2358,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private double valueField;
 
@@ -2401,19 +2395,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
