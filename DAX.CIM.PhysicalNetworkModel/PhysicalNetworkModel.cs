@@ -1073,11 +1073,11 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitMultiplier multiplierField;
 
-        private bool multiplierFieldSpecified;
+        //private bool multiplierFieldSpecified;
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private string valueField;
 
@@ -1101,18 +1101,18 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool multiplierSpecified
-        {
-            get
-            {
-                return this.multiplierFieldSpecified;
-            }
-            set
-            {
-                this.multiplierFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool multiplierSpecified
+        //{
+        //    get
+        //    {
+        //        return this.multiplierFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.multiplierFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1128,19 +1128,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -1295,11 +1295,11 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitMultiplier multiplierField;
 
-        private bool multiplierFieldSpecified;
+        //private bool multiplierFieldSpecified;
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private string valueField;
 
@@ -1322,19 +1322,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool multiplierSpecified
-        {
-            get
-            {
-                return this.multiplierFieldSpecified;
-            }
-            set
-            {
-                this.multiplierFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool multiplierSpecified
+        //{
+        //    get
+        //    {
+        //        return this.multiplierFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.multiplierFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1350,19 +1350,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -1672,7 +1672,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public VoltagePerReactivePower()
         {
@@ -1723,7 +1723,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -1748,7 +1748,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public Seconds()
         {
@@ -1799,7 +1799,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -1824,7 +1824,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public RotationSpeed()
         {
@@ -1875,7 +1875,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -1900,7 +1900,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public Frequency()
         {
@@ -1953,7 +1953,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -1978,7 +1978,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public PerCent()
         {
@@ -2029,7 +2029,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2056,7 +2056,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public ApparentPower()
         {
@@ -2107,7 +2107,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2134,7 +2134,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public PU()
         {
@@ -2185,7 +2185,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2212,7 +2212,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public ReactivePower()
         {
@@ -2263,7 +2263,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2290,7 +2290,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public ActivePower()
         {
@@ -2341,7 +2341,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2366,7 +2366,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public ActivePowerPerFrequency()
         {
@@ -2417,7 +2417,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2440,11 +2440,11 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitMultiplier multiplierField;
 
-        private bool multiplierFieldSpecified;
+        //private bool multiplierFieldSpecified;
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private string valueField;
 
@@ -2468,18 +2468,18 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool multiplierSpecified
-        {
-            get
-            {
-                return this.multiplierFieldSpecified;
-            }
-            set
-            {
-                this.multiplierFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool multiplierSpecified
+        //{
+        //    get
+        //    {
+        //        return this.multiplierFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.multiplierFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -2496,18 +2496,18 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2534,11 +2534,11 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private UnitMultiplier multiplierField;
 
-        private bool multiplierFieldSpecified;
+        //private bool multiplierFieldSpecified;
 
         private UnitSymbol unitField;
 
-        private bool unitFieldSpecified;
+        //private bool unitFieldSpecified;
 
         private string valueField;
 
@@ -2561,19 +2561,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool multiplierSpecified
-        {
-            get
-            {
-                return this.multiplierFieldSpecified;
-            }
-            set
-            {
-                this.multiplierFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool multiplierSpecified
+        //{
+        //    get
+        //    {
+        //        return this.multiplierFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.multiplierFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -2589,19 +2589,19 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitSpecified
-        {
-            get
-            {
-                return this.unitFieldSpecified;
-            }
-            set
-            {
-                this.unitFieldSpecified = value;
-            }
-        }
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlIgnoreAttribute()]
+        //public bool unitSpecified
+        //{
+        //    get
+        //    {
+        //        return this.unitFieldSpecified;
+        //    }
+        //    set
+        //    {
+        //        this.unitFieldSpecified = value;
+        //    }
+        //}
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
@@ -2632,7 +2632,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public Reactance()
         {
@@ -2683,7 +2683,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2710,7 +2710,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public Resistance()
         {
@@ -2761,7 +2761,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2786,7 +2786,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public Length()
         {
@@ -2837,7 +2837,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -2862,7 +2862,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool unitFieldSpecified;
 
-        private float valueField;
+        private double valueField;
 
         public Voltage()
         {
@@ -2913,7 +2913,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
-        public float Value
+        public double Value
         {
             get
             {
@@ -5973,7 +5973,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     public abstract partial class RotatingMachine : RegulatingCondEq
     {
 
-        private float ratedPowerFactorField;
+        private double ratedPowerFactorField;
 
         private bool ratedPowerFactorFieldSpecified;
 
@@ -5982,7 +5982,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         private Voltage ratedUField;
 
         /// <remarks/>
-        public float ratedPowerFactor
+        public double ratedPowerFactor
         {
             get
             {
@@ -6049,7 +6049,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private ReactivePower minQField;
 
-        private float muField;
+        private double muField;
 
         private bool muFieldSpecified;
 
@@ -6119,7 +6119,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float mu
+        public double mu
         {
             get
             {
@@ -6416,7 +6416,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private PerCent efficiencyField;
 
-        private float iaIrRatioField;
+        private double iaIrRatioField;
 
         private Frequency nominalFrequencyField;
 
@@ -6428,7 +6428,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private bool reversibleField;
 
-        private float rxLockedRotorRatioField;
+        private double rxLockedRotorRatioField;
 
         private bool rxLockedRotorRatioFieldSpecified;
 
@@ -6459,7 +6459,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float iaIrRatio
+        public double iaIrRatio
         {
             get
             {
@@ -6538,7 +6538,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float rxLockedRotorRatio
+        public double rxLockedRotorRatio
         {
             get
             {
@@ -6585,11 +6585,11 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private ReactivePower maxQField;
 
-        private float maxR0ToX0RatioField;
+        private double maxR0ToX0RatioField;
 
-        private float maxR1ToX1RatioField;
+        private double maxR1ToX1RatioField;
 
-        private float maxZ0ToZ1RatioField;
+        private double maxZ0ToZ1RatioField;
 
         private CurrentFlow minInitialSymShCCurrentField;
 
@@ -6597,11 +6597,11 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private ReactivePower minQField;
 
-        private float minR0ToX0RatioField;
+        private double minR0ToX0RatioField;
 
-        private float minR1ToX1RatioField;
+        private double minR1ToX1RatioField;
 
-        private float minZ0ToZ1RatioField;
+        private double minZ0ToZ1RatioField;
 
         private PU voltageFactorField;
 
@@ -6685,7 +6685,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float maxR0ToX0Ratio
+        public double maxR0ToX0Ratio
         {
             get
             {
@@ -6698,7 +6698,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float maxR1ToX1Ratio
+        public double maxR1ToX1Ratio
         {
             get
             {
@@ -6711,7 +6711,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float maxZ0ToZ1Ratio
+        public double maxZ0ToZ1Ratio
         {
             get
             {
@@ -6763,7 +6763,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float minR0ToX0Ratio
+        public double minR0ToX0Ratio
         {
             get
             {
@@ -6776,7 +6776,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float minR1ToX1Ratio
+        public double minR1ToX1Ratio
         {
             get
             {
@@ -6789,7 +6789,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         }
 
         /// <remarks/>
-        public float minZ0ToZ1Ratio
+        public double minZ0ToZ1Ratio
         {
             get
             {
