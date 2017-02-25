@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkMode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkModel.Traversal", "DAX.CIM.PhysicalNetworkModel.Traversal\DAX.CIM.PhysicalNetworkModel.Traversal.csproj", "{2FE2E018-B583-4561-A141-44A71FEFB352}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkModel.Protobuf", "DAX.CIM.PhysicalNetworkModel.Protobuf\DAX.CIM.PhysicalNetworkModel.Protobuf.csproj", "{EA40F3D9-DFA9-4220-BC89-24773736DD42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkModel.Protobuf.Tests", "DAX.CIM.PhysicalNetworkModel.Protobuf.Tests\DAX.CIM.PhysicalNetworkModel.Protobuf.Tests.csproj", "{5D64598E-7169-4380-884B-793C9DF9D516}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{2FE2E018-B583-4561-A141-44A71FEFB352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FE2E018-B583-4561-A141-44A71FEFB352}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FE2E018-B583-4561-A141-44A71FEFB352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA40F3D9-DFA9-4220-BC89-24773736DD42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA40F3D9-DFA9-4220-BC89-24773736DD42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA40F3D9-DFA9-4220-BC89-24773736DD42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA40F3D9-DFA9-4220-BC89-24773736DD42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D64598E-7169-4380-884B-793C9DF9D516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D64598E-7169-4380-884B-793C9DF9D516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D64598E-7169-4380-884B-793C9DF9D516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D64598E-7169-4380-884B-793C9DF9D516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
