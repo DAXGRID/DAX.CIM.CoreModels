@@ -35,9 +35,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
             var relatedEquipment = firstConductingEquipment
                 .Traverse(c => !c.IsOpen()
                                && c.BaseVoltage.IsEqualTo(firstConductingEquipment.BaseVoltage)
-                               && (!c.IsInsideSubstation() ||
-                                   (c.IsInsideSubstation()
-                                    && c.GetSubstation().PSRType == "CableBox")))
+                               && (!c.IsInsideSubstation() || (c.IsInsideSubstation() && c.GetSubstation().PSRType == "CableBox")))
                 .ToList();
 
             Console.WriteLine(string.Join(Environment.NewLine, relatedEquipment));
