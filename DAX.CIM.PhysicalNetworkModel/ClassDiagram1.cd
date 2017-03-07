@@ -1,0 +1,830 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PhysicalNetworkModelEnvelope" Collapsed="true">
+    <Position X="83.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gPJYBMHCAYgBJJGdSqoEZKQAgEBGGC6JmB00ICFIGAM=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ConnectivityNodeContainer" Collapsed="true">
+    <Position X="18.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TapSchedule" Collapsed="true">
+    <Position X="75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TapScheduleTapChanger" Collapsed="true">
+    <Position X="76.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ReactiveCapabilityCurve" Collapsed="true">
+    <Position X="82" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.NonlinearShuntCompensatorPoint" Collapsed="true">
+    <Position X="78.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAIBAAAAAAAEAIAQAAAAQIAwAAAAAABAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Susceptance" Collapsed="true">
+    <Position X="85.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Conductance" Collapsed="true">
+    <Position X="85.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.NonlinearShuntCompensatorPointNonlinearShuntCompensator" Collapsed="true">
+    <Position X="80.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.NameType" Collapsed="true">
+    <Position X="76.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAIIAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Name" Collapsed="true">
+    <Position X="87.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAIAAAAAAEAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.NameNameType" Collapsed="true">
+    <Position X="75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.KiloActivePower" Collapsed="true">
+    <Position X="80.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.VoltagePerReactivePower" Collapsed="true">
+    <Position X="80.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Seconds" Collapsed="true">
+    <Position X="75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.RotationSpeed" Collapsed="true">
+    <Position X="87.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Frequency" Collapsed="true">
+    <Position X="76.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PerCent" Collapsed="true">
+    <Position X="82" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ApparentPower" Collapsed="true">
+    <Position X="78.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PU" Collapsed="true">
+    <Position X="76.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ReactivePower" Collapsed="true">
+    <Position X="83.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ActivePower" Collapsed="true">
+    <Position X="75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ActivePowerPerFrequency" Collapsed="true">
+    <Position X="76.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.CurrentFlow" Collapsed="true">
+    <Position X="87.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Capacitance" Collapsed="true">
+    <Position X="83.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Reactance" Collapsed="true">
+    <Position X="80.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Resistance" Collapsed="true">
+    <Position X="85.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Length" Collapsed="true">
+    <Position X="82" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Voltage" Collapsed="true">
+    <Position X="75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAEAAAEAAAAACAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TelephoneNumber" Collapsed="true">
+    <Position X="78.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAAgAAAAAAAIAggAAAAAgAAABAAAAAEIAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Status" Collapsed="true">
+    <Position X="76.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgAAkQAAAAAAAAACBAACACEAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TownDetail" Collapsed="true">
+    <Position X="83.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAABAAAAAAAEAIAAAAAAIAAEAAAHAAAAAAAAAAI=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.StreetDetail" Collapsed="true">
+    <Position X="80.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAFAAAAAAGUACBIIAAABAkIAAFAgAGAACEAAAgAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.StreetAddress" Collapsed="true">
+    <Position X="78.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAAAAAAAAAEAAACAAAAAAAAAIAAAAAAAAIAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.LifecycleDate" Collapsed="true">
+    <Position X="83.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQgAAIACAIAoAAAAIAAQEIAAAAAMAACAAECCgEAAJA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.IdentifiedObject" Collapsed="true">
+    <Position X="36.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACoAAAAAAAAAAAIIAAAAAAAAQEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.IdentifiedObjectNames" Collapsed="true">
+    <Position X="78.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PowerSystemResource" Collapsed="true">
+    <Position X="42.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAQAAAAAAAAAIAAAAAAAQAAAAAAAAgAAAACAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TransformerEnd" Collapsed="true">
+    <Position X="70.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgDAQAUBAIAAAAAAAAQAAAAAAgAAACAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TransformerEndTerminal" Collapsed="true">
+    <Position X="85.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PowerTransformerEnd" Collapsed="true">
+    <Position X="70.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAIAAgAABEAEEIAQBJAAQIAwhBAgAABAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PowerTransformerEndPowerTransformer" Collapsed="true">
+    <Position X="75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PowerTransformerEndExt" Collapsed="true">
+    <Position X="70.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAEAAAEQAAAAgAIAAQAACAAAAEAAAAAAAEAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.SubGeographicalRegion" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.SubGeographicalRegionSubstations" Collapsed="true">
+    <Position X="82" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.GeographicalRegion" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ConnectivityNode" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ACDCTerminal" Collapsed="true">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Terminal" Collapsed="true">
+    <Position X="14" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMAAAAAAAAAgAAAgAAAAAQAAAABAAAAAAgAEAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TerminalConductingEquipment" Collapsed="true">
+    <Position X="80.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TerminalConnectivityNode" Collapsed="true">
+    <Position X="82" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.UsagePoint" Collapsed="true">
+    <Position X="72.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.UsagePointEquipments" Collapsed="true">
+    <Position X="87.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Location" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAIAAAAAAAACAAAIAAAAAgAAAAAQBAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.LocationCoordinateSystem" Collapsed="true">
+    <Position X="85.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.CoordinateSystem" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Asset" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAMCqAAAAAAASAAAAEgBAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PowerSystemResourceLocation" Collapsed="true">
+    <Position X="87.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PowerSystemResourceAssets" Collapsed="true">
+    <Position X="85.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.TapChanger" Collapsed="true">
+    <Position X="23" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEIAAAAAAAAAgAAAAAACAAACQCAAQQAAgAAgAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.RatioTapChanger" Collapsed="true">
+    <Position X="23" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAACACAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.RatioTapChangerTransformerEnd" Collapsed="true">
+    <Position X="78.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Equipment" Collapsed="true">
+    <Position X="46.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEiABAgAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.EquipmentEquipmentContainer" Collapsed="true">
+    <Position X="75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.AuxiliaryEquipment" Collapsed="true">
+    <Position X="26.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.AuxiliaryEquipmentTerminal" Collapsed="true">
+    <Position X="80.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Sensor" Collapsed="true">
+    <Position X="25.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.CurrentTransformer" Collapsed="true">
+    <Position X="25.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.CurrentTransformerExt" Collapsed="true">
+    <Position X="25.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.FaultIndicator" Collapsed="true">
+    <Position X="27.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.FaultIndicatorExt" Collapsed="true">
+    <Position X="27.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAIAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ConductingEquipment" Collapsed="true">
+    <Position X="49" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Switch" Collapsed="true">
+    <Position X="59" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAgAAAAAEAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ProtectedSwitch" Collapsed="true">
+    <Position X="55.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.LoadBreakSwitch" Collapsed="true">
+    <Position X="54.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Breaker" Collapsed="true">
+    <Position X="56.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.GroundDisconnector" Collapsed="true">
+    <Position X="59" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Fuse" Collapsed="true">
+    <Position X="61.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Disconnector" Collapsed="true">
+    <Position X="63.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.SeriesCompensator" Collapsed="true">
+    <Position X="34.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAABAAAEAAABJAAAAAABBAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.RegulatingCondEq" Collapsed="true">
+    <Position X="41" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ShuntCompensator" Collapsed="true">
+    <Position X="44.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgCGQABACARAgAAQCACACAAAAEAACAAAA4BAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.NonlinearShuntCompensator" Collapsed="true">
+    <Position X="43.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.LinearShuntCompensator" Collapsed="true">
+    <Position X="45.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAEAAAQAAAAgAACAAAACAARAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.RotatingMachine" Collapsed="true">
+    <Position X="37.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAACAAAAAAAAAAAAAEAAAAAAAAAAAAAAIABgAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.SynchronousMachine" Collapsed="true">
+    <Position X="36.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAUwBAEBAAISAAAgAABAAgEIQSBBAABAAAABBgBgBMI=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.SynchronousMachineInitialReactiveCapabilityCurve" Collapsed="true">
+    <Position X="87.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.AsynchronousMachine" Collapsed="true">
+    <Position X="38.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABEMAAAAAQgAAAxAAEEACQAAAwQACAgAAACACAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ExternalNetworkInjection" Collapsed="true">
+    <Position X="41" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CYQwhAAAABACAAAACMABAAAAgAAAAAAEIAAEJQgwoEw=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PowerTransformer" Collapsed="true">
+    <Position X="47.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Ground" Collapsed="true">
+    <Position X="50" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.EnergyConsumer" Collapsed="true">
+    <Position X="52.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.EarthFaultCompensator" Collapsed="true">
+    <Position X="67" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.PetersenCoil" Collapsed="true">
+    <Position X="65.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACIAIACAAAAACAAAAAAAAAENAhAAAABEAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.GroundingImpedance" Collapsed="true">
+    <Position X="68" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Connector" Collapsed="true">
+    <Position X="29.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.BusbarSection" Collapsed="true">
+    <Position X="29.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Conductor" Collapsed="true">
+    <Position X="32" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ACLineSegment" Collapsed="true">
+    <Position X="32" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGAEACAAAAAAgAABAAAEAAAFJAAAAAABBCAIAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.ACLineSegmentExt" Collapsed="true">
+    <Position X="32" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAFAAAACAAAAAAACAIACBAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.EquipmentContainer" Collapsed="true">
+    <Position X="18.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.VoltageLevel" Collapsed="true">
+    <Position X="20.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAEAAQBAAAAAAAAAAAAgAAJAAAAAAACAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.VoltageLevelBaseVoltage" Collapsed="true">
+    <Position X="76.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.VoltageLevelEquipmentContainer" Collapsed="true">
+    <Position X="78.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Substation" Collapsed="true">
+    <Position X="16.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.SubstationRegion" Collapsed="true">
+    <Position X="83.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.Bay" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.BayVoltageLevel" Collapsed="true">
+    <Position X="82" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.BayExt" Collapsed="true">
+    <Position X="18.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAX.CIM.PhysicalNetworkModel.LocationExt" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="DAX.CIM.PhysicalNetworkModel.Point2D" Collapsed="true">
+    <Position X="75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="DAX.CIM.PhysicalNetworkModel.UnitMultiplier" Collapsed="true">
+    <Position X="83.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAACAAAAAAAAAAACEkkAACAIEAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DAX.CIM.PhysicalNetworkModel.UnitSymbol" Collapsed="true">
+    <Position X="85.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAgAIAAAQAgAAAAAAgAAAAEAgCAAIQoAKMFCZQAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DAX.CIM.PhysicalNetworkModel.PhaseCode" Collapsed="true">
+    <Position X="78.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABIAAAAAAAAgGgAAAgAUAAAoBEAAAI=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DAX.CIM.PhysicalNetworkModel.FaultIndicatorResetKind" Collapsed="true">
+    <Position X="75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAEAAAAAAAAgAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DAX.CIM.PhysicalNetworkModel.ShortCircuitRotorKind" Collapsed="true">
+    <Position X="80.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DAX.CIM.PhysicalNetworkModel.SynchronousMachineKind" Collapsed="true">
+    <Position X="82" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAABAAAAEAAAAAAAAAAAgAAAAAAAEAEAAAAAgAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DAX.CIM.PhysicalNetworkModel.PetersenCoilModeKind" Collapsed="true">
+    <Position X="76.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAEAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalNetworkModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

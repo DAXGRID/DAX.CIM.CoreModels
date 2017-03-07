@@ -272,7 +272,7 @@
                 this.nameTypeField = value;
             }
         }
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("SubGeographicalRegion")]
         public SubGeographicalRegion[] SubGeographicalRegion
@@ -889,7 +889,7 @@
         }
     }
 
-  
+
 
     /// <remarks/>
     [System.SerializableAttribute()]
@@ -3862,7 +3862,7 @@
         }
     }
 
-  
+
 
     /// <remarks/>
     [System.SerializableAttribute()]
@@ -6331,7 +6331,7 @@
     }
 
     /// <remarks/>
-    
+
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public enum SynchronousMachineKind
@@ -6992,7 +6992,7 @@
     }
 
     /// <remarks/>
-    
+
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class GroundingImpedance : EarthFaultCompensator
