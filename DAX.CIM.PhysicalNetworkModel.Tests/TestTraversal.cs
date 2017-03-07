@@ -15,7 +15,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
 
         protected override void SetUp()
         {
-            var reader = new CimXmlFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Data\Torsted_0_1_3.xml"));
+            var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Data\engum_anonymized.jsonl"));
             var objects = reader.Read();
 
             _context = CimContext.Create(objects);
@@ -31,6 +31,12 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
             var firstConductingEquipment = _context.OfType<ConductingEquipment>().First();
 
             Console.WriteLine($"First conducting equipment: {firstConductingEquipment}");
+
+
+            var baseVoltage = firstConductingEquipment.BaseVoltage;
+            var insideSubstation = firstConductingEquipment.IsInsideSubstation();
+            var asdas = firstConductingEquipment.GetSubstation().PSRType;
+            var open = firstConductingEquipment.IsOpen();
 
             var relatedEquipment = firstConductingEquipment
                 .Traverse(c => !c.IsOpen()

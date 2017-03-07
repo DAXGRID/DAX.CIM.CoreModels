@@ -47,6 +47,13 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
                 return voltageLevel.EquipmentContainer1.Get(context).GetSubstation(throwIfNotFound, context);
             }
 
+            if (equipmentContainer is BayExt)
+            {
+                var bayExt = (BayExt)equipmentContainer;
+
+                return bayExt.VoltageLevel.Get(context).GetSubstation(throwIfNotFound, context);
+            }
+
             if (!throwIfNotFound) return null;
 
             throw new ArgumentException($"Could not find SubStation from equipment container {equipmentContainer}");
@@ -73,6 +80,13 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             context = context ?? CimContext.GetCurrent();
 
             return context.GetObject<EquipmentContainer>(voltageLevelEquipmentContainer.@ref);
+        }
+
+        public static EquipmentContainer Get(this BayVoltageLevel bayVoltageLevel, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            return context.GetObject<EquipmentContainer>(bayVoltageLevel.@ref);
         }
     }
 }

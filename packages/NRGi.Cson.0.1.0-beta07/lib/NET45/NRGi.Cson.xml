@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NRGi.Cson</name>
+    </assembly>
+    <members>
+        <member name="T:NRGi.Cson.CimXmlFileReader">
+            <summary>
+            CIM XML file reader that can be used to stream a file based on the <see cref="F:NRGi.Cson.CimXmlReader.XmlSchemaNs"/> schema.
+            Internally, <see cref="T:NRGi.Cson.CimXmlReader"/> is used to actually parse the file stream
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CimXmlFileReader.#ctor(System.String)">
+            <summary>
+            Creates the reader for the given XML file path
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CimXmlFileReader.Read">
+            <summary>
+            Opens the file for reading and starts traversing it, returning a sequence of <see cref="T:DAX.CIM.PhysicalNetworkModel.IdentifiedObject"/> along the way
+            </summary>
+        </member>
+        <member name="T:NRGi.Cson.CimXmlReader">
+            <summary>
+            Streaming XML reader that can be used to traverse an XML stream based on the <see cref="F:NRGi.Cson.CimXmlReader.XmlSchemaNs"/> schema
+            </summary>
+        </member>
+        <member name="F:NRGi.Cson.CimXmlReader.XmlSchemaNs">
+            <summary>
+            Schema upon which the XML is based
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CimXmlReader.Read(System.IO.Stream)">
+            <summary>
+            Reads XML from the given <paramref name="source"/> stream, returning objects as they are parsed
+            </summary>
+        </member>
+        <member name="T:NRGi.Cson.CimXmlTextReader">
+            <summary>
+            CIM XML string reader that can be used to read an XML string based on the <see cref="F:NRGi.Cson.CimXmlReader.XmlSchemaNs"/> schema.
+            Internally, <see cref="T:NRGi.Cson.CimXmlReader"/> is used to actually parse string stream
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CimXmlTextReader.#ctor(System.String)">
+            <summary>
+            Creates the reader
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CimXmlTextReader.Read">
+            <summary>
+            Parses the XML from the string, returning the parsed objects as a sequence
+            </summary>
+        </member>
+        <member name="T:NRGi.Cson.CsonSerializer">
+            <summary>
+            CIM JSON serializer
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CsonSerializer.SerializeObject(DAX.CIM.PhysicalNetworkModel.IdentifiedObject)">
+            <summary>
+            Serializes a single object to a JSON string
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CsonSerializer.DeserializeObject(System.String)">
+            <summary>
+            Deserializes a single object into its <see cref="T:DAX.CIM.PhysicalNetworkModel.IdentifiedObject"/> subclass
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CsonSerializer.SerializeObjects(System.Collections.Generic.IEnumerable{DAX.CIM.PhysicalNetworkModel.IdentifiedObject})">
+            <summary>
+            Returns a JSONL stream from the given <paramref name="objects"/>
+            </summary>
+        </member>
+        <member name="M:NRGi.Cson.CsonSerializer.DeserializeObjects(System.IO.Stream)">
+            <summary>
+            Deserializes the given JSON stream and returns <see cref="T:DAX.CIM.PhysicalNetworkModel.IdentifiedObject"/> while traversing it
+            </summary>
+        </member>
+    </members>
+</doc>
