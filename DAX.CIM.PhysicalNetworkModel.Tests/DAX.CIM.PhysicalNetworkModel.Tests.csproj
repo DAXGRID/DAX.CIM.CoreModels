@@ -72,9 +72,9 @@
     <Compile Include="Data\CimXmlFileReader.cs" />
     <Compile Include="Data\CimXmlReader.cs" />
     <Compile Include="Data\CimXmlTextReader.cs" />
+    <Compile Include="Data\EngumTestMRIDs.cs" />
     <Compile Include="FixtureBase.cs" />
     <Compile Include="TestTraversal.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

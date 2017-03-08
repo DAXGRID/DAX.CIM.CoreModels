@@ -43,5 +43,13 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
 
         public abstract TIdentifiedObject GetObject<TIdentifiedObject>(string mRID)
             where TIdentifiedObject : IdentifiedObject;
+
+        public abstract List<TerminalConnection> GetConnections(ConductingEquipment ci);
+
+        public abstract List<TerminalConnection> GetConnections(ConnectivityNode cn);
+
+        public abstract List<TerminalConnection> GetConnections(IdentifiedObject ci);
+
+        public abstract List<VoltageLevel> GetSubstationVoltageLevels(Substation st);
     }
 }

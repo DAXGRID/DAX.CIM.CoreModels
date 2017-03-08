@@ -24,27 +24,72 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
         }
 
         [TestMethod]
-        public void GreatName()
+        public void BasicNavigationTest()
         {
-            Console.WriteLine($"Total count: {_context.Count}");
+            // Find transformer belonging to station 30071 (Engum Bronx)
+            var transformer = _context.GetObject<ConductingEquipment>(EngumTestMRIDs.Engum_St_300071_Tr_1);
+            Assert.AreEqual("30071", transformer.GetSubstation().name);
 
-            var firstConductingEquipment = _context.OfType<ConductingEquipment>().First();
+            // Get neighboor conducting equipments, expect two transformer cables
+            var tranformerCables = transformer.GetNeighborConductingEquipments();
+            Assert.AreEqual(2, tranformerCables.Count);
+            Assert.IsInstanceOfType(tranformerCables[0], typeof(ACLineSegmentExt));
+            Assert.IsInstanceOfType(tranformerCables[1], typeof(ACLineSegmentExt));
 
-            Console.WriteLine($"First conducting equipment: {firstConductingEquipment}");
+            // Try if we can reach the transformer from cable 1
+            var cableNeighbors = tranformerCables[0].GetNeighborConductingEquipments();
 
-
-            var baseVoltage = firstConductingEquipment.BaseVoltage;
-            var insideSubstation = firstConductingEquipment.IsInsideSubstation();
-            var asdas = firstConductingEquipment.GetSubstation().PSRType;
-            var open = firstConductingEquipment.IsOpen();
-
-            var relatedEquipment = firstConductingEquipment
-                .Traverse(c => !c.IsOpen()
-                               && c.BaseVoltage.IsEqualTo(firstConductingEquipment.BaseVoltage)
-                               && (!c.IsInsideSubstation() || (c.IsInsideSubstation() && c.GetSubstation().PSRType == "CableBox")))
-                .ToList();
-
-            Console.WriteLine(string.Join(Environment.NewLine, relatedEquipment));
+            // One of the cable's neighbors must be the transformer
+            Assert.IsTrue(cableNeighbors.Contains(transformer));
         }
+
+        [TestMethod]
+        public void SubstationInternalTraversalTest()
+        {
+            // Find transformer belonging to station 30071 (Engum Bronx)
+            var transformer = _context.GetObject<ConductingEquipment>(EngumTestMRIDs.Engum_St_300071_Tr_1);
+            Assert.AreEqual("30071", transformer.GetSubstation().name);
+
+            // Traverse the low voltage side of the substation
+            var relatedLowVoltageEquipments = transformer
+                            .Traverse(ci => !ci.IsOpen()
+                                           && ci.BaseVoltage < transformer.GetSubstation().GetPrimaryVoltageLevel()
+                                           && ci.IsInsideSubstation())
+                            .ToList();
+
+            // Expect 3 LV fuses
+            Assert.AreEqual(3, relatedLowVoltageEquipments.Count(io => io is Fuse && ((ConductingEquipment)io).BaseVoltage == 400));
+
+            // Expect 3 LV load break switches
+            Assert.AreEqual(3, relatedLowVoltageEquipments.Count(io => io is LoadBreakSwitch && ((ConductingEquipment)io).BaseVoltage == 400));
+        }
+
+        [TestMethod]
+        public void SubstationTranformerTraversalTest()
+        {
+            // Find transformer belonging to station 30071 (Engum Bronx)
+            var transformer = _context.GetObject<ConductingEquipment>(EngumTestMRIDs.Engum_St_300071_Tr_1);
+            Assert.AreEqual("30071", transformer.GetSubstation().name);
+
+            // Traverse the low voltage network connected to this transformer
+            var relatedLowVoltageEquipments = transformer
+                            .Traverse(ci => 
+                                !ci.IsOpen()
+                                && 
+                                ci.BaseVoltage < transformer.GetSubstation().GetPrimaryVoltageLevel()
+                                &&
+                                (
+                                  (ci.IsInsideSubstation() && ci.GetSubstation() == transformer.GetSubstation())
+                                  ||
+                                  (ci.IsInsideSubstation() && ci.GetSubstation().PSRType == "CableBox")
+                                  ||
+                                  (!ci.IsInsideSubstation() && ci.BaseVoltage == 400)
+                                )
+                            ).ToList();
+
+            // 35 energy consumers are connected to that substation
+            Assert.AreEqual(35, relatedLowVoltageEquipments.Count(io => io is EnergyConsumer));
+        }
+
     }
 }

@@ -5,11 +5,13 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
 {
     public static class ConductingEquipmentEx
     {
-        public static IEnumerable<ConductingEquipment> Traverse(this ConductingEquipment start, Predicate<ConductingEquipment> criteria, CimContext context = null)
+        public static IEnumerable<IdentifiedObject> Traverse(this ConductingEquipment start, Predicate<ConductingEquipment> criteria, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
 
-            return null;
+            var traversal = new BasicTraversal(start);
+
+            return traversal.DFS(criteria, context);
         }
 
         public static bool IsOpen(this ConductingEquipment conductingEquipment)
@@ -68,8 +70,32 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             return equipmentContainer.GetSubstation(throwIfNotFound, context);
         }
 
+        public static List<ConductingEquipment> GetNeighborConductingEquipments(this ConductingEquipment conductingEquipment, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            List<ConductingEquipment> result = new List<ConductingEquipment>();
+
+            var eqConnections = context.GetConnections(conductingEquipment);
+            foreach (var eqConn in eqConnections)
+            {
+                var cnConnections = context.GetConnections(eqConn.ConnectivityNode);
+
+                foreach (var cnCon in cnConnections)
+                {
+                    if (cnCon.ConductingEquipment != conductingEquipment)
+                        result.Add(cnCon.ConductingEquipment);
+                }
+            }
+
+            return result;
+        }
+
         public static EquipmentContainer Get(this EquipmentEquipmentContainer equipmentEquipmentContainer, CimContext context = null)
         {
+            if (equipmentEquipmentContainer == null)
+                return null;
+
             context = context ?? CimContext.GetCurrent();
 
             return context.GetObject<EquipmentContainer>(equipmentEquipmentContainer.@ref);
