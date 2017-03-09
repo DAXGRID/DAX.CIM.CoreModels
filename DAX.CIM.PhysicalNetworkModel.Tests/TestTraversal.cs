@@ -27,7 +27,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
         public void BasicNavigationTest()
         {
             // Find transformer belonging to station 30071 (Engum Bronx)
-            var transformer = _context.GetObject<ConductingEquipment>(EngumTestMRIDs.Engum_St_300071_Tr_1);
+            var transformer = _context.GetObject<ConductingEquipment>(TestMRIDs.Engum_St_30071_Tr_1);
             Assert.AreEqual("30071", transformer.GetSubstation().name);
 
             // Get neighboor conducting equipments, expect two transformer cables
@@ -47,7 +47,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
         public void SubstationInternalTraversalTest()
         {
             // Find transformer belonging to station 30071 (Engum Bronx)
-            var transformer = _context.GetObject<ConductingEquipment>(EngumTestMRIDs.Engum_St_300071_Tr_1);
+            var transformer = _context.GetObject<ConductingEquipment>(TestMRIDs.Engum_St_30071_Tr_1);
             Assert.AreEqual("30071", transformer.GetSubstation().name);
 
             // Traverse the low voltage side of the substation
@@ -68,7 +68,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
         public void SubstationTransformerTraversalTest()
         {
             // Find transformer belonging to station 30071 (Engum Bronx)
-            var transformer = _context.GetObject<ConductingEquipment>(EngumTestMRIDs.Engum_St_300071_Tr_1);
+            var transformer = _context.GetObject<ConductingEquipment>(TestMRIDs.Engum_St_30071_Tr_1);
             Assert.AreEqual("30071", transformer.GetSubstation().name);
 
             // Traverse the low voltage network connected to this transformer

@@ -44,6 +44,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 if (obj is Substation)
                 {
                     var st = obj as Substation;
+
                     var stEquipments = st.GetEquipments();
 
                     // For each equipment inside substation
@@ -176,7 +177,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                     if (pt.GetSubstation().name == "BRB" && pt.name == "TRF2")
                     {
-
                     }
 
                     var traceResult = pt.Traverse(ce => 
@@ -226,11 +226,17 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                     }
                     else if (feeder.FeederType == FeederType.PrimarySubstation)
                     {
+                        if (feeder.ConnectionPoint.PowerTransformer == null)
+                            continue;
+
                         nodeTypesToPass.Add("SecondarySubstation");
                         nodeTypesToPass.Add("Tower");
                     }
                     else if (feeder.FeederType == FeederType.SecondarySubstation)
                     {
+                        if (feeder.ConnectionPoint.PowerTransformer == null)
+                            continue;
+
                         nodeTypesToPass.Add("CableBox");
                         nodeTypesToPass.Add("Tower");
                         nodeTypesToPass.Add("T-Junction");

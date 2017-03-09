@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
 
 namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
 {
@@ -22,6 +23,23 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
                     voltageLevel = vl.BaseVoltage;
             }
 
+            // To support substations that have no voltage levels
+            if (voltageLevel == 0)
+            {
+                var eq = st.GetEquipments().Find(cimOBj => cimOBj is PowerTransformer);
+                if (eq != null)
+                {
+                    PowerTransformer pt = eq as PowerTransformer;
+                    var ptNeighbors = pt.GetNeighborConductingEquipments();
+
+                    foreach (var n in ptNeighbors)
+                    {
+                        if (n.BaseVoltage > voltageLevel)
+                            voltageLevel = n.BaseVoltage;
+                    }
+                }
+            }
+            
             return voltageLevel;
         }
 
