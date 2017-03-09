@@ -8,7 +8,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
 {
     public static class SubstationEx
     {
-        public static double GetPrimaryVoltageLevel(this Substation st,  CimContext context = null)
+        public static double GetPrimaryVoltageLevel(this Substation st, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
 
@@ -22,8 +22,21 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
                     voltageLevel = vl.BaseVoltage;
             }
 
-            return voltageLevel;                          
+            return voltageLevel;
         }
 
+        /// <summary>
+        /// Get all identified objects related to this substation.
+        /// This includes bays, voltage levels, conducting equipments etc.
+        /// </summary>
+        /// <param name="st"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static List<Equipment> GetEquipments(this Substation st, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            return context.GetSubstationEquipments(st);
+        }
     }
 }

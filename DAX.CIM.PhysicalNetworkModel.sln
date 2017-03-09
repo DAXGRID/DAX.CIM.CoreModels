@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkModel", "DAX.CIM.PhysicalNetworkModel\DAX.CIM.PhysicalNetworkModel.csproj", "{F8349941-A0F6-4D91-8DFE-998E778B1AEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkModel.Traversal", "DAX.CIM.PhysicalNetworkModel.Traversal\DAX.CIM.PhysicalNetworkModel.Traversal.csproj", "{2FE2E018-B583-4561-A141-44A71FEFB352}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkModel.Tests", "DAX.CIM.PhysicalNetworkModel.Tests\DAX.CIM.PhysicalNetworkModel.Tests.csproj", "{A242B8BA-6333-49A0-BE02-234552340591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkModel.FeederInfo", "DAX.CIM.PhysicalNetworkModel.FeederInfo\DAX.CIM.PhysicalNetworkModel.FeederInfo.csproj", "{B4A7035D-F1CC-40C7-A429-1138EC234B2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A242B8BA-6333-49A0-BE02-234552340591}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A242B8BA-6333-49A0-BE02-234552340591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A242B8BA-6333-49A0-BE02-234552340591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4A7035D-F1CC-40C7-A429-1138EC234B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4A7035D-F1CC-40C7-A429-1138EC234B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4A7035D-F1CC-40C7-A429-1138EC234B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4A7035D-F1CC-40C7-A429-1138EC234B2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

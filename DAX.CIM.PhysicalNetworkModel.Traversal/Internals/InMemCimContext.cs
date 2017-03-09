@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
 
 namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
 {
@@ -14,8 +15,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
         readonly Dictionary<ConductingEquipment, List<TerminalConnection>> _conductingEquipmentConnections = new Dictionary<ConductingEquipment, List<TerminalConnection>>();
         readonly Dictionary<ConnectivityNode, List<TerminalConnection>> _connectivityNodeConnections = new Dictionary<ConnectivityNode, List<TerminalConnection>>();
 
-        // Dictionary used for substation voltage levels lookup
+        // Dictionary used for fast substation voltage levels lookup
         readonly Dictionary<Substation, List<VoltageLevel>> _substationVoltageLevels = new Dictionary<Substation, List<VoltageLevel>>();
+
+        // Dictionary used for fast substation children lookup
+        readonly Dictionary<Substation, List<Equipment>> _substationChildren = new Dictionary<Substation, List<Equipment>>();
 
         public InMemCimContext(IEnumerable<IdentifiedObject> objects)
         {
@@ -108,6 +112,30 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
 
                 }
             }
+
+            // Initialize dictionary for substation children lookup
+            foreach (var obj in _objects.Values)
+            {
+                if (obj is Equipment)
+                {
+                    var eq = obj as Equipment;
+
+                        
+                    if (eq.IsInsideSubstation(this))
+                    {
+                        var st = eq.GetSubstation(true, this);
+
+                        // Upsert substation children dictionary
+                        if (!_substationChildren.ContainsKey(st))
+                            _substationChildren[st] = new List<Equipment> { eq };
+                        else
+                            _substationChildren[st].Add(eq);
+
+                    }
+
+                }
+            }
+
         }
 
         public override IEnumerable<TIdentifiedObject> OfType<TIdentifiedObject>()
@@ -132,6 +160,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
             {
                 throw new ArgumentException($"Could not return object with mRID {mRID} as {typeof(TIdentifiedObject)} because it is {obj.GetType()}", exception);
             }
+        }
+
+        public override List<IdentifiedObject> GetAllObjects()
+        {
+            return _objects.Values.ToList();
         }
 
         public override List<TerminalConnection> GetConnections(ConductingEquipment ci)
@@ -160,13 +193,20 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                 return new List<TerminalConnection>();
         }
 
-
         public override List<VoltageLevel> GetSubstationVoltageLevels(Substation st)
         {
             if (_substationVoltageLevels.ContainsKey(st))
                 return _substationVoltageLevels[st];
             else
                 return new List<VoltageLevel>();
+        }
+
+        public override List<Equipment> GetSubstationEquipments(Substation st)
+        {
+            if (_substationChildren.ContainsKey(st))
+                return _substationChildren[st];
+            else
+                return new List<Equipment>();
         }
 
         public override double Tolerance => 0.00001;

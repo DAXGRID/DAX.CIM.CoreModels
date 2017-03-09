@@ -18,14 +18,14 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
         /// <summary>
         /// Conducts a Depth First Search (DFS)
         /// </summary>
-        /// <param name="criteria">
+        /// <param name="ciCriteria">
         /// A criteria that is evaluated on all conducting equipment visited.
         /// If true, the conducting equipment will be included in the result, and all edges (connection to other conducting equipments through terminal and connectivity nodes) will be followed.
         /// If false, the conducting equipment will not be included in the result, and the traversal will not folow any more edges on this conducting equipment.
         /// </param>
         /// <param name="context"></param>
         /// <returns>Both conducting equipments and connetivity nodes will be returned in the result.</returns>
-        public List<IdentifiedObject> DFS(Predicate<ConductingEquipment> criteria, CimContext context = null)
+        public List<IdentifiedObject> DFS(Predicate<ConductingEquipment> ciCriteria, Predicate<ConnectivityNode> cnCriteria, bool includeEquipmentsWhereCriteriaIsFalse = false, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
 
@@ -52,7 +52,16 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
                         if (!visited.Contains(con.ConnectivityNode))
                         {
                             visited.Add(con.ConnectivityNode);
-                            stack.Push(con.ConnectivityNode);
+
+                            if (cnCriteria == null)
+                                stack.Push(con.ConnectivityNode);
+                            else if (cnCriteria.Invoke(con.ConnectivityNode))
+                                stack.Push(con.ConnectivityNode);
+                            else
+                            {
+                                if (includeEquipmentsWhereCriteriaIsFalse)
+                                    traverseOrder.Enqueue(con.ConnectivityNode);
+                            }
                         }
                     }
                     // We're dealing with a connection from a connectivity node
@@ -63,17 +72,12 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
                             visited.Add(con.ConductingEquipment);
 
                             // If the criteria holds, add the conducting equipment to the stack for further traversal
-                            if (criteria.Invoke(con.ConductingEquipment))
+                            if (ciCriteria.Invoke(con.ConductingEquipment))
                                 stack.Push(con.ConductingEquipment);
                             else
                             {
-                                var test1 = con.ConductingEquipment.IsOpen();
-                                var test2 = con.ConductingEquipment.IsInsideSubstation();
-                                var test3 = con.ConductingEquipment.BaseVoltage;
-                                if (test2)
-                                {
-                                    var test4 = con.ConductingEquipment.GetSubstation();
-                                }
+                                if (includeEquipmentsWhereCriteriaIsFalse)
+                                    traverseOrder.Enqueue(con.ConductingEquipment);
                             }
                         }
                     }

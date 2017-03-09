@@ -52,9 +52,9 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
 
             // Traverse the low voltage side of the substation
             var relatedLowVoltageEquipments = transformer
-                            .Traverse(ci => !ci.IsOpen()
-                                           && ci.BaseVoltage < transformer.GetSubstation().GetPrimaryVoltageLevel()
-                                           && ci.IsInsideSubstation())
+                            .Traverse(ce => !ce.IsOpen()
+                                           && ce.BaseVoltage < transformer.GetSubstation().GetPrimaryVoltageLevel()
+                                           && ce.IsInsideSubstation())
                             .ToList();
 
             // Expect 3 LV fuses
@@ -65,7 +65,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
         }
 
         [TestMethod]
-        public void SubstationTranformerTraversalTest()
+        public void SubstationTransformerTraversalTest()
         {
             // Find transformer belonging to station 30071 (Engum Bronx)
             var transformer = _context.GetObject<ConductingEquipment>(EngumTestMRIDs.Engum_St_300071_Tr_1);
@@ -73,17 +73,17 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
 
             // Traverse the low voltage network connected to this transformer
             var relatedLowVoltageEquipments = transformer
-                            .Traverse(ci => 
-                                !ci.IsOpen()
+                            .Traverse(ce => 
+                                !ce.IsOpen()
                                 && 
-                                ci.BaseVoltage < transformer.GetSubstation().GetPrimaryVoltageLevel()
+                                ce.BaseVoltage < transformer.GetSubstation().GetPrimaryVoltageLevel()
                                 &&
                                 (
-                                  (ci.IsInsideSubstation() && ci.GetSubstation() == transformer.GetSubstation())
+                                  (ce.IsInsideSubstation() && ce.GetSubstation() == transformer.GetSubstation())
                                   ||
-                                  (ci.IsInsideSubstation() && ci.GetSubstation().PSRType == "CableBox")
+                                  (ce.IsInsideSubstation() && ce.GetSubstation().PSRType == "CableBox")
                                   ||
-                                  (!ci.IsInsideSubstation() && ci.BaseVoltage == 400)
+                                  (!ce.IsInsideSubstation() && ce.BaseVoltage == 400)
                                 )
                             ).ToList();
 

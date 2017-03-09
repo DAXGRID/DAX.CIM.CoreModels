@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
 {
     public static class ConductingEquipmentEx
     {
-        public static IEnumerable<IdentifiedObject> Traverse(this ConductingEquipment start, Predicate<ConductingEquipment> criteria, CimContext context = null)
+        public static IEnumerable<IdentifiedObject> Traverse(this ConductingEquipment start, Predicate<ConductingEquipment> ciCriteria, Predicate<ConnectivityNode> cnCriteria = null, bool includeEquipmentsWhereCriteriaIsFalse = false, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
 
             var traversal = new BasicTraversal(start);
 
-            return traversal.DFS(criteria, context);
+            return traversal.DFS(ciCriteria, cnCriteria, includeEquipmentsWhereCriteriaIsFalse, context);
         }
 
         public static bool IsOpen(this ConductingEquipment conductingEquipment)
@@ -19,11 +20,27 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             return (conductingEquipment as Switch)?.normalOpen ?? false;
         }
 
-        public static bool IsInsideSubstation(this ConductingEquipment conductingEquipment, CimContext context = null)
+        public static bool IsInsideSubstation(this IdentifiedObject identifiedObject, CimContext context = null)
         {
+            if (identifiedObject.mRID == "11b75495-ed32-41fd-863e-cf95ddbff563")
+            {
+            }
+
             context = context ?? CimContext.GetCurrent();
 
-            return conductingEquipment.GetSubstation(false, context) != null;
+            if (identifiedObject is Equipment)
+                return ((Equipment)identifiedObject).GetSubstation(false, context) != null;
+
+            // If connectivity node, check if associated with something inside a substation
+            if (identifiedObject is ConnectivityNode)
+            {
+                var neighbors = context.GetConnections(identifiedObject);
+
+                if (neighbors.Count(n => n.ConductingEquipment.GetSubstation(false, context) != null) > 0)
+                    return true;
+            }
+
+            return false;
         }
 
         public static bool IsInsideSubstation(this VoltageLevel voltageLevel, CimContext context = null)
@@ -61,13 +78,28 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             throw new ArgumentException($"Could not find SubStation from equipment container {equipmentContainer}");
         }
 
-        public static Substation GetSubstation(this ConductingEquipment conductingEquipment, bool throwIfNotFound = true, CimContext context = null)
+        public static Substation GetSubstation(this Equipment conductingEquipment, bool throwIfNotFound = true, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
 
             var equipmentContainer = conductingEquipment.EquipmentContainer.Get(context);
 
             return equipmentContainer.GetSubstation(throwIfNotFound, context);
+        }
+
+        public static Substation GetSubstation(this ConnectivityNode connectivityNode, bool throwIfNotFound = true, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            var neighbors = context.GetConnections(connectivityNode);
+
+            foreach (var n in neighbors)
+            {
+                if (n.ConductingEquipment.GetSubstation(false, context) != null)
+                    return n.ConductingEquipment.GetSubstation(false, context);
+            }
+
+            return null;
         }
 
         public static List<ConductingEquipment> GetNeighborConductingEquipments(this ConductingEquipment conductingEquipment, CimContext context = null)
@@ -89,6 +121,18 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             }
 
             return result;
+        }
+
+        public static Bay GetBay(this Equipment conductingEquipment, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            var equipmentContainer = conductingEquipment.EquipmentContainer.Get(context);
+
+            if (equipmentContainer != null && equipmentContainer is Bay)
+                return (Bay)equipmentContainer;
+            else
+                return null;
         }
 
         public static EquipmentContainer Get(this EquipmentEquipmentContainer equipmentEquipmentContainer, CimContext context = null)
