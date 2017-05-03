@@ -175,10 +175,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 {
                     var pt = obj as PowerTransformer;
 
-                    if (pt.GetSubstation().name == "BRB" && pt.name == "TRF2")
-                    {
-                    }
-
                     var traceResult = pt.Traverse(ce => 
                         ce.IsInsideSubstation() && 
                         !ce.IsOpen() &&
