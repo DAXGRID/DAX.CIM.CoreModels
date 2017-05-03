@@ -6,7 +6,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
 {
     public static class ConductingEquipmentEx
     {
-        public static IEnumerable<IdentifiedObject> Traverse(this ConductingEquipment start, Predicate<ConductingEquipment> ciCriteria, Predicate<ConnectivityNode> cnCriteria = null, bool includeEquipmentsWhereCriteriaIsFalse = false, CimContext context = null)
+        public static IEnumerable<IdentifiedObject> Traverse(this IdentifiedObject start, Predicate<ConductingEquipment> ciCriteria, Predicate<ConnectivityNode> cnCriteria = null, bool includeEquipmentsWhereCriteriaIsFalse = false, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
 
@@ -102,6 +102,18 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             return null;
         }
 
+        public static Substation GetSubstation(this IdentifiedObject identifiedObject, bool throwIfNotFound = true, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            if (identifiedObject is Equipment)
+                return GetSubstation((Equipment)identifiedObject, throwIfNotFound, context);
+            else if (identifiedObject is ConnectivityNode)
+                return GetSubstation((ConnectivityNode)identifiedObject, throwIfNotFound, context);
+
+            return null;
+        }
+
         public static List<ConductingEquipment> GetNeighborConductingEquipments(this ConductingEquipment conductingEquipment, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
@@ -123,7 +135,8 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             return result;
         }
 
-        public static Bay GetBay(this Equipment conductingEquipment, CimContext context = null)
+        /*
+        public static Bay xGetBay(this Equipment conductingEquipment, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
 
@@ -134,6 +147,53 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             else
                 return null;
         }
+
+        public static Bay xGetBay(this ConnectivityNode connectivityNode, bool throwIfNotFound = true, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            var neighbors = context.GetConnections(connectivityNode);
+
+            foreach (var n in neighbors)
+            {
+                if (n.ConductingEquipment.GetBay(context) != null)
+                    return n.ConductingEquipment.GetBay(context);
+            }
+
+            return null;
+        }
+        */
+
+        public static Bay GetBay(this IdentifiedObject identifiedObject, bool throwIfNotFound = true, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            if (identifiedObject is Equipment)
+            {
+                var equipmentContainer = ((Equipment)identifiedObject).EquipmentContainer.Get(context);
+
+                if (equipmentContainer != null && equipmentContainer is Bay)
+                    return (Bay)equipmentContainer;
+                else
+                    return null;
+            }
+            else if (identifiedObject is ConnectivityNode)
+            {
+                var neighbors = context.GetConnections(identifiedObject);
+
+                foreach (var n in neighbors)
+                {
+                    if (n.ConductingEquipment.GetBay() != null)
+                        return n.ConductingEquipment.GetBay();
+                }
+
+                return null;
+            }
+                
+
+            return null;
+        }
+
 
         public static EquipmentContainer Get(this EquipmentEquipmentContainer equipmentEquipmentContainer, CimContext context = null)
         {

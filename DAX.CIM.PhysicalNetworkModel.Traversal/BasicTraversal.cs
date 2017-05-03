@@ -9,8 +9,8 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
 {
     public class BasicTraversal
     {
-        private ConductingEquipment _startConductingEquipment = null;
-        public BasicTraversal(ConductingEquipment startEquipment)
+        private IdentifiedObject _startConductingEquipment = null;
+        public BasicTraversal(IdentifiedObject startEquipment)
         {
             _startConductingEquipment = startEquipment;
         }

@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Debaser</name>
+    </assembly>
+    <members>
+        <member name="T:Debaser.Attributes.DebaserColumnNameAttribute">
+            <summary>
+            Specifies the column name when applied to an upserted class' properties
+            </summary>
+        </member>
+        <member name="T:Debaser.Attributes.DebaserIgnoreAttribute">
+            <summary>
+            Attribute that can be appliued to a property to make Debaser ignore it
+            </summary>
+        </member>
+        <member name="T:Debaser.Attributes.DebaserKeyAttribute">
+            <summary>
+            Attribute that can be appliued to a property to make it PK (or be part of a composite PK)
+            </summary>
+        </member>
+        <member name="T:Debaser.Attributes.DebaserMapperAttribute">
+            <summary>
+            Attribute that can be applied to a property to affect how the value is roundtripped to/from a database column
+            </summary>
+        </member>
+        <member name="M:Debaser.Attributes.DebaserMapperAttribute.#ctor(System.Type)">
+            <summary>
+            Contructs the attribute with the <paramref name="debaserMapperType"/> type as the roundtripper. The type must implement
+            <see cref="T:Debaser.IDebaserMapper"/> and have a default constructor
+            </summary>
+        </member>
+        <member name="T:Debaser.Attributes.DebaserRevisionAttribute">
+            <summary>
+            Specify that the property (which must be an integer type, either <see cref="T:System.Int16"/>, <see cref="T:System.Int32"/>, or <see cref="T:System.Int64"/>)
+            is used to indicate the revision of the row, which is then assumed to be stored in an append-only fashion.
+            </summary>
+        </member>
+        <member name="T:Debaser.Attributes.DebaserTableNameAttribute">
+            <summary>
+            Specifies the table name when applied to an upserted class
+            </summary>
+        </member>
+        <member name="T:Debaser.Attributes.DebaserUpdateCriteriaAttribute">
+            <summary>
+            Attribute that can be added to a property to indicate a criteria which must be fulfilled for an existing row to be overwritten by the row provided when calling the upsert helper.
+            The criteria MUST be a predicate that operates on two rows with a schema that matches the target table schema using the <code>[S]</code> and <code>[T]</code> placeholders, meaning
+            "source" and "target" respectively.
+            For example, the criteria <code>[S].[Rev] > [T].[Rev]</code> can be used to make an update conditional, depending on whether the <code>[Rev]</code> column of the source row
+            is greater than that of the target row
+            </summary>
+        </member>
+        <member name="T:Debaser.IDebaserMapper">
+            <summary>
+            Interface of a custom value mapper. Implement this interface in a class and indicate that you want to
+            use the implemented class by applying the <see cref="T:Debaser.Attributes.DebaserMapperAttribute"/> to a property
+            </summary>
+        </member>
+        <member name="P:Debaser.IDebaserMapper.SqlDbType">
+            <summary>
+            Must return the column type for the column in the database
+            </summary>
+        </member>
+        <member name="P:Debaser.IDebaserMapper.SizeOrNull">
+            <summary>
+            For types that require a size, this property must return the size
+            </summary>
+        </member>
+        <member name="P:Debaser.IDebaserMapper.AdditionalSizeOrNull">
+            <summary>
+            For types that require an additional size (e.g. like DECIMAL(10, 2), this property must return the size
+            </summary>
+        </member>
+        <member name="M:Debaser.IDebaserMapper.ToDatabase(System.Object)">
+            <summary>
+            Implement how the value from the object is to be mapped to a value that can be saved in the database
+            (e.g. if you want to use JSON to store a rich object, this is where you would SERIALIZE the object)
+            </summary>
+        </member>
+        <member name="M:Debaser.IDebaserMapper.FromDatabase(System.Object)">
+            <summary>
+            Implement how the value from the database is to be mapped to a value that can be set on the object
+            (e.g. if you want to use JSON to store a rich object, this is where you would DESERIALIZE the object)
+            </summary>
+        </member>
+        <member name="T:Debaser.Mapping.ClassMapProperty">
+            <summary>
+            Represents a single mapped property
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ClassMapProperty.ColumnName">
+            <summary>
+            Gets the name of the database column
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ClassMapProperty.PropertyName">
+            <summary>
+            Gets the name of the property
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ClassMapProperty.ColumnInfo">
+            <summary>
+            Gets the database column information for this property
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ClassMapProperty.IsKey">
+            <summary>
+            Gets whether the property is to be PK (or part of a composite PK) for the table
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ClassMapProperty.IsRevision">
+            <summary>
+            Gets whether the property is a revision number (i.e. technically part of a composite PK)
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.ClassMapProperty.#ctor(System.String,Debaser.Mapping.ColumnInfo,System.String,System.Boolean,System.Func{System.Object,System.Object},System.Func{System.Object,System.Object},System.Reflection.PropertyInfo,System.Boolean)">
+            <summary>
+            Creates the property
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.ClassMapProperty.MakeKey">
+            <summary>
+            Changes the property to be PK (or part of a composite PK) for the table
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.ClassMapProperty.GetColumnDefinition">
+            <summary>
+            Gets the necessary SQL to make out a single column definition line in a 'CREATE TABLE (...)' statement
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.ClassMapProperty.ToString">
+            <summary>
+            Gets a nice string that represents the property
+            </summary>
+        </member>
+        <member name="T:Debaser.Mapping.ColumnInfo">
+            <summary>
+            Represents a single column in the database
+            </summary>
+        </member>
+        <member name="F:Debaser.Mapping.ColumnInfo.DefaultNVarcharLength">
+            <summary>
+            Gets the default length of NVARCHAR columns
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.ColumnInfo.#ctor(System.Data.SqlDbType,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Func{System.Object,System.Object},System.Func{System.Object,System.Object})">
+            <summary>
+            Creates the column info
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ColumnInfo.SqlDbType">
+            <summary>
+            Gets the SQL database column type
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ColumnInfo.Size">
+            <summary>
+            Gets the size (or null if irrelevant)
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ColumnInfo.AddSize">
+            <summary>
+            Gets the additional size (or null if irrelevant)
+            Can be used to specify decimal places in the DECIMAL size specification
+            </summary>
+        </member>
+        <member name="T:Debaser.Mapping.AutoMapper">
+            <summary>
+            Helper that can generate a <see cref="T:Debaser.Mapping.ClassMap"/> for the <see cref="T:Debaser.UpsertHelper`1"/> to use
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.AutoMapper.GetMap(System.Type)">
+            <summary>
+            Gets an automatically generated map from the given <paramref name="type"/>
+            </summary>
+        </member>
+        <member name="T:Debaser.Mapping.ClassMap">
+            <summary>
+            Represents a mapping from a type to a table in the database
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.ClassMap.#ctor(System.Type,System.Collections.Generic.IEnumerable{Debaser.Mapping.ClassMapProperty})">
+            <summary>
+            Creates the map for the given <paramref name="type"/> containing the given list of <paramref name="properties"/> to be mapped
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ClassMap.Type">
+            <summary>
+            Gets the mapped type
+            </summary>
+        </member>
+        <member name="P:Debaser.Mapping.ClassMap.Properties">
+            <summary>
+            Gets the sequence of properties
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.ClassMap.GetSqlMetaData">
+            <summary>
+            Gets the <see cref="T:Microsoft.SqlServer.Server.SqlMetaData"/> for each property
+            </summary>
+        </member>
+        <member name="M:Debaser.Mapping.ClassMap.GetExtraCriteria">
+            <summary>
+            Gets any extra criteria required for a potential UPDATE to be carried out
+            </summary>
+        </member>
+        <member name="T:Debaser.UpsertHelper`1">
+            <summary>
+            This is the UpsertHelper. <code>new</code> up an instance of this guy and start messing around with your data
+            </summary>
+        </member>
+        <member name="M:Debaser.UpsertHelper`1.#ctor(System.String,System.String,System.String,Debaser.Settings)">
+            <summary>
+            Creates the upsert helper
+            </summary>
+        </member>
+        <member name="M:Debaser.UpsertHelper`1.#ctor(System.String,Debaser.Mapping.ClassMap,System.String,System.String,Debaser.Settings)">
+            <summary>
+            Creates the upsert helper
+            </summary>
+        </member>
+        <member name="M:Debaser.UpsertHelper`1.DropSchema(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Immediately executes DROP statements for the things you select by setting <paramref name="dropProcedure"/>,
+            <paramref name="dropType"/>, and/or <paramref name="dropTable"/> to <code>true</code>.
+            </summary>
+        </member>
+        <member name="M:Debaser.UpsertHelper`1.CreateSchema(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Ensures that the necessary schema is created (i.e. table, custom data type, and stored procedure).
+            Does NOT detect changes, just skips creation if it finds objects with the known names in the database.
+            This means that you need to handle migrations yourself
+            </summary>
+        </member>
+        <member name="M:Debaser.UpsertHelper`1.Upsert(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Upserts the given sequence of <typeparamref name="T"/> instances
+            </summary>
+        </member>
+        <member name="M:Debaser.UpsertHelper`1.LoadAll">
+            <summary>
+            Loads all rows from the database (in a streaming fashion, allows you to traverse all
+            objects without worrying about memory usage)
+            </summary>
+        </member>
+        <member name="M:Debaser.UpsertHelper`1.DeleteWhere(System.String,System.Object)">
+            <summary>
+            Deletes all rows that match the given criteria. The <paramref name="criteria"/> must be specified on the form
+            <code>[someColumn] = @someValue</code> where the accompanying <paramref name="args"/> would be something like
+            <code>new { someValue = "hej" }</code>
+            </summary>
+        </member>
+        <member name="M:Debaser.UpsertHelper`1.LoadWhere(System.String,System.Object)">
+            <summary>
+            Loads all rows that match the given criteria. The <paramref name="criteria"/> must be specified on the form
+            <code>[someColumn] = @someValue</code> where the accompanying <paramref name="args"/> would be something like
+            <code>new { someValue = "hej" }</code>
+            </summary>
+        </member>
+    </members>
+</doc>
