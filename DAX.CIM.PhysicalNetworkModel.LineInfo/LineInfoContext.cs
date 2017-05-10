@@ -46,10 +46,15 @@ namespace DAX.CIM.PhysicalNetworkModel.LineInfo
                     // Find reached substations
                     foreach (var traceObj in firstFoundACLSTraceResult)
                     {
+
+                        if (traceObj.mRID == "beca1d8d-9521-4597-8510-090d19de83a5")
+                        {
+                        }
+
                         if (!alreadyProcesseed.Contains(traceObj))
                             alreadyProcesseed.Add(traceObj);
 
-                        if (traceObj.IsInsideSubstation())
+                        if (traceObj.IsInsideSubstation() && traceObj.GetSubstation().PSRType != "T-Junction")
                             ends.Add(new EndInfo() { StartObj = traceObj, Substation = traceObj.GetSubstation(), Bay = traceObj.GetBay() });
 
                         if (traceObj is EnergyConsumer)
@@ -57,7 +62,7 @@ namespace DAX.CIM.PhysicalNetworkModel.LineInfo
                     }
 
                     // If two ends found, and no energy consumers found, we're dealing with a real "line" according to NRGi DSO
-                    if (ends.Count == 2 && energyConsumersFound == false)
+                    if (ends.Count == 2)
                     {
                         var endsOrdered = SortEnds(ends);
 

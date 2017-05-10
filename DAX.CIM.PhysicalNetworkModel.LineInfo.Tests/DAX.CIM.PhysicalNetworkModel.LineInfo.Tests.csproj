@@ -72,7 +72,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FixtureBase.cs" />
-    <Compile Include="LineInfoTests.cs" />
+    <Compile Include="TestLineInfo637_5465.cs" />
+    <Compile Include="TestLineInfo1975_2050.cs" />
+    <Compile Include="TestUpsert.cs" />
+    <Compile Include="TestLineInfoARU_KRL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -92,6 +95,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\fri_lineinfo_test_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\hsp_aru_krl_lineinfo_test_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\msp_1975_2050_lineinfo_test_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\tjuncion_lineinfo_test_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\tjunction_637_5465_lineinfo_test_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

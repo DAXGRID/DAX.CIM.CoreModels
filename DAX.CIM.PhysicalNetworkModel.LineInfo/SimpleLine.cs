@@ -16,5 +16,10 @@ namespace DAX.CIM.PhysicalNetworkModel.LineInfo
         public Bay FromBay { get; set; }
         public Bay ToBay { get; set; }
         public List<LineRelation> Children = new List<LineRelation>();
+
+        public override string ToString()
+        {
+            return Name + " " + Children.Count + " children";
+        }
     }
 }
