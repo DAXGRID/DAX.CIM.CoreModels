@@ -39,6 +39,10 @@
       <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.0.1.9-beta01\lib\NET45\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Debaser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Debaser.0.9.0\lib\NET45\Debaser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FastMember, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FastMember.1.1.0\lib\net40\FastMember.dll</HintPath>
       <Private>True</Private>
@@ -83,6 +87,7 @@
     <Compile Include="TestFeederInfoBEG.cs" />
     <Compile Include="TestFeederInfoFUS.cs" />
     <Compile Include="TestFeederInfoTRB.cs" />
+    <Compile Include="TestFeederInfoUpsert.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.FeederInfo\DAX.CIM.PhysicalNetworkModel.FeederInfo.csproj">

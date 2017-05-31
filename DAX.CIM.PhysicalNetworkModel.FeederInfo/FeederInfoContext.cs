@@ -20,6 +20,20 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
         {
             _cimContext = cimContext;
         }
+
+        public List<Feeder> GetFeeders()
+        {
+            List<Feeder> result = new List<Feeder>();
+            foreach (var ceFeeders in _conductingEquipmentFeeders)
+                result.AddRange(ceFeeders.Value);
+
+            return result;
+        }
+
+        public Dictionary<ConductingEquipment, List<Feeder>> GetConductionEquipmentFeeders()
+        {
+            return _conductingEquipmentFeeders;
+        }
         
         public void CreateFeederObjects()
         {
