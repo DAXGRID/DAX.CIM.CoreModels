@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="FixtureBase.cs" />
     <Compile Include="TestLineInfo2609_2628.cs" />
+    <Compile Include="TestLineInfo30250.cs" />
     <Compile Include="TestLineInfo637_5465.cs" />
     <Compile Include="TestLineInfo1975_2050.cs" />
     <Compile Include="TestLineInfoUpsert.cs" />
@@ -99,6 +100,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\hsp_aru_krl_lineinfo_test_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\lsp_30250_lineinfo_test_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\msp_1975_2050_lineinfo_test_anonymized.jsonl">

@@ -12,7 +12,7 @@ namespace DAX.CIM.PhysicalNetworkModel.LineInfo.Tests
     [TestClass]
     public class TestLineInfoUpsert : FixtureBase
     {
-        bool run = false;
+        bool run = true;
         CimContext _context;
         LineInfoContext _lineContext;
         string _csonFilename = @"C:\temp\cim\complete_net_anonymized.jsonl";

@@ -13,7 +13,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
     [TestClass]
     public class TestFeederInfoUpsert : FixtureBase
     {
-        bool run = true;
+        bool run = false;
         CimContext _context;
         FeederInfoContext _feederContext;
 

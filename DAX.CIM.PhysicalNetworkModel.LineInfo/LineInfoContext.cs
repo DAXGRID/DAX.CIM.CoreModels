@@ -66,9 +66,18 @@ namespace DAX.CIM.PhysicalNetworkModel.LineInfo
                     {
                         var endsOrdered = SortEnds(ends);
 
-                        // Do trace starting at the from node
+                        // Do trace starting at the ac line segment first node
+
+                        var cnNeighbors = ((ConnectivityNode)endsOrdered[0].StartObj).GetNeighborConductingEquipments();
+
+                        IdentifiedObject start = null;
+
+                        foreach (var cnNeighbor in cnNeighbors)
+                            if (firstFoundACLSTraceResult.Contains(cnNeighbor))
+                                start = cnNeighbor;
+
                         // Trace until we reach a substation container unless it's a t-junction
-                        var endTraceResult = endsOrdered[0].StartObj.Traverse(
+                        var endTraceResult = start.Traverse(
                             ci => !ci.IsInsideSubstation() || ci.GetSubstation().PSRType == "T-Junction",
                             cn => !cn.IsInsideSubstation() || cn.GetSubstation().PSRType == "T-Junction",
                             false

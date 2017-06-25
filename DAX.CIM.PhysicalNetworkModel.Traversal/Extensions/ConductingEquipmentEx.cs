@@ -22,10 +22,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
 
         public static bool IsInsideSubstation(this IdentifiedObject identifiedObject, CimContext context = null)
         {
-            if (identifiedObject.mRID == "11b75495-ed32-41fd-863e-cf95ddbff563")
-            {
-            }
-
             context = context ?? CimContext.GetCurrent();
 
             if (identifiedObject is Equipment)
@@ -130,6 +126,22 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
                     if (cnCon.ConductingEquipment != conductingEquipment)
                         result.Add(cnCon.ConductingEquipment);
                 }
+            }
+
+            return result;
+        }
+
+        public static List<ConductingEquipment> GetNeighborConductingEquipments(this ConnectivityNode cn, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            List<ConductingEquipment> result = new List<ConductingEquipment>();
+
+            var cnConnections = context.GetConnections(cn);
+
+            foreach (var cnCon in cnConnections)
+            {
+                result.Add(cnCon.ConductingEquipment);
             }
 
             return result;
