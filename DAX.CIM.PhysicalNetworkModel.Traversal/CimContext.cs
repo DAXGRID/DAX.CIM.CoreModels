@@ -55,5 +55,9 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
         public abstract List<VoltageLevel> GetSubstationVoltageLevels(Substation st);
 
         public abstract List<Equipment> GetSubstationEquipments(Substation st);
+
+        public abstract void ConnectTerminalToAnotherConnectitityNode(Terminal cn, ConnectivityNode newCn);
+
+        public abstract void DisconnectTerminalFromConnectitityNode(Terminal terminal);
     }
 }

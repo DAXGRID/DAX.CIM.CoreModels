@@ -43,6 +43,26 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             return voltageLevel;
         }
 
+        public static VoltageLevel GetVoltageLevel(this Substation st, double voltageLevel, bool throwIfNotFound = true, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            var voltageLevels = context.GetSubstationVoltageLevels(st);
+
+            VoltageLevel foundVoltageLevel = null;
+
+            foreach (var vl in voltageLevels)
+            {
+                if (vl.BaseVoltage == voltageLevel)
+                    foundVoltageLevel = vl;
+            }
+
+            if (throwIfNotFound && foundVoltageLevel == null)
+                throw new KeyNotFoundException("Cannot find a voltage level with voltage=" + voltageLevel + " in substation mRID: " + st.mRID);
+            
+            return foundVoltageLevel;
+        }
+
         /// <summary>
         /// Get all identified objects related to this substation.
         /// This includes bays, voltage levels, conducting equipments etc.

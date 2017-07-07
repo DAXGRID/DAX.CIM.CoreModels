@@ -189,6 +189,9 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 {
                     var pt = obj as PowerTransformer;
 
+                   
+                    
+
                     var traceResult = pt.Traverse(ce => 
                         ce.IsInsideSubstation() && 
                         !ce.IsOpen() &&
@@ -197,20 +200,15 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                     foreach (var cimObj in traceResult)
                     {
-                        if (cimObj is ConductingEquipment)
-                        {
-                            var ce = cimObj as ConductingEquipment;
-                            if (ce.GetBay() != null)
-                            {
-
-                            }
-
-                        }
-
                         if (cimObj is ConnectivityNode && _connectionPoints.ContainsKey((ConnectivityNode)cimObj))
                         {
                             var cp = _connectionPoints[(ConnectivityNode)cimObj];
                             cp.PowerTransformer = pt;
+
+                            if (cp.Substation.name == "BAS")
+                            {
+                                var asdasd = _connectionPoints.Where(o => o.Value.PowerTransformer == pt).ToList();
+                            }
                         }
                     }
                 }
@@ -223,6 +221,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             {
                 foreach (var feeder in cp.Feeders)
                 {
+                    
+                    if (feeder.ACLineSegment.mRID == "c494d297-9d5c-46dd-813d-1971b63d6f86")
+                    {
+                    }
+
                     if (feeder.ConnectionPoint.Bay != null && feeder.ConnectionPoint.Bay.name != null && feeder.ConnectionPoint.Bay.name.StartsWith("03JULI"))
                     {
                     }

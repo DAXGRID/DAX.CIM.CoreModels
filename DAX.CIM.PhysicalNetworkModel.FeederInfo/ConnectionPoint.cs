@@ -32,5 +32,20 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
             _feeders.Add(feeder);
         }
+
+        public override string ToString()
+        {
+            string result = "";
+            if (Substation != null)
+                result += " " + Substation.name;
+            if (Bay != null && Bay.name != null)
+                result += " " + Bay.name;
+            if (PowerTransformer != null && PowerTransformer.name != null)
+                result += " " + PowerTransformer.name;
+
+            return result;
+        }
     }
+
+    
 }

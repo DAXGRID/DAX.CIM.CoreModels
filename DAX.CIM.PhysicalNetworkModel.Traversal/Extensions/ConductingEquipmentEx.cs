@@ -78,9 +78,24 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
         {
             context = context ?? CimContext.GetCurrent();
 
-            var equipmentContainer = conductingEquipment.EquipmentContainer.Get(context);
+            if (throwIfNotFound)
+            {
+                var equipmentContainer = conductingEquipment.EquipmentContainer.Get(context);
+                return equipmentContainer.GetSubstation(throwIfNotFound, context);
 
-            return equipmentContainer.GetSubstation(throwIfNotFound, context);
+            }
+            else
+            {
+                try
+                {
+                    var equipmentContainer = conductingEquipment.EquipmentContainer.Get(context);
+                    return equipmentContainer.GetSubstation(throwIfNotFound, context);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
         }
 
         public static Substation GetSubstation(this ConnectivityNode connectivityNode, bool throwIfNotFound = true, CimContext context = null)
@@ -106,6 +121,16 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
                 return GetSubstation((Equipment)identifiedObject, throwIfNotFound, context);
             else if (identifiedObject is ConnectivityNode)
                 return GetSubstation((ConnectivityNode)identifiedObject, throwIfNotFound, context);
+            else if (identifiedObject is VoltageLevel)
+                return context.GetObject<Substation>(((VoltageLevel)identifiedObject).EquipmentContainer1.@ref);
+            else if (identifiedObject is Bay)
+                return GetSubstation(context.GetObject<VoltageLevel>(((Bay)identifiedObject).VoltageLevel.@ref), throwIfNotFound, context);
+            else if (identifiedObject is TransformerEnd)
+            {
+                var terminal = context.GetObject<Terminal>(((TransformerEnd)identifiedObject).Terminal.@ref);
+                var pt = context.GetObject<PowerTransformer>(terminal.ConductingEquipment.@ref);
+                return context.GetObject<Substation>(pt.EquipmentContainer.@ref);
+            }
 
             return null;
         }
@@ -147,35 +172,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             return result;
         }
 
-        /*
-        public static Bay xGetBay(this Equipment conductingEquipment, CimContext context = null)
-        {
-            context = context ?? CimContext.GetCurrent();
-
-            var equipmentContainer = conductingEquipment.EquipmentContainer.Get(context);
-
-            if (equipmentContainer != null && equipmentContainer is Bay)
-                return (Bay)equipmentContainer;
-            else
-                return null;
-        }
-
-        public static Bay xGetBay(this ConnectivityNode connectivityNode, bool throwIfNotFound = true, CimContext context = null)
-        {
-            context = context ?? CimContext.GetCurrent();
-
-            var neighbors = context.GetConnections(connectivityNode);
-
-            foreach (var n in neighbors)
-            {
-                if (n.ConductingEquipment.GetBay(context) != null)
-                    return n.ConductingEquipment.GetBay(context);
-            }
-
-            return null;
-        }
-        */
-
         public static Bay GetBay(this IdentifiedObject identifiedObject, bool throwIfNotFound = true, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
@@ -206,6 +202,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             return null;
         }
 
+        public static bool HasBay(this IdentifiedObject identifiedObject, bool throwIfNotFound = true, CimContext context = null)
+        {
+            return GetBay(identifiedObject, false, context) != null;
+        }
+
 
         public static EquipmentContainer Get(this EquipmentEquipmentContainer equipmentEquipmentContainer, CimContext context = null)
         {
@@ -230,5 +231,41 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
 
             return context.GetObject<EquipmentContainer>(bayVoltageLevel.@ref);
         }
+
+        /// <summary>
+        /// Find the terminal that is connected to the conducting equipment specified in connectedTo
+        /// </summary>
+        /// <param name="conductingEquipment"></param>
+        /// <param name="connectedTo"></param>
+        /// <param name="throwIfNotFound"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static Terminal GetTerminal(this ConductingEquipment conductingEquipment, ConductingEquipment connectedTo, bool throwIfNotFound = true, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            var terminalConnections = context.GetConnections(conductingEquipment);
+            
+            foreach (var connection in terminalConnections)
+            {
+                if (connection.ConnectivityNode != null)
+                {
+                    var cnConnections = context.GetConnections(connection.ConnectivityNode);
+
+                    // See if any of the CEs that the terminal's CN is connected to is equal connectedTo
+                    foreach (var cnConnection in cnConnections)
+                    {
+                        if (cnConnection.ConductingEquipment == connectedTo)
+                            return connection.Terminal;
+                    }
+                }
+            }
+
+            if (throwIfNotFound)
+                throw new KeyNotFoundException("Cannot find any conduction equipment with mRID=" + connectedTo.mRID + " connected to conducting equipment with mRID=" + conductingEquipment.mRID);
+
+            return null;
+        }
+
     }
 }

@@ -13,11 +13,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
     [TestClass]
     public class TestFeederInfoUpsert : FixtureBase
     {
-        bool run = false;
+        bool run = true;
         CimContext _context;
         FeederInfoContext _feederContext;
 
-        string _csonFilename = @"C:\temp\cim\complete_net_anonymized.jsonl";
+        string _csonFilename = @"C:\temp\cim\complete_net.jsonl";
 
         protected override void SetUp()
         {
@@ -44,7 +44,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
 
                 var feeders = _feederContext.GetConductionEquipmentFeeders();
 
-                string connection = "Data Source=vsqlgis-test;Initial Catalog=Data1;User Id=dataadmin;Password=dataadmin";
+                string connection = "Data Source=vsqlgis;Initial Catalog=Data1;User Id=dataadmin;Password=dataadmin";
 
                 var upsert = new UpsertHelper<FeederInfo>(connection, "FeederInfo2");
 
@@ -54,6 +54,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
                 foreach (var cnFeeder in feeders)
                 {
                     int seqNo = 1;
+
+                    if (cnFeeder.Key.mRID == "c494d297-9d5c-46dd-813d-1971b63d6f86")
+                    {
+
+                    }
 
                     List<FeederInfo> feederInfosToAdd = new List<FeederInfo>();
 

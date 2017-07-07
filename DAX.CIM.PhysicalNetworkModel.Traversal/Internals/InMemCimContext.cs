@@ -5,7 +5,8 @@ using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
 
 namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
 {
-    class InMemCimContext : CimContext
+    
+    public class InMemCimContext : CimContext
     {
         // Dictionary used for identified object lookup
         readonly Dictionary<string, IdentifiedObject> _objects = new Dictionary<string, IdentifiedObject>();
@@ -207,6 +208,57 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                 return _substationChildren[st];
             else
                 return new List<Equipment>();
+        }
+
+        public override void ConnectTerminalToAnotherConnectitityNode(Terminal terminal, ConnectivityNode newCn)
+        {
+            var terminalCe = GetObject<ConductingEquipment>(terminal.ConductingEquipment.@ref);
+            var terminalExistingCn = GetObject<ConnectivityNode>(terminal.ConnectivityNode.@ref);
+
+            // Remove and add terminal connection on from terminal equipment
+            var fromTerminalConnections = GetConnections(terminalCe);
+            var terminalConnectionToRemove = fromTerminalConnections.Find(o => o.ConnectivityNode == terminalExistingCn);
+            var newTerminalConnection = new TerminalConnection() { ConductingEquipment = terminalCe, Terminal = terminal, ConnectivityNode = newCn };
+
+            if (newTerminalConnection.ConductingEquipment == null)
+                throw new Exception("Terminal with mRID=" + terminal.mRID + " has no conducting equipment relation");
+            
+            // Remove existing terminal connection from terminal
+            fromTerminalConnections.Remove(fromTerminalConnections.Find(o => o.ConnectivityNode == terminalExistingCn));
+
+            // Add new terminal connection to terminal
+            fromTerminalConnections.Add(newTerminalConnection);
+
+            // Remove terminal connection on from existing connectivity node
+            var existingCnConnections = GetConnections(terminalExistingCn);
+            existingCnConnections.Remove(existingCnConnections.Find(o => o.Terminal == terminal));
+
+            // Add terminal connection to new CN
+            var newCnConnections = GetConnections(newCn);
+            newCnConnections.Add(newTerminalConnection);
+
+            terminal.ConnectivityNode.@ref = newCn.mRID;
+        }
+
+        /// <summary>
+        /// Disconnect a terminal from its connectivity node
+        /// </summary>
+        /// <param name="terminal"></param>
+        public override void DisconnectTerminalFromConnectitityNode(Terminal terminal)
+        {
+            var terminalCe = GetObject<ConductingEquipment>(terminal.ConductingEquipment.@ref);
+            var terminalExistingCn = GetObject<ConnectivityNode>(terminal.ConnectivityNode.@ref);
+
+            // Remove terminal connection on from terminal equipment
+            var fromTerminalConnections = GetConnections(terminalCe);
+            var terminalConnectionToRemove = fromTerminalConnections.Find(o => o.ConnectivityNode == terminalExistingCn);
+            fromTerminalConnections.Remove(fromTerminalConnections.Find(o => o.ConnectivityNode == terminalExistingCn));
+
+            // Remove terminal connection on from existing connectivity node
+            var existingCnConnections = GetConnections(terminalExistingCn);
+            existingCnConnections.Remove(existingCnConnections.Find(o => o.Terminal == terminal));
+
+            terminal.ConnectivityNode = null;
         }
 
         public override double Tolerance => 0.00001;

@@ -88,6 +88,8 @@
     <Compile Include="TestFeederInfoFUS.cs" />
     <Compile Include="TestFeederInfoTRB.cs" />
     <Compile Include="TestFeederInfoUpsert.cs" />
+    <Compile Include="TestFeederInfoEBT.cs" />
+    <Compile Include="TestFeederInfoBAS.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.FeederInfo\DAX.CIM.PhysicalNetworkModel.FeederInfo.csproj">
@@ -100,7 +102,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\BAS_feederinfo_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\beg_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\EBT_feederinfo_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\engum_anonymized.jsonl">
