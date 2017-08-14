@@ -9,4 +9,4 @@ set slnfile=%root%\DAX.CIM.PhysicalNetworkModel.sln
 
 echo Building %slnfile%
 
-"%msbuild%" "%slnfile%" "/p:Configuration=Release"
+"%msbuild%" "%slnfile%" "/p:Configuration=Release" "/t:rebuild"
