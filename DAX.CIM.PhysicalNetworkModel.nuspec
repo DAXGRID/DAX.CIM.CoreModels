@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>DAX.CIM.PhysicalNetworkModel</id>
+    <title>DAX.CIM.PhysicalNetworkModel</title>
+    <version>$version$</version>
+    <authors>jesper_dax,mookid8000</authors>
+    <owners>jesper_dax</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Contains CIM classes</description>
+    <dependencies>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="DAX.CIM.PhysicalNetworkModel\bin\Release\DAX.CIM.PhysicalNetworkModel.dll" target="lib\NET45" />
+    <file src="DAX.CIM.PhysicalNetworkModel\bin\Release\DAX.CIM.PhysicalNetworkModel.xml" target="lib\NET45" />
+    <file src="DAX.CIM.PhysicalNetworkModel.FeederInfo\bin\Release\DAX.CIM.PhysicalNetworkModel.FeederInfo.dll" target="lib\NET45" />
+    <file src="DAX.CIM.PhysicalNetworkModel.FeederInfo\bin\Release\DAX.CIM.PhysicalNetworkModel.FeederInfo.xml" target="lib\NET45" />
+    <file src="DAX.CIM.PhysicalNetworkModel.LineInfo\bin\Release\DAX.CIM.PhysicalNetworkModel.LineInfo.dll" target="lib\NET45" />
+    <file src="DAX.CIM.PhysicalNetworkModel.LineInfo\bin\Release\DAX.CIM.PhysicalNetworkModel.LineInfo.xml" target="lib\NET45" />
+    <file src="DAX.CIM.PhysicalNetworkModel.Traversal\bin\Release\DAX.CIM.PhysicalNetworkModel.Traversal.dll" target="lib\NET45" />
+    <file src="DAX.CIM.PhysicalNetworkModel.Traversal\bin\Release\DAX.CIM.PhysicalNetworkModel.Traversal.xml" target="lib\NET45" />
+  </files>
+</package>

@@ -76,7 +76,6 @@
     <Compile Include="TestLineInfo30250.cs" />
     <Compile Include="TestLineInfo637_5465.cs" />
     <Compile Include="TestLineInfo1975_2050.cs" />
-    <Compile Include="TestLineInfoUpsert.cs" />
     <Compile Include="TestLineInfoARU_KRL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

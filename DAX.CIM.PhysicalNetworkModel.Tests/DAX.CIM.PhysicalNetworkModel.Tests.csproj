@@ -87,7 +87,6 @@
     <Compile Include="TestFeederInfoBEG.cs" />
     <Compile Include="TestFeederInfoFUS.cs" />
     <Compile Include="TestFeederInfoTRB.cs" />
-    <Compile Include="TestFeederInfoUpsert.cs" />
     <Compile Include="TestFeederInfoEBT.cs" />
     <Compile Include="TestFeederInfoBAS.cs" />
   </ItemGroup>

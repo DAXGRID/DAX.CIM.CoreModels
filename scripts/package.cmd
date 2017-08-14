@@ -20,7 +20,7 @@ set nuget=%tools%\NuGet\nuget.exe
 set msbuild=%ProgramFiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe
 set deploy=%root%\deploy
 
-set nuspecfile=%root%\DAX.CIM.PhysicalNetworkModel\DAX.CIM.PhysicalNetworkModel.nuspec
+set nuspecfile=%root%\DAX.CIM.PhysicalNetworkModel.nuspec
 
 if exist "%deploy%" (
 	rd "%deploy%" /s/q
