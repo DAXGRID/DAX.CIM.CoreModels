@@ -91,5 +91,17 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
             Assert.AreEqual(35, relatedLowVoltageEquipments.Count(io => io is EnergyConsumer));
         }
 
+        [TestMethod]
+        public void PowerTransformerEndsTest()
+        {
+            // Find transformer belonging to station 30071 (Engum Bronx)
+            var pt = _context.GetObject<PowerTransformer>(TestMRIDs.Engum_St_30071_Tr_1);
+            Assert.AreEqual("30071", pt.GetSubstation().name);
+
+            Assert.AreEqual(2, pt.GetEnds().FindAll(o => o is PowerTransformerEnd).Count);
+
+
+        }
+
     }
 }

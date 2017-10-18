@@ -22,6 +22,10 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
         // Dictionary used for fast substation children lookup
         readonly Dictionary<Substation, List<Equipment>> _substationChildren = new Dictionary<Substation, List<Equipment>>();
 
+        // Dictionary used for fast power tranformer end lookup
+        readonly Dictionary<PowerTransformer, List<PowerTransformerEnd>> _powerTransformerEnds = new Dictionary<PowerTransformer, List<PowerTransformerEnd>>();
+
+
         public InMemCimContext(IEnumerable<IdentifiedObject> objects)
         {
             Load(objects);
@@ -137,6 +141,28 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                 }
             }
 
+            // Initialize dictionary for power transformer ends lookup
+            foreach (var obj in _objects.Values)
+            {
+                if (obj is PowerTransformerEnd)
+                {
+                    var ptEnd = obj as PowerTransformerEnd;
+
+
+                    if (ptEnd.PowerTransformer != null && ptEnd.PowerTransformer.@ref != null)
+                    {
+                        var pt = _objects[ptEnd.PowerTransformer.@ref] as PowerTransformer;
+
+                        // Upsert power transformer end
+                        if (!_powerTransformerEnds.ContainsKey(pt))
+                            _powerTransformerEnds[pt] = new List<PowerTransformerEnd> { ptEnd };
+                        else
+                            _powerTransformerEnds[pt].Add(ptEnd);
+                    }
+                }
+            }
+
+
         }
 
         public override IEnumerable<TIdentifiedObject> OfType<TIdentifiedObject>()
@@ -208,6 +234,14 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                 return _substationChildren[st];
             else
                 return new List<Equipment>();
+        }
+
+        public override List<PowerTransformerEnd> GetPowerTransformerEnds(PowerTransformer pt)
+        {
+            if (_powerTransformerEnds.ContainsKey(pt))
+                return _powerTransformerEnds[pt];
+            else
+                return new List<PowerTransformerEnd>();
         }
 
         public override void ConnectTerminalToAnotherConnectitityNode(Terminal terminal, ConnectivityNode newCn)
