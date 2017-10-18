@@ -25,6 +25,9 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
         // Dictionary used for fast power tranformer end lookup
         readonly Dictionary<PowerTransformer, List<PowerTransformerEnd>> _powerTransformerEnds = new Dictionary<PowerTransformer, List<PowerTransformerEnd>>();
 
+        // Dictionary used for fast tap changer lookup
+        readonly Dictionary<PowerTransformerEnd, List<TapChanger>> _ptEndTapChanges = new Dictionary<PowerTransformerEnd, List<TapChanger>>();
+
 
         public InMemCimContext(IEnumerable<IdentifiedObject> objects)
         {
@@ -162,6 +165,27 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                 }
             }
 
+            // Initialize dictionary for power transformer tapchanger lookup
+            foreach (var obj in _objects.Values)
+            {
+                if (obj is RatioTapChanger)
+                {
+                    var ptTap = obj as RatioTapChanger;
+
+
+                    if (ptTap.TransformerEnd != null && ptTap.TransformerEnd.@ref != null)
+                    {
+                        var end = _objects[ptTap.TransformerEnd.@ref] as PowerTransformerEnd;
+
+                        // Upsert power transformer tab changer
+                        if (!_ptEndTapChanges.ContainsKey(end))
+                            _ptEndTapChanges[end] = new List<TapChanger> { ptTap };
+                        else
+                            _ptEndTapChanges[end].Add(ptTap);
+                    }
+                }
+            }
+
 
         }
 
@@ -242,6 +266,14 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                 return _powerTransformerEnds[pt];
             else
                 return new List<PowerTransformerEnd>();
+        }
+
+        public override List<TapChanger> GetPowerTransformerEndTapChangers(PowerTransformerEnd end)
+        {
+            if (_ptEndTapChanges.ContainsKey(end))
+                return _ptEndTapChanges[end];
+            else
+                return new List<TapChanger>();
         }
 
         public override void ConnectTerminalToAnotherConnectitityNode(Terminal terminal, ConnectivityNode newCn)

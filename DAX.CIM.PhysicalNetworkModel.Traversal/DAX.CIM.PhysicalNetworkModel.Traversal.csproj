@@ -39,6 +39,7 @@
     <Compile Include="CimContext.cs" />
     <Compile Include="Extensions\ConductingEquipmentEx.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Extensions\PowerTransformerEndEx.cs" />
     <Compile Include="Extensions\PowerTransformerEx.cs" />
     <Compile Include="Extensions\SubstationEx.cs" />
     <Compile Include="Internals\InMemCimContext.cs" />

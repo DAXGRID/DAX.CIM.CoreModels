@@ -100,6 +100,10 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
 
             Assert.AreEqual(2, pt.GetEnds().FindAll(o => o is PowerTransformerEnd).Count);
 
+            var priEnd = pt.GetEnds().Find(o => o.endNumber == "1");
+
+            Assert.AreEqual(1, priEnd.GetTapChangers().FindAll(o => o is RatioTapChanger).Count);
+
 
         }
 

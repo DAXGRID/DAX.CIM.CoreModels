@@ -61,5 +61,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
         public abstract void DisconnectTerminalFromConnectitityNode(Terminal terminal);
 
         public abstract List<PowerTransformerEnd> GetPowerTransformerEnds(PowerTransformer pt);
+
+        public abstract List<TapChanger> GetPowerTransformerEndTapChangers(PowerTransformerEnd end);
     }
 }
