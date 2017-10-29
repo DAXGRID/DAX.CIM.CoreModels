@@ -21,6 +21,10 @@
 
         private Location[] locationField;
 
+        private GeneratingUnit[] generatingUnitField;
+
+        private GeneratingUnitExt[] generatingUnitExtField;
+
         private UsagePoint[] usagePointField;
 
         private Bay[] bayField;
@@ -186,6 +190,34 @@
             set
             {
                 this.locationField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("GeneratingUnit")]
+        public GeneratingUnit[] GeneratingUnit
+        {
+            get
+            {
+                return this.generatingUnitField;
+            }
+            set
+            {
+                this.generatingUnitField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("GeneratingUnitExt")]
+        public GeneratingUnitExt[] GeneratingUnitExt
+        {
+            get
+            {
+                return this.generatingUnitExtField;
+            }
+            set
+            {
+                this.generatingUnitExtField = value;
             }
         }
 
@@ -832,6 +864,8 @@
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Conductor))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegment))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegmentExt))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GeneratingUnit))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GeneratingUnitExt))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ConnectivityNodeContainer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(EquipmentContainer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VoltageLevel))]
@@ -4224,6 +4258,131 @@
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    public partial class GeneratingUnit : Equipment
+    {
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    public partial class GeneratingUnitExt : GeneratingUnit
+    {
+
+        private GeneratingUnitKind typeField;
+
+        private GeneratingUnitExtEnergyConsumer energyConsumerField;
+
+        private ApparentPower ratedSField;
+
+        /// <remarks/>
+        public GeneratingUnitKind type
+        {
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public GeneratingUnitExtEnergyConsumer EnergyConsumer
+        {
+            get
+            {
+                return this.energyConsumerField;
+            }
+            set
+            {
+                this.energyConsumerField = value;
+            }
+        }
+
+        /// <summary>
+        /// Nameplate apparent power rating for the unit. The attribute shall have a positive value.
+        /// </summary>
+        public ApparentPower ratedS
+        {
+            get
+            {
+                return this.ratedSField;
+            }
+            set
+            {
+                this.ratedSField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    public enum GeneratingUnitKind
+    {
+
+        /// <remarks/>
+        Bio,
+
+        /// <remarks/>
+        CHP,
+
+        /// <remarks/>
+        Misc,
+
+        /// <remarks/>
+        Solar,
+
+        /// <remarks/>
+        Water,
+
+        /// <remarks/>
+        Wind,
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    public partial class GeneratingUnitExtEnergyConsumer
+    {
+
+        private string referenceTypeField;
+
+        private string refField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string referenceType
+        {
+            get
+            {
+                return this.referenceTypeField;
+            }
+            set
+            {
+                this.referenceTypeField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string @ref
+        {
+            get
+            {
+                return this.refField;
+            }
+            set
+            {
+                this.refField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class SubGeographicalRegion : IdentifiedObject
     {
 
@@ -6002,7 +6161,9 @@
             }
         }
 
-        /// <remarks/>
+        /// <summary>
+        /// Nameplate apparent power rating for the unit. The attribute shall have a positive value.
+        /// </summary>
         public ApparentPower ratedS
         {
             get

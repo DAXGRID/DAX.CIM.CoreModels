@@ -35,9 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.0.1.9-beta01\lib\NET45\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="DAX.Cson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DAX.Cson.0.0.1\lib\NET45\DAX.Cson.dll</HintPath>
     </Reference>
     <Reference Include="Debaser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Debaser.0.9.0\lib\NET45\Debaser.dll</HintPath>
@@ -49,10 +48,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NRGi.Cson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NRGi.Cson.0.1.0-beta07\lib\NET45\NRGi.Cson.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -89,16 +84,7 @@
     <Compile Include="TestFeederInfoTRB.cs" />
     <Compile Include="TestFeederInfoEBT.cs" />
     <Compile Include="TestFeederInfoBAS.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.FeederInfo\DAX.CIM.PhysicalNetworkModel.FeederInfo.csproj">
-      <Project>{b4a7035d-f1cc-40c7-a429-1138ec234b2f}</Project>
-      <Name>DAX.CIM.PhysicalNetworkModel.FeederInfo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.Traversal\DAX.CIM.PhysicalNetworkModel.Traversal.csproj">
-      <Project>{2fe2e018-b583-4561-a141-44a71fefb352}</Project>
-      <Name>DAX.CIM.PhysicalNetworkModel.Traversal</Name>
-    </ProjectReference>
+    <Compile Include="TestGenUnitSerialization.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\BAS_feederinfo_anonymized.jsonl">
@@ -123,6 +109,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.FeederInfo\DAX.CIM.PhysicalNetworkModel.FeederInfo.csproj">
+      <Project>{b4a7035d-f1cc-40c7-a429-1138ec234b2f}</Project>
+      <Name>DAX.CIM.PhysicalNetworkModel.FeederInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.LineInfo\DAX.CIM.PhysicalNetworkModel.LineInfo.csproj">
+      <Project>{df457603-7cbd-45b8-be11-f1d52f43cedc}</Project>
+      <Name>DAX.CIM.PhysicalNetworkModel.LineInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.Traversal\DAX.CIM.PhysicalNetworkModel.Traversal.csproj">
+      <Project>{2fe2e018-b583-4561-a141-44a71fefb352}</Project>
+      <Name>DAX.CIM.PhysicalNetworkModel.Traversal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel\DAX.CIM.PhysicalNetworkModel.csproj">
+      <Project>{f8349941-a0f6-4d91-8dfe-998e778b1aee}</Project>
+      <Name>DAX.CIM.PhysicalNetworkModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
