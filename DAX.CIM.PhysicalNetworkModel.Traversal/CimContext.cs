@@ -63,5 +63,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
         public abstract List<PowerTransformerEnd> GetPowerTransformerEnds(PowerTransformer pt);
 
         public abstract List<TapChanger> GetPowerTransformerEndTapChangers(PowerTransformerEnd end);
+
+        public abstract GeneratingUnit GetEnergyConsumerGeneratingUnit(EnergyConsumer ec);
     }
 }

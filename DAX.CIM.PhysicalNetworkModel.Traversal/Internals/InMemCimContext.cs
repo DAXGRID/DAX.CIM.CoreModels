@@ -28,6 +28,8 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
         // Dictionary used for fast tap changer lookup
         readonly Dictionary<PowerTransformerEnd, List<TapChanger>> _ptEndTapChanges = new Dictionary<PowerTransformerEnd, List<TapChanger>>();
 
+        // Dictionary used for fast energy consumer generating unit lookup
+        readonly Dictionary<EnergyConsumer, GeneratingUnit> _ecGenUnit = new Dictionary<EnergyConsumer, GeneratingUnit>();
 
         public InMemCimContext(IEnumerable<IdentifiedObject> objects)
         {
@@ -186,7 +188,22 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                 }
             }
 
+            // Initialize dictionary for enery consumer generating unit lookup
+            foreach (var obj in _objects.Values)
+            {
+                if (obj is GeneratingUnitExt)
+                {
+                    var genUnit = obj as GeneratingUnitExt;
 
+
+                    if (genUnit.EnergyConsumer.@ref != null && genUnit.EnergyConsumer.@ref != null)
+                    {
+                        var ec = _objects[genUnit.EnergyConsumer.@ref] as EnergyConsumer;
+
+                        _ecGenUnit.Add(ec, genUnit);
+                    }
+                }
+            }
         }
 
         public override IEnumerable<TIdentifiedObject> OfType<TIdentifiedObject>()
@@ -266,6 +283,14 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                 return _powerTransformerEnds[pt];
             else
                 return new List<PowerTransformerEnd>();
+        }
+
+        public override GeneratingUnit GetEnergyConsumerGeneratingUnit(EnergyConsumer ec)
+        {
+            if (_ecGenUnit.ContainsKey(ec))
+                return _ecGenUnit[ec];
+            else
+                return null;
         }
 
         public override List<TapChanger> GetPowerTransformerEndTapChangers(PowerTransformerEnd end)

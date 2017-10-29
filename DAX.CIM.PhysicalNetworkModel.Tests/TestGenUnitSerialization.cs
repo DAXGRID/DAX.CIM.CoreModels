@@ -2,6 +2,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using DAX.CIM.PhysicalNetworkModel.Traversal;
+using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
+
 
 namespace DAX.CIM.PhysicalNetworkModel.Tests
 {
@@ -38,7 +41,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
 
             var deserializedCimObjects = cson.DeserializeObjects(stream).ToList();
 
-            var desEc = deserializedCimObjects.Find(o => o is EnergyConsumer);
+            var desEc = deserializedCimObjects.Find(o => o is EnergyConsumer) as EnergyConsumer;
             var desGu = deserializedCimObjects.Find(o => o is GeneratingUnitExt) as GeneratingUnitExt;
 
             Assert.AreEqual(ec.mRID, desEc.mRID);
@@ -54,6 +57,15 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
             Assert.AreEqual(UnitSymbol.W, desGu.ratedS.unit);
 
             Assert.AreEqual(UnitMultiplier.k, desGu.ratedS.multiplier);
+
+            // Check that extension methods for fetching generation unit of a energy consumer works
+            CimContext cimContext = CimContext.Create(deserializedCimObjects);
+
+            Assert.IsTrue(desEc.HasGeneratingUnit());
+
+            var genUnit = desEc.GetGeneratingUnit();
+
+            Assert.AreEqual(gu.mRID, genUnit.mRID);
         }
     }
 }
