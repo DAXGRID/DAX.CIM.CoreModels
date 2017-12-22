@@ -14,6 +14,8 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         Dictionary<ConnectivityNode, ConnectionPoint> _connectionPoints = new Dictionary<ConnectivityNode, ConnectionPoint>();
 
+        Dictionary<Substation, List<ConnectionPoint>> _stConnectionPoints = new Dictionary<Substation, List<ConnectionPoint>>();
+
         Dictionary<ConductingEquipment, List<Feeder>> _conductingEquipmentFeeders = new Dictionary<ConductingEquipment, List<Feeder>>();
 
         public FeederInfoContext(CimContext cimContext)
@@ -50,6 +52,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 return new List<Feeder>();
         }
 
+        public List<ConnectionPoint> GetSubstationConnectionPoints(Substation st)
+        {
+            return _stConnectionPoints[st];
+        }
+
         private void CreateConnectionPointsAndFeeders()
         {
             // Create connection points in all substation objects
@@ -59,7 +66,9 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 {
                     var st = obj as Substation;
 
-                    var stEquipments = st.GetEquipments();
+                    List<Equipment> stEquipments = new List<Equipment>();
+
+                    stEquipments = st.GetEquipments(_cimContext);
 
                     // For each equipment inside substation
                     foreach (var stEq in stEquipments)
@@ -76,9 +85,9 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 foreach (var cnTc in _cimContext.GetConnections(ciTc.ConnectivityNode))
                                 {
                                     // If connected to some conducting outside station we have a connection point
-                                    if (!cnTc.ConductingEquipment.IsInsideSubstation())
+                                    if (!cnTc.ConductingEquipment.IsInsideSubstation(_cimContext))
                                     {
-                                        var cp = CreateConectionPoint(cnTc.ConnectivityNode, st, stEq.GetBay());
+                                        var cp = CreateConectionPoint(cnTc.ConnectivityNode, st, stEq.GetBay(false,_cimContext));
 
                                         CreateFeeder(cp, cnTc.ConductingEquipment);
                                     }
@@ -100,6 +109,15 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             {
                 var newCp = new ConnectionPoint() { ConnectivityNode = cn, Substation = st, Bay = bay };
                 _connectionPoints[cn] = newCp;
+
+                // Add to station dict
+
+                if (!_stConnectionPoints.ContainsKey(st))
+                    _stConnectionPoints[st] = new List<ConnectionPoint>();
+
+                _stConnectionPoints[st].Add(newCp);
+
+
                 return newCp;
             }
             else
@@ -120,7 +138,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 conductingEquipment != null &&
                 connectionPoint.Substation != null && 
                 connectionPoint.Substation.PSRType == "PrimarySubstation" && 
-                conductingEquipment.BaseVoltage < connectionPoint.Substation.GetPrimaryVoltageLevel())
+                conductingEquipment.BaseVoltage < connectionPoint.Substation.GetPrimaryVoltageLevel(_cimContext))
             {
                 var feeder = new Feeder()
                 {
@@ -139,7 +157,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                conductingEquipment != null &&
                connectionPoint.Substation != null &&
                connectionPoint.Substation.PSRType == "SecondarySubstation" &&
-               conductingEquipment.BaseVoltage < connectionPoint.Substation.GetPrimaryVoltageLevel())
+               conductingEquipment.BaseVoltage < connectionPoint.Substation.GetPrimaryVoltageLevel(_cimContext))
             {
                 var feeder = new Feeder()
                 {
@@ -162,8 +180,10 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 // We need to do a trace to figure out if it's a customer feeder
                 // If we hit an energy consumer, it's a customer feeder
                 var traceResult = conductingEquipment.Traverse(
-                    ci => !ci.IsInsideSubstation(), 
-                    cn => !cn.IsInsideSubstation()
+                    ci => !ci.IsInsideSubstation(_cimContext), 
+                    cn => !cn.IsInsideSubstation(_cimContext),
+                    false,
+                    _cimContext
                 ).ToList();
 
                 if (traceResult.Count(io => io is EnergyConsumer) > 0)
@@ -189,29 +209,34 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 {
                     var pt = obj as PowerTransformer;
 
-                   
-                    
 
-                    var traceResult = pt.Traverse(ce => 
-                        ce.IsInsideSubstation() && 
-                        !ce.IsOpen() &&
-                        ce.BaseVoltage < pt.GetSubstation().GetPrimaryVoltageLevel()
-                     ).ToList();
+                
 
-                    foreach (var cimObj in traceResult)
-                    {
-                        if (cimObj is ConnectivityNode && _connectionPoints.ContainsKey((ConnectivityNode)cimObj))
+                        var traceResult = pt.Traverse(ce =>
+                            ce.IsInsideSubstation(_cimContext) &&
+                            !ce.IsOpen() &&
+                            ce.BaseVoltage < pt.GetSubstation(true,_cimContext).GetPrimaryVoltageLevel(_cimContext),
+                            null,
+                            false,
+                            _cimContext
+                         ).ToList();
+
+                        foreach (var cimObj in traceResult)
                         {
-                            var cp = _connectionPoints[(ConnectivityNode)cimObj];
-                            cp.PowerTransformer = pt;
-
-                            if (cp.Substation.name == "BAS")
+                            if (cimObj is ConnectivityNode && _connectionPoints.ContainsKey((ConnectivityNode)cimObj))
                             {
-                                var asdasd = _connectionPoints.Where(o => o.Value.PowerTransformer == pt).ToList();
+                                var cp = _connectionPoints[(ConnectivityNode)cimObj];
+                                cp.PowerTransformer = pt;
+
+                                if (cp.Substation.name == "BAS")
+                                {
+                                    var asdasd = _connectionPoints.Where(o => o.Value.PowerTransformer == pt).ToList();
+                                }
                             }
                         }
+
                     }
-                }
+                    
             }
         }
 
@@ -277,16 +302,19 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                             !ce.IsOpen()
                             &&
                             (
-                                (ce.IsInsideSubstation() && nodeTypesToPass.Contains(ce.GetSubstation().PSRType))
+                                (ce.IsInsideSubstation(_cimContext) && nodeTypesToPass.Contains(ce.GetSubstation(true, _cimContext).PSRType))
                                 ||
-                                !ce.IsInsideSubstation()
+                                !ce.IsInsideSubstation(_cimContext)
                             ),
                         cn =>
                             (
-                                (cn.IsInsideSubstation() && nodeTypesToPass.Contains(cn.GetSubstation().PSRType))
+                                (cn.IsInsideSubstation(_cimContext) && nodeTypesToPass.Contains(cn.GetSubstation(true,_cimContext).PSRType))
                                 ||
-                                !cn.IsInsideSubstation()
+                                !cn.IsInsideSubstation(_cimContext)
                             )
+                            ,
+                        false,
+                        _cimContext
                         ).ToList();
 
                     foreach (var cimObj in traceResult)
