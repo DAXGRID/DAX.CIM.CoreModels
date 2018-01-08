@@ -7211,9 +7211,107 @@
     }
 
     /// <summary>
-    /// Combination of conducting material with consistent electrical characteristics, building a single electrical system, used to carry current between points in the power system.
+    /// BusbarSection extension with short circuit attributes
     /// </summary>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegment))]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    public partial class BusbarSectionExt : BusbarSection
+    {
+        private ApparentPower sspMinField;
+        private ApparentPower sspMaxField;
+        private double powerFactorMinField;
+        private bool powerFactorMinFieldSpecified;
+        private double powerFactorMaxField;
+        private bool powerFactorMaxFieldSpecified;
+
+        /// <remarks/>
+        public ApparentPower sspMin
+        {
+            get
+            {
+                return this.sspMinField;
+            }
+            set
+            {
+                this.sspMinField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ApparentPower sspMax
+        {
+            get
+            {
+                return this.sspMaxField;
+            }
+            set
+            {
+                this.sspMaxField = value;
+            }
+        }
+
+        /// <remarks/>
+        public double powerFactorMin
+        {
+            get
+            {
+                return this.powerFactorMinField;
+            }
+            set
+            {
+                this.powerFactorMinField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool powerFactorMinSpecified
+        {
+            get
+            {
+                return this.powerFactorMinFieldSpecified;
+            }
+            set
+            {
+                this.powerFactorMinFieldSpecified = value;
+            }
+        }
+
+        /// <remarks/>
+        public double powerFactorMax
+        {
+            get
+            {
+                return this.powerFactorMaxField;
+            }
+            set
+            {
+                this.powerFactorMaxField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool powerFactorMaxSpecified
+        {
+            get
+            {
+                return this.powerFactorMaxFieldSpecified;
+            }
+            set
+            {
+                this.powerFactorMaxFieldSpecified = value;
+            }
+        }
+
+    }
+
+
+
+        /// <summary>
+        /// Combination of conducting material with consistent electrical characteristics, building a single electrical system, used to carry current between points in the power system.
+        /// </summary>
+        [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegment))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ACLineSegmentExt))]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
@@ -7383,6 +7481,70 @@
         private Capacitance c0Field;
 
         private CurrentFlow maximumCurrentField;
+
+
+        private Resistance neutral_rField;
+
+        private Resistance neutral_r0Field;
+
+        private Reactance neutral_xField;
+
+        private Reactance neutral_x0Field;
+
+        /// <remarks/>
+        public Resistance neutral_r
+        {
+            get
+            {
+                return this.neutral_rField;
+            }
+            set
+            {
+                this.neutral_rField = value;
+            }
+        }
+
+        /// <remarks/>
+        public Resistance neutral_r0
+        {
+            get
+            {
+                return this.neutral_r0Field;
+            }
+            set
+            {
+                this.neutral_r0Field = value;
+            }
+        }
+
+        /// <remarks/>
+        public Reactance neutral_x
+        {
+            get
+            {
+                return this.neutral_xField;
+            }
+            set
+            {
+                this.neutral_xField = value;
+            }
+        }
+
+        /// <remarks/>
+        public Reactance neutral_x0
+        {
+            get
+            {
+                return this.neutral_x0Field;
+            }
+            set
+            {
+                this.neutral_x0Field = value;
+            }
+        }
+
+
+
 
         /// <remarks/>
         public string aliasName
