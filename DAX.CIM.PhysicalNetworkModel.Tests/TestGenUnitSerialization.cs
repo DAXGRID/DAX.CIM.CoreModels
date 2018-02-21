@@ -4,13 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 using DAX.CIM.PhysicalNetworkModel.Traversal;
 using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
-
+using DAX.CIM.PhysicalNetworkModel.FeederInfo;
+using DAX.CIM.PhysicalNetworkModel.Tests.Data;
+using System.IO;
 
 namespace DAX.CIM.PhysicalNetworkModel.Tests
 {
     [TestClass]
-    public class TestGenUnitSerialization
+    public class TestGenUnitSerialization : FixtureBase
     {
+        CimContext _context;
+        FeederInfoContext _feederContext;
+
+        protected override void SetUp()
+        {
+            var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Data\trb06_anonymized.jsonl"));
+            var objects = reader.Read();
+
+            _context = CimContext.Create(objects);
+            Using(_context);
+
+            _feederContext = new FeederInfoContext(_context);
+            _feederContext.CreateFeederObjects();
+        }
+
         [TestMethod]
         public void TestGenUnitSerialize()
         {

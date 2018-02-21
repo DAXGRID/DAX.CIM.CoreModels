@@ -42,6 +42,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             CreateConnectionPointsAndFeeders();
             SubstationInternalPowerTransformerTrace();
             TraceAllFeeders();
+            FixTJunctionCustomers();
         }
 
         public List<Feeder> GeConductingEquipmentFeeders(ConductingEquipment ce)
@@ -178,14 +179,15 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 connectionPoint.Substation.PSRType == "CableBox")
             {
                 // We need to do a trace to figure out if it's a customer feeder
-                // If we hit an energy consumer, it's a customer feeder
+              
                 var traceResult = conductingEquipment.Traverse(
-                    ci => !ci.IsInsideSubstation(_cimContext), 
-                    cn => !cn.IsInsideSubstation(_cimContext),
+                    ci => (!ci.IsInsideSubstation(_cimContext) || (ci.IsInsideSubstation(_cimContext) && ci.GetSubstation(true,_cimContext).PSRType == "T-Junction")), 
+                    cn => (!cn.IsInsideSubstation(_cimContext) || (cn.IsInsideSubstation(_cimContext) && cn.GetSubstation(true,_cimContext).PSRType == "T-Junction")),
                     false,
                     _cimContext
                 ).ToList();
 
+                // If we hit som energy consumers, it's a cablebox feeding a customer type of feeder
                 if (traceResult.Count(io => io is EnergyConsumer) > 0)
                 {
                     var feeder = new Feeder()
@@ -282,6 +284,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                     else if (feeder.FeederType == FeederType.CableBox)
                     {
                         // CableBox we should not pass though nodes.
+                        nodeTypesToPass.Add("T-Junction");
                     }
 
                     // Regarding the trace:
@@ -328,6 +331,92 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                             else
                                 _conductingEquipmentFeeders[ce].Add(feeder);
                         }
+                    }
+                }
+            }
+        }
+
+        private void FixTJunctionCustomers()
+        {
+            foreach (var cif in _conductingEquipmentFeeders)
+            {
+                if (cif.Key is EnergyConsumer)
+                {
+                    var ec = cif.Key as EnergyConsumer;
+                    var feeders = cif.Value;
+
+                    var cableBoxFeeders = feeders.FindAll(f => f.FeederType == FeederType.CableBox);
+
+
+                    // If count is 1 then the feeder is fine.
+                    // If count is > 2 something rottet, and we should not mess it up any further
+                    if (cableBoxFeeders.Count == 2)
+                    {
+                        // Trace customer
+                        HashSet<string> nodeTypesToPass = new HashSet<string>();
+                        nodeTypesToPass.Add("T-Junction");
+                        nodeTypesToPass.Add("Tower");
+                        nodeTypesToPass.Add("CableBox");
+
+                        var traceResult = ec.Traverse(
+                       ce =>
+                           ce.BaseVoltage == ec.BaseVoltage
+                           &&
+                           !ce.IsOpen()
+                           &&
+                           (
+                               (ce.IsInsideSubstation(_cimContext) && nodeTypesToPass.Contains(ce.GetSubstation(true, _cimContext).PSRType))
+                               ||
+                               !ce.IsInsideSubstation(_cimContext)
+                           ),
+                       cn =>
+                           (
+                               (cn.IsInsideSubstation(_cimContext) && nodeTypesToPass.Contains(cn.GetSubstation(true, _cimContext).PSRType))
+                               ||
+                               !cn.IsInsideSubstation(_cimContext)
+                           )
+                           ,
+                       true,
+                       _cimContext
+                       ).ToList();
+
+                        // we want to searh for substation backwards
+                        traceResult.Reverse();
+
+                        Substation cableBoxToKeep = null;
+
+                        bool startToLookForCabinet = false;
+
+                        foreach (var traceObj in traceResult)
+                        {
+                            if (traceObj.IsInsideSubstation(_cimContext) && traceObj.GetSubstation(true, _cimContext).PSRType == "SecondarySubstation")
+                                startToLookForCabinet = true;
+
+                            if (startToLookForCabinet && traceObj.IsInsideSubstation(_cimContext) && traceObj.GetSubstation(true, _cimContext).PSRType == "CableBox")
+                            {
+                                var cableBox = traceObj.GetSubstation(true, _cimContext);
+
+                                if (cableBoxFeeders.Exists(o => o.ConnectionPoint.Substation == cableBox))
+                                {
+                                    cableBoxToKeep = cableBox;
+                                }
+                            }
+                        }
+
+                        if (cableBoxToKeep != null)
+                        {
+                            List<Feeder> feedersToRemove = new List<Feeder>();
+                            // Remove all cable box feeders but this one
+                            foreach (var feeder in feeders)
+                            {
+                                if (feeder.FeederType == FeederType.CableBox && feeder.ConnectionPoint.Substation != cableBoxToKeep)
+                                    feedersToRemove.Add(feeder);
+                            }
+
+                            foreach (var feederToRemove in feedersToRemove)
+                                feeders.Remove(feederToRemove);
+                        }
+
                     }
                 }
             }

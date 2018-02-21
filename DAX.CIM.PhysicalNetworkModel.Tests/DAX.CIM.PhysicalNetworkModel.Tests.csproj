@@ -75,6 +75,7 @@
     <Compile Include="Data\CimXmlTextReader.cs" />
     <Compile Include="Data\TestMRIDs.cs" />
     <Compile Include="FixtureBase.cs" />
+    <Compile Include="TestFeederInfoTJunction.cs" />
     <Compile Include="TestTraversal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestFeederInfoEngumArea.cs" />
@@ -85,9 +86,12 @@
     <Compile Include="TestFeederInfoEBT.cs" />
     <Compile Include="TestFeederInfoBAS.cs" />
     <Compile Include="TestGenUnitSerialization.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="BusBarExtFieldsTest1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\428_tjunction.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\BAS_feederinfo_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -104,6 +108,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\sho_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\st75_tjunction.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\trb06_anonymized.jsonl">
