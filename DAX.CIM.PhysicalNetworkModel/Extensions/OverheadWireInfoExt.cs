@@ -11,7 +11,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class OverheadWireInfoExt : WireInfo
     {
-        private string conductorCountField;
+        private int conductorCountField;
 
         private decimal conductorCrossSectionalAreaField;
 
@@ -19,7 +19,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
-        public string conductorCount
+        public int conductorCount
         {
             get
             {

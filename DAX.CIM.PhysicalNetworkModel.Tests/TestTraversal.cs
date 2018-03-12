@@ -57,11 +57,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
                                            && ce.IsInsideSubstation())
                             .ToList();
 
-            // Expect 3 LV fuses
-            Assert.AreEqual(3, relatedLowVoltageEquipments.Count(io => io is Fuse && ((ConductingEquipment)io).BaseVoltage == 400));
+            // Expect 2 LV fuses
+            Assert.AreEqual(2, relatedLowVoltageEquipments.Count(io => io is Fuse && ((ConductingEquipment)io).BaseVoltage == 400));
 
-            // Expect 3 LV load break switches
-            Assert.AreEqual(3, relatedLowVoltageEquipments.Count(io => io is LoadBreakSwitch && ((ConductingEquipment)io).BaseVoltage == 400));
+            // Expect 2 LV load break switches
+            Assert.AreEqual(2, relatedLowVoltageEquipments.Count(io => io is LoadBreakSwitch && ((ConductingEquipment)io).BaseVoltage == 400));
         }
 
         [TestMethod]

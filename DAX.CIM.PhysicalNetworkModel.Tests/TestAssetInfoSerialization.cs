@@ -48,6 +48,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
 
             // Create cable info ext
             CableInfoExt ci = new CableInfoExt();
+            ci.conductorCount = 3;
             ci.material = WireMaterialKind.aluminum;
             ci.conductorCrossSectionalArea = 240;
             ci.conductorCrossSectionalAreaSpecified = true;
@@ -71,6 +72,8 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
             Assert.AreEqual(999,desAcls.iK.Value);
 
             Assert.AreEqual(desAsset.AssetInfo.@ref, ci.mRID);
+
+            Assert.AreEqual(3, ci.conductorCount);
 
             Assert.AreEqual(240, ci.conductorCrossSectionalArea);
 
