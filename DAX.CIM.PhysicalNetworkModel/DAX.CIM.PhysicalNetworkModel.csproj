@@ -36,6 +36,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asset\AssetInfo.cs" />
+    <Compile Include="Asset\CableInfo.cs" />
+    <Compile Include="Asset\CableOuterJacketKind.cs" />
+    <Compile Include="Asset\CableShieldMaterialKind.cs" />
+    <Compile Include="Asset\WireInfo.cs" />
+    <Compile Include="Asset\WireMaterialKind.cs" />
     <Compile Include="Equipment\ACDCTerminal.cs" />
     <Compile Include="Equipment\ACLineSegment.cs" />
     <Compile Include="Extensions\ACLineSegmentExt.cs" />
@@ -62,6 +68,7 @@
     <Compile Include="Equipment\CoordinateSystem.cs" />
     <Compile Include="Equipment\CurrentFlow.cs" />
     <Compile Include="Equipment\CurrentTransformer.cs" />
+    <Compile Include="Extensions\CableInfoExt.cs" />
     <Compile Include="Extensions\CurrentTransformerExt.cs" />
     <Compile Include="Equipment\Disconnector.cs" />
     <Compile Include="Equipment\EarthFaultCompensator.cs" />
@@ -109,6 +116,7 @@
     <Compile Include="Equipment\PowerSystemResourceLocation.cs" />
     <Compile Include="Equipment\PowerTransformer.cs" />
     <Compile Include="Equipment\PowerTransformerEnd.cs" />
+    <Compile Include="Extensions\OverheadWireInfoExt.cs" />
     <Compile Include="Extensions\PowerTransformerEndExt.cs" />
     <Compile Include="Equipment\PowerTransformerEndPowerTransformer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

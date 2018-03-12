@@ -16,7 +16,6 @@
 
         private CurrentFlow maximumCurrentField;
 
-
         private Resistance neutral_rField;
 
         private Resistance neutral_r0Field;
@@ -24,6 +23,8 @@
         private Reactance neutral_xField;
 
         private Reactance neutral_x0Field;
+
+        private CurrentFlow ikField;
 
         /// <remarks/>
         public Resistance neutral_r
@@ -129,6 +130,19 @@
             set
             {
                 this.maximumCurrentField = value;
+            }
+        }
+
+        /// <remarks/>
+        public CurrentFlow iK
+        {
+            get
+            {
+                return this.ikField;
+            }
+            set
+            {
+                this.ikField = value;
             }
         }
     }

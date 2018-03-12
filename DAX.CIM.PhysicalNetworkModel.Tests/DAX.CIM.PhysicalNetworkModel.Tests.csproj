@@ -36,16 +36,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DAX.CIM.PhysicalNetworkModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.2\lib\NET45\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
+      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
     </Reference>
     <Reference Include="DAX.CIM.PhysicalNetworkModel.FeederInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.2\lib\NET45\DAX.CIM.PhysicalNetworkModel.FeederInfo.dll</HintPath>
+      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.FeederInfo.dll</HintPath>
     </Reference>
     <Reference Include="DAX.CIM.PhysicalNetworkModel.LineInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.2\lib\NET45\DAX.CIM.PhysicalNetworkModel.LineInfo.dll</HintPath>
+      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.LineInfo.dll</HintPath>
     </Reference>
     <Reference Include="DAX.CIM.PhysicalNetworkModel.Traversal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.2\lib\NET45\DAX.CIM.PhysicalNetworkModel.Traversal.dll</HintPath>
+      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.Traversal.dll</HintPath>
     </Reference>
     <Reference Include="DAX.Cson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DAX.Cson.0.0.1\lib\NET45\DAX.Cson.dll</HintPath>
@@ -85,6 +85,7 @@
     <Compile Include="Data\TestMRIDs.cs" />
     <Compile Include="FixtureBase.cs" />
     <Compile Include="TestFeederInfoTJunction.cs" />
+    <Compile Include="TestAssetInfoSerialization.cs" />
     <Compile Include="TestTraversal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestFeederInfoEngumArea.cs" />

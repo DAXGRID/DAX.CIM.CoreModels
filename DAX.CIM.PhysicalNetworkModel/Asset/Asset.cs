@@ -23,6 +23,8 @@
 
         private string maintainerField;
 
+        private AssetAssetInfo assetInfoField;
+
         public string owner
         {
             get { return this.ownerField; }
@@ -88,6 +90,19 @@
         }
 
         /// <remarks/>
+        public AssetAssetInfo AssetInfo
+        {
+            get
+            {
+                return this.assetInfoField;
+            }
+            set
+            {
+                this.assetInfoField = value;
+            }
+        }
+
+        /// <remarks/>
         //[System.Xml.Serialization.XmlElementAttribute("OrganisationRoles")]
         //public AssetOrganisationRoles[] OrganisationRoles
         //{
@@ -101,4 +116,44 @@
         //    }
         //}
     }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    public partial class AssetAssetInfo
+    {
+
+        private string referenceTypeField;
+
+        private string refField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string referenceType
+        {
+            get
+            {
+                return this.referenceTypeField;
+            }
+            set
+            {
+                this.referenceTypeField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string @ref
+        {
+            get
+            {
+                return this.refField;
+            }
+            set
+            {
+                this.refField = value;
+            }
+        }
+    }
+
 }
