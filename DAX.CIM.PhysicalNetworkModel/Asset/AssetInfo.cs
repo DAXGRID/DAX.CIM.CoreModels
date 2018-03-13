@@ -11,50 +11,5 @@ namespace DAX.CIM.PhysicalNetworkModel
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public class AssetInfo : IdentifiedObject
     {
-
-        private string mRIDField;
-
-        private string descriptionField;
-
-        private string nameField;
-
-        /// <remarks/>
-        public string mRID
-        {
-            get
-            {
-                return this.mRIDField;
-            }
-            set
-            {
-                this.mRIDField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string description
-        {
-            get
-            {
-                return this.descriptionField;
-            }
-            set
-            {
-                this.descriptionField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
     }
 }
