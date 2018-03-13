@@ -31,18 +31,6 @@
     <DocumentationFile>bin\Release\DAX.CIM.PhysicalNetworkModel.Traversal.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
-    </Reference>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel.FeederInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.FeederInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel.LineInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.LineInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel.Traversal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.Traversal.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -60,7 +48,10 @@
     <Compile Include="TerminalConnection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel\DAX.CIM.PhysicalNetworkModel.csproj">
+      <Project>{f8349941-a0f6-4d91-8dfe-998e778b1aee}</Project>
+      <Name>DAX.CIM.PhysicalNetworkModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
