@@ -36,16 +36,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DAX.CIM.PhysicalNetworkModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
+      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.9\lib\NET45\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
     </Reference>
     <Reference Include="DAX.CIM.PhysicalNetworkModel.FeederInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.FeederInfo.dll</HintPath>
+      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.9\lib\NET45\DAX.CIM.PhysicalNetworkModel.FeederInfo.dll</HintPath>
     </Reference>
     <Reference Include="DAX.CIM.PhysicalNetworkModel.LineInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.LineInfo.dll</HintPath>
+      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.9\lib\NET45\DAX.CIM.PhysicalNetworkModel.LineInfo.dll</HintPath>
     </Reference>
     <Reference Include="DAX.CIM.PhysicalNetworkModel.Traversal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.4\lib\NET45\DAX.CIM.PhysicalNetworkModel.Traversal.dll</HintPath>
+      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.0.9\lib\NET45\DAX.CIM.PhysicalNetworkModel.Traversal.dll</HintPath>
     </Reference>
     <Reference Include="Debaser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Debaser.0.9.0\lib\NET45\Debaser.dll</HintPath>
