@@ -7,28 +7,10 @@
         <member name="T:DAX.CIM.PhysicalNetworkModel.AssetInfo">
             <remarks/>
         </member>
-        <member name="P:DAX.CIM.PhysicalNetworkModel.AssetInfo.mRID">
-            <remarks/>
-        </member>
-        <member name="P:DAX.CIM.PhysicalNetworkModel.AssetInfo.description">
-            <remarks/>
-        </member>
-        <member name="P:DAX.CIM.PhysicalNetworkModel.AssetInfo.name">
-            <remarks/>
-        </member>
-        <member name="P:DAX.CIM.PhysicalNetworkModel.CableInfo.material">
-            <remarks/>
-        </member>
-        <member name="P:DAX.CIM.PhysicalNetworkModel.CableInfo.materialSpecified">
-            <remarks/>
-        </member>
         <member name="P:DAX.CIM.PhysicalNetworkModel.CableInfo.outerJacketKind">
             <remarks/>
         </member>
         <member name="P:DAX.CIM.PhysicalNetworkModel.CableInfo.outerJacketKindSpecified">
-            <remarks/>
-        </member>
-        <member name="P:DAX.CIM.PhysicalNetworkModel.CableInfo.ratedCurrent">
             <remarks/>
         </member>
         <member name="P:DAX.CIM.PhysicalNetworkModel.CableInfo.shieldMaterial">
@@ -71,6 +53,78 @@
             <remarks/>
         </member>
         <member name="F:DAX.CIM.PhysicalNetworkModel.CableShieldMaterialKind.steel">
+            <remarks/>
+        </member>
+        <member name="P:DAX.CIM.PhysicalNetworkModel.WireInfo.insulationMaterial">
+            <remarks/>
+        </member>
+        <member name="P:DAX.CIM.PhysicalNetworkModel.WireInfo.insulationMaterialSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DAX.CIM.PhysicalNetworkModel.WireInfo.material">
+            <remarks/>
+        </member>
+        <member name="P:DAX.CIM.PhysicalNetworkModel.WireInfo.materialSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DAX.CIM.PhysicalNetworkModel.WireInfo.ratedCurrent">
+            <remarks/>
+        </member>
+        <member name="T:DAX.CIM.PhysicalNetworkModel.WireInsulationKind">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.asbestosAndVarnishedCambric">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.beltedPilc">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.butyl">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.crosslinkedPolyethylene">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.ethylenePropyleneRubber">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.highMolecularWeightPolyethylene">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.highPressureFluidFilled">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.lowCapacitanceRubber">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.oilPaper">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.other">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.ozoneResistantRubber">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.rubber">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.siliconRubber">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.treeResistantHighMolecularWeightPolyethylene">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.treeRetardantCrosslinkedPolyethylene">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.unbeltedPilc">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.varnishedCambricCloth">
+            <remarks/>
+        </member>
+        <member name="F:DAX.CIM.PhysicalNetworkModel.WireInsulationKind.varnishedDacronGlass">
             <remarks/>
         </member>
         <member name="F:DAX.CIM.PhysicalNetworkModel.WireMaterialKind.acsr">
