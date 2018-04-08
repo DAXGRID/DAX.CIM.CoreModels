@@ -1,4 +1,9 @@
-﻿namespace DAX.CIM.PhysicalNetworkModel
+﻿using DAX.CIM.PhysicalNetworkModel.FeederInfo;
+using DAX.CIM.PhysicalNetworkModel.Traversal;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+namespace DAX.CIM.PhysicalNetworkModel
 {
     /// <summary>
     /// A power system resource can be an item of equipment such as a switch, an equipment container containing many individual items of equipment such as a substation, or an organisational entity such as sub-control area. Power system resources can have measurements associated.
@@ -97,5 +102,73 @@
                 this.assetsField = value;
             }
         }
+
+        
+        public Asset Asset
+        {
+            get
+            {
+                if (Assets != null && Assets.@ref != null)
+                {
+                    var asset = CimContext.Current.GetObject<Asset>(Assets.@ref);
+                    return asset;
+                }
+                else
+                    // Return emty asset to avoid problems with null pointer exceptions dotting into cim structure in dynamic linq etc.
+                    return new Asset();
+            }
+        }
+
+        #region DAX specific helper functions
+
+        /// <summary>
+        /// Notice that this list is only populated when using the FeederInfoContext class
+        /// from the DAX.CIM.PhysicalNetworkModel.FeederInfo assembly. You can use this list
+        /// if you know what you're doing. But please take a look at the feeder helper functions first.
+        /// </summary>
+        [IgnoreDataMember]
+        public List<Feeder> InternalFeeders;
+
+        /// <summary>
+        /// Gets feeders
+        /// </summary>
+        /// <returns></returns>
+        [IgnoreDataMember]
+        public List<Feeder> Feeders
+        {
+            get
+            {
+                if (InternalFeeders != null)
+                    return InternalFeeders;
+                else
+                    return new List<Feeder>();
+            }
+        }
+
+        [IgnoreDataMember]
+        public bool IsFeeded
+        {
+            get
+            {
+                if (InternalFeeders != null && InternalFeeders.Count > 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        [IgnoreDataMember]
+        public bool IsMultiFeeded
+        {
+            get
+            {
+                if (InternalFeeders != null && InternalFeeders.Count > 1)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        #endregion
     }
 }

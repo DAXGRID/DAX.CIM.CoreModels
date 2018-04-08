@@ -118,6 +118,10 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                 _stConnectionPoints[st].Add(newCp);
 
+                if (st.ConnectionPoints == null)
+                    st.ConnectionPoints = new List<ConnectionPoint>();
+
+                st.ConnectionPoints.Add(newCp);
 
                 return newCp;
             }
@@ -330,6 +334,26 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 _conductingEquipmentFeeders[ce] = new List<Feeder>() { feeder };
                             else
                                 _conductingEquipmentFeeders[ce].Add(feeder);
+
+                            // Add to internal feeder list
+                            if (ce.InternalFeeders == null)
+                                ce.InternalFeeders = new List<Feeder>();
+
+                            ce.Feeders.Add(feeder);
+
+                            // If a power transformer add feeder to substation as well
+                            if (ce is PowerTransformer)
+                            {
+                                var st = ce.GetSubstation(false, _cimContext);
+
+                                if (st != null)
+                                {
+                                    if (st.InternalFeeders == null)
+                                        st.InternalFeeders = new List<Feeder>();
+
+                                    st.Feeders.Add(feeder);
+                                }
+                            }
                         }
                     }
                 }

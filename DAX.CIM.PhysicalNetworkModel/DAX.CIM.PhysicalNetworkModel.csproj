@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +43,8 @@
     <Compile Include="Asset\CableShieldMaterialKind.cs" />
     <Compile Include="Asset\WireInfo.cs" />
     <Compile Include="Asset\WireMaterialKind.cs" />
+    <Compile Include="Internals\BasicTraversal.cs" />
+    <Compile Include="Internals\CimContext.cs" />
     <Compile Include="Equipment\ACDCTerminal.cs" />
     <Compile Include="Equipment\ACLineSegment.cs" />
     <Compile Include="Extensions\ACLineSegmentExt.cs" />
@@ -119,6 +122,15 @@
     <Compile Include="Extensions\OverheadWireInfoExt.cs" />
     <Compile Include="Extensions\PowerTransformerEndExt.cs" />
     <Compile Include="Equipment\PowerTransformerEndPowerTransformer.cs" />
+    <Compile Include="FeederInfo\ConnectionPoint.cs" />
+    <Compile Include="FeederInfo\Feeder.cs" />
+    <Compile Include="Internals\ConductingEquipmentEx.cs" />
+    <Compile Include="Internals\DoubleExtensions.cs" />
+    <Compile Include="Internals\EnergyConsumerEx.cs" />
+    <Compile Include="Internals\InMemCimContext.cs" />
+    <Compile Include="Internals\PowerTransformerEndEx.cs" />
+    <Compile Include="Internals\PowerTransformerEx.cs" />
+    <Compile Include="Internals\SubstationEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Equipment\ProtectedSwitch.cs" />
     <Compile Include="Equipment\ProtoBufClassIds.cs" />
@@ -168,11 +180,11 @@
     <Compile Include="Equipment\VoltageLevelBaseVoltage.cs" />
     <Compile Include="Equipment\VoltageLevelEquipmentContainer.cs" />
     <Compile Include="Equipment\VoltagePerReactivePower.cs" />
+    <Compile Include="Internals\TerminalConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Equipment\ClassDiagram1.cd" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
