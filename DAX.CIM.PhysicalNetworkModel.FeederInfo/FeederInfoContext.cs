@@ -324,8 +324,13 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         _cimContext
                         ).ToList();
 
+                    int energyConsumerCount = 0;
+
                     foreach (var cimObj in traceResult)
                     {
+                        if (cimObj is EnergyConsumer)
+                            energyConsumerCount++;
+
                         if (cimObj is ConductingEquipment)
                         {
                             var ce = cimObj as ConductingEquipment;
@@ -341,8 +346,8 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                             ce.Feeders.Add(feeder);
 
-                            // If a power transformer add feeder to substation as well
-                            if (ce is PowerTransformer)
+                            // If a busbar add feeder to substation as well
+                            if (ce is BusbarSection)
                             {
                                 var st = ce.GetSubstation(false, _cimContext);
 
@@ -355,6 +360,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 }
                             }
                         }
+                    }
+
+                    if (feeder.ConnectionPoint.PowerTransformer != null)
+                    {
+                        feeder.ConnectionPoint.PowerTransformer.EnergyConsumerCount += energyConsumerCount;
                     }
                 }
             }

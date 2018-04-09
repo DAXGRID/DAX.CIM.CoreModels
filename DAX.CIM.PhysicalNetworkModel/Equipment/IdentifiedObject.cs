@@ -1,4 +1,7 @@
-﻿namespace DAX.CIM.PhysicalNetworkModel
+﻿using DAX.CIM.PhysicalNetworkModel.Traversal;
+using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
+
+namespace DAX.CIM.PhysicalNetworkModel
 {
     /// <summary>
     /// This is a root class to provide common identification for all classes needing identification and naming attributes.
@@ -124,5 +127,43 @@
                 this.namesField = value;
             }
         }
+
+
+        public Substation Substation
+        {
+            get
+            {
+                var context = CimContext.GetCurrent();
+
+                if (this is Substation)
+                {
+                    return (Substation)this;
+                }
+
+                if (this is VoltageLevel)
+                {
+                    var voltageLevel = (VoltageLevel)this;
+
+                    return voltageLevel.EquipmentContainer1.Get(context).GetSubstation(false, context);
+                }
+
+                if (this is BayExt)
+                {
+                    var bayExt = (BayExt)this;
+
+                    return bayExt.VoltageLevel.Get(context).GetSubstation(false, context);
+                }
+
+                if (this is ConductingEquipment)
+                {
+                    var ce = (ConductingEquipment)this;
+
+                    return ce.GetSubstation(false, context);
+                }
+
+                return null;
+            }
+        }
+
     }
 }

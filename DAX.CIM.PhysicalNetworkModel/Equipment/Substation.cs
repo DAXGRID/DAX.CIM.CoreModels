@@ -1,6 +1,9 @@
 ﻿using DAX.CIM.PhysicalNetworkModel.FeederInfo;
+using DAX.CIM.PhysicalNetworkModel.Traversal;
+using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 
 namespace DAX.CIM.PhysicalNetworkModel
 {
@@ -61,6 +64,46 @@ namespace DAX.CIM.PhysicalNetworkModel
                 }
 
                 return result;
+            }
+        }
+
+        public double PrimaryVoltageLevel
+        {
+            get
+            {
+                double voltageLevel = 0;
+
+                if (CimContext.Current != null)
+                {
+                    var context = CimContext.GetCurrent();
+
+                    var voltageLevels = context.GetSubstationVoltageLevels(this);
+
+                    foreach (var vl in voltageLevels)
+                    {
+                        if (vl.BaseVoltage > voltageLevel)
+                            voltageLevel = vl.BaseVoltage;
+                    }
+
+                    // To support substations that have no voltage levels
+                    if (voltageLevel == 0)
+                    {
+                        var eq = this.GetEquipments(context).Find(cimOBj => cimOBj is PowerTransformer);
+                        if (eq != null)
+                        {
+                            PowerTransformer pt = eq as PowerTransformer;
+                            var ptNeighbors = pt.GetNeighborConductingEquipments(context);
+
+                            foreach (var n in ptNeighbors)
+                            {
+                                if (n.BaseVoltage > voltageLevel)
+                                    voltageLevel = n.BaseVoltage;
+                            }
+                        }
+                    }
+                }
+
+                return voltageLevel;
             }
         }
 

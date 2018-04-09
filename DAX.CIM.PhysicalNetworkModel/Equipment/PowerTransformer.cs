@@ -1,4 +1,6 @@
-﻿namespace DAX.CIM.PhysicalNetworkModel
+﻿using System.Runtime.Serialization;
+
+namespace DAX.CIM.PhysicalNetworkModel
 {
     /// <summary>
     /// An electrical device consisting of  two or more coupled windings, with or without a magnetic core, for introducing mutual coupling between electric circuits. Transformers can be used to control voltage and phase shift (active power flow).
@@ -10,5 +12,7 @@
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class PowerTransformer : ConductingEquipment
     {
+        [IgnoreDataMember]
+        public int EnergyConsumerCount { get; set; }
     }
 }
