@@ -118,6 +118,10 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                 _stConnectionPoints[st].Add(newCp);
 
+                if (st.ConnectionPoints == null)
+                    st.ConnectionPoints = new List<ConnectionPoint>();
+
+                st.ConnectionPoints.Add(newCp);
 
                 return newCp;
             }
@@ -320,8 +324,13 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         _cimContext
                         ).ToList();
 
+                    int energyConsumerCount = 0;
+
                     foreach (var cimObj in traceResult)
                     {
+                        if (cimObj is EnergyConsumer)
+                            energyConsumerCount++;
+
                         if (cimObj is ConductingEquipment)
                         {
                             var ce = cimObj as ConductingEquipment;
@@ -330,7 +339,32 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 _conductingEquipmentFeeders[ce] = new List<Feeder>() { feeder };
                             else
                                 _conductingEquipmentFeeders[ce].Add(feeder);
+
+                            // Add to internal feeder list
+                            if (ce.InternalFeeders == null)
+                                ce.InternalFeeders = new List<Feeder>();
+
+                            ce.Feeders.Add(feeder);
+
+                            // If a busbar add feeder to substation as well
+                            if (ce is BusbarSection)
+                            {
+                                var st = ce.GetSubstation(false, _cimContext);
+
+                                if (st != null)
+                                {
+                                    if (st.InternalFeeders == null)
+                                        st.InternalFeeders = new List<Feeder>();
+
+                                    st.Feeders.Add(feeder);
+                                }
+                            }
                         }
+                    }
+
+                    if (feeder.ConnectionPoint.PowerTransformer != null)
+                    {
+                        feeder.ConnectionPoint.PowerTransformer.EnergyConsumerCount += energyConsumerCount;
                     }
                 }
             }

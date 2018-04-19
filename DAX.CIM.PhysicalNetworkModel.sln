@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAX.CIM.PhysicalNetworkModel", "DAX.CIM.PhysicalNetworkModel\DAX.CIM.PhysicalNetworkModel.csproj", "{F8349941-A0F6-4D91-8DFE-998E778B1AEE}"
 EndProject
@@ -53,5 +53,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {115F9192-7482-4034-AA2C-20E1C61F9438}
 	EndGlobalSection
 EndGlobal

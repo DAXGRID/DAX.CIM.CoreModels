@@ -34,6 +34,9 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
             var acls = _context.GetObject<ACLineSegment>("c494d297-9d5c-46dd-813d-1971b63d6f86");
             var aclsFeeders = _feederContext.GeConductingEquipmentFeeders(acls);
             Assert.IsNotNull(aclsFeeders[0].ConnectionPoint.PowerTransformer);
+
+
+
         }
     }
 }

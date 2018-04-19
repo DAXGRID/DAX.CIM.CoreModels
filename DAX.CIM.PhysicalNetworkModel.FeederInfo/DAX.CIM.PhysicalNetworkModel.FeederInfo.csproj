@@ -36,8 +36,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnectionPoint.cs" />
-    <Compile Include="Feeder.cs" />
     <Compile Include="FeederInfoContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
