@@ -41,6 +41,7 @@
     <Compile Include="Asset\CableOuterJacketKind.cs" />
     <Compile Include="Asset\CableShieldMaterialKind.cs" />
     <Compile Include="Asset\WireInfo.cs" />
+    <Compile Include="Asset\WireInsulationKind.cs" />
     <Compile Include="Asset\WireMaterialKind.cs" />
     <Compile Include="Equipment\ACDCTerminal.cs" />
     <Compile Include="Equipment\ACLineSegment.cs" />
