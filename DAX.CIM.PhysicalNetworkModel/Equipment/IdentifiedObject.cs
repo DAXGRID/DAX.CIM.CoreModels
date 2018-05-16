@@ -1,4 +1,5 @@
-﻿using DAX.CIM.PhysicalNetworkModel.Traversal;
+﻿using DAX.CIM.PhysicalNetworkModel.Changes;
+using DAX.CIM.PhysicalNetworkModel.Traversal;
 using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
 
 namespace DAX.CIM.PhysicalNetworkModel
@@ -62,6 +63,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Location))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CoordinateSystem))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Asset))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DataSetMember))]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class IdentifiedObject
