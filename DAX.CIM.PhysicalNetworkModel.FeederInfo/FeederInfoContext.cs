@@ -1,22 +1,16 @@
 ﻿using DAX.CIM.PhysicalNetworkModel.Traversal;
 using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 {
     public class FeederInfoContext
     {
-        private CimContext _cimContext;
-
-        Dictionary<ConnectivityNode, ConnectionPoint> _connectionPoints = new Dictionary<ConnectivityNode, ConnectionPoint>();
-
-        Dictionary<Substation, List<ConnectionPoint>> _stConnectionPoints = new Dictionary<Substation, List<ConnectionPoint>>();
-
-        Dictionary<ConductingEquipment, List<Feeder>> _conductingEquipmentFeeders = new Dictionary<ConductingEquipment, List<Feeder>>();
+        readonly Dictionary<ConnectivityNode, ConnectionPoint> _connectionPoints = new Dictionary<ConnectivityNode, ConnectionPoint>();
+        readonly Dictionary<Substation, List<ConnectionPoint>> _stConnectionPoints = new Dictionary<Substation, List<ConnectionPoint>>();
+        readonly Dictionary<ConductingEquipment, List<Feeder>> _conductingEquipmentFeeders = new Dictionary<ConductingEquipment, List<Feeder>>();
+        readonly CimContext _cimContext;
 
         public FeederInfoContext(CimContext cimContext)
         {
@@ -25,11 +19,9 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         public List<Feeder> GetFeeders()
         {
-            List<Feeder> result = new List<Feeder>();
-            foreach (var ceFeeders in _conductingEquipmentFeeders)
-                result.AddRange(ceFeeders.Value);
-
-            return result;
+            return _conductingEquipmentFeeders
+                .SelectMany(f => f.Value)
+                .ToList();
         }
 
         public Dictionary<ConductingEquipment, List<Feeder>> GetConductionEquipmentFeeders()
