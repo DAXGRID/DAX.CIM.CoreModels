@@ -110,7 +110,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         {
             get
             {
-                if (Assets != null && Assets.@ref != null)
+                if (Assets?.@ref != null)
                 {
                     var asset = CimContext.Current.GetObject<Asset>(Assets.@ref);
                     return asset;
