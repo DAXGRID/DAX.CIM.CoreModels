@@ -1,4 +1,5 @@
-﻿using DAX.CIM.PhysicalNetworkModel.Changes;
+﻿using System.Runtime.Serialization;
+using DAX.CIM.PhysicalNetworkModel.Changes;
 using DAX.CIM.PhysicalNetworkModel.Traversal;
 using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
 
@@ -130,7 +131,7 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-
+        [IgnoreDataMember]
         public Substation Substation
         {
             get

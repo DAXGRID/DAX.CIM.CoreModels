@@ -68,6 +68,7 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
+        [IgnoreDataMember]
         public double PrimaryVoltageLevel
         {
             get
