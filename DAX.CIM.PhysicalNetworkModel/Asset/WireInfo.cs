@@ -12,7 +12,7 @@ namespace DAX.CIM.PhysicalNetworkModel
     public partial class WireInfo : AssetInfo
     {
 
-        //private WireInsulationKind insulationMaterialField;
+        private WireInsulationKind insulationMaterialField;
 
         private bool insulationMaterialFieldSpecified;
 
@@ -22,7 +22,8 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private CurrentFlow ratedCurrentField;
 
-        /*
+        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
         public WireInsulationKind insulationMaterial
@@ -36,7 +37,7 @@ namespace DAX.CIM.PhysicalNetworkModel
                 this.insulationMaterialField = value;
             }
         }
-        */
+        
 
         /// <remarks/>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
