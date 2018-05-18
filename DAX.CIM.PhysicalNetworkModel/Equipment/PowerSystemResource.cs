@@ -103,23 +103,23 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-        
+        #region DAX specific helper functions
+
+        [IgnoreDataMember]
         public Asset Asset
         {
             get
             {
-                if (Assets != null && Assets.@ref != null)
+                if (Assets?.@ref != null)
                 {
                     var asset = CimContext.Current.GetObject<Asset>(Assets.@ref);
                     return asset;
                 }
-                else
-                    // Return emty asset to avoid problems with null pointer exceptions dotting into cim structure in dynamic linq etc.
-                    return new Asset();
+
+                // Return emty asset to avoid problems with null pointer exceptions dotting into cim structure in dynamic linq etc.
+                return new Asset();
             }
         }
-
-        #region DAX specific helper functions
 
         /// <summary>
         /// Notice that this list is only populated when using the FeederInfoContext class

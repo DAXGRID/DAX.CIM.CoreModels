@@ -5,7 +5,6 @@ using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
 
 namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
 {
-    
     public class InMemCimContext : CimContext
     {
         // Dictionary used for identified object lookup
