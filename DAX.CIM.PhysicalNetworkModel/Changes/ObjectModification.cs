@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace DAX.CIM.PhysicalNetworkModel.Changes
@@ -7,6 +8,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Changes
     [XmlType(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public class ObjectModification : ChangeSetMember
     {
-        public IdentifiedObject Object { get; set; }
+        public Dictionary<string, object> Properties { get; set; }
     }
 }
