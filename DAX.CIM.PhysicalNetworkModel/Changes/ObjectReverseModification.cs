@@ -9,5 +9,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Changes
     public class ObjectReverseModification : ChangeSetMember
     {
         public Dictionary<string, object> Properties { get; set; }
+        public PropertyModification[] Modifications { get; set; }
     }
 }
