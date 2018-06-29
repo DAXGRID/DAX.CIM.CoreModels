@@ -8,9 +8,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Changes
     public class PropertyModification
     {
         public string Name { get; set; }
-        public bool IsReference { get; set; }
-        public string Value { get; set; }
-        public UnitSymbol? Unit { get; set; }
-        public UnitMultiplier? Multiplier { get; set; }
+        public object Value { get; set; }
     }
 }
