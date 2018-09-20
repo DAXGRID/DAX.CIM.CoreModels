@@ -11,7 +11,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
         public FeederType FeederType { get; set; }
         public FeederVoltageLevel VoltageLevel { get; set; }
         public ConnectionPoint ConnectionPoint { get; set; }
-        public ACLineSegment ACLineSegment { get; set; }
+        public ConductingEquipment ConductingEquipment { get; set; }
 
         /// <summary>
         /// Helper function that generates a unique feeder name containing station name and bay name.

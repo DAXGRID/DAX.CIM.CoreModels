@@ -262,8 +262,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
 
         public override List<VoltageLevel> GetSubstationVoltageLevels(Substation st)
         {
+            if (st == null)
+                return new List<VoltageLevel>();
+
             if (_substationVoltageLevels.ContainsKey(st))
-                return _substationVoltageLevels[st];
+                return _substationVoltageLevels[st].OrderBy(c => c.BaseVoltage).Reverse().ToList();
             else
                 return new List<VoltageLevel>();
         }

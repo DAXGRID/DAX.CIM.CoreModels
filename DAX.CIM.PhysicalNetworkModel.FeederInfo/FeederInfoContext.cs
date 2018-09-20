@@ -52,7 +52,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         private void CreateConnectionPointsAndFeeders()
         {
-            // Create connection points in all substation objects
+            // Create feeder connection points in all substation objects
             foreach (var obj in _cimContext.GetAllObjects())
             {
                 if (obj is Substation)
@@ -80,7 +80,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                     // If connected to some conducting outside station we have a connection point
                                     if (!cnTc.ConductingEquipment.IsInsideSubstation(_cimContext))
                                     {
-                                        var cp = CreateConectionPoint(cnTc.ConnectivityNode, st, stEq.GetBay(false,_cimContext));
+                                        var cp = CreateConnectionPoint(ConnectionPointKind.Line, cnTc.ConnectivityNode, st, stEq.GetBay(false,_cimContext));
 
                                         CreateFeeder(cp, cnTc.ConductingEquipment);
                                     }
@@ -90,21 +90,70 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                     }
                 }
             }
+
+            // Create trafo connection points in all substation objects
+            foreach (var obj in _cimContext.GetAllObjects())
+            {
+                if (obj is PowerTransformer)
+                {
+                    var trafo = obj as PowerTransformer;
+                    var st = trafo.GetSubstation(false, _cimContext);
+                    var trafoConnections = _cimContext.GetConnections(trafo);
+
+                    // Find terminal 2
+                    if (trafoConnections.Exists(c => c.Terminal.sequenceNumber == "2"))
+                    {
+                        var trafoTerminal2Connection = trafoConnections.First(c => c.Terminal.sequenceNumber == "2");
+
+                        if (!_connectionPoints.ContainsKey(trafoTerminal2Connection.ConnectivityNode))
+                        {
+                            var cp = CreateConnectionPoint(ConnectionPointKind.PowerTranformer, trafoTerminal2Connection.ConnectivityNode, st, null);
+                            CreateFeeder(cp, trafo);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+
+            // Create connection points on all external network injections
+            foreach (var obj in _cimContext.GetAllObjects())
+            {
+                if (obj is ExternalNetworkInjection)
+                {
+                    var source = obj as ExternalNetworkInjection;
+                    var sourceConnections = _cimContext.GetConnections(source);
+
+                    // Find terminal 1
+                    if (sourceConnections.Exists(c => c.Terminal.sequenceNumber == "1"))
+                    {
+                        var trafoTerminal2Connection = sourceConnections.First(c => c.Terminal.sequenceNumber == "1");
+
+                        if (!_connectionPoints.ContainsKey(trafoTerminal2Connection.ConnectivityNode))
+                        {
+                            var cp = CreateConnectionPoint(ConnectionPointKind.ExternalNetworkInjection, trafoTerminal2Connection.ConnectivityNode, null, null);
+                            CreateFeeder(cp, source);
+                        }
+                    }
+                }
+            }
         }
 
-        private ConnectionPoint CreateConectionPoint(ConnectivityNode cn, Substation st, Bay bay)
+        private ConnectionPoint CreateConnectionPoint(ConnectionPointKind kind, ConnectivityNode cn, Substation st, Bay bay)
         {
-            if (bay != null && bay.name != null && bay.name.StartsWith("03JULI"))
+
+            if (st.mRID == "59c15301-79a5-4b2a-9cb3-b58dcdd640d3")
             {
             }
 
             if (!_connectionPoints.ContainsKey(cn))
             {
-                var newCp = new ConnectionPoint() { ConnectivityNode = cn, Substation = st, Bay = bay };
+                var newCp = new ConnectionPoint() { Kind = kind, ConnectivityNode = cn, Substation = st, Bay = bay };
                 _connectionPoints[cn] = newCp;
 
                 // Add to station dict
-
                 if (!_stConnectionPoints.ContainsKey(st))
                     _stConnectionPoints[st] = new List<ConnectionPoint>();
 
@@ -124,14 +173,27 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
         private void CreateFeeder(ConnectionPoint connectionPoint, ConductingEquipment conductingEquipment)
         {
             // Don't create feeder if conducting equipment already feederized
-            if (connectionPoint.Feeders.Count(c => c.ACLineSegment == conductingEquipment) > 0)
+            if (connectionPoint.Feeders.Count(c => c.ConductingEquipment == conductingEquipment) > 0)
                 return;
 
-            var acls = conductingEquipment as ACLineSegment;
+            // External Network Injection
+            if (connectionPoint != null &&
+                conductingEquipment != null &&
+                conductingEquipment is ExternalNetworkInjection)
+            {
+                var feeder = new Feeder()
+                {
+                    ConnectionPoint = connectionPoint,
+                    ConductingEquipment = conductingEquipment,
+                    FeederType = FeederType.NetworkInjection,
+                    VoltageLevel = FeederVoltageLevel.HighVoltage
+                };
+
+                connectionPoint.AddFeeder(feeder);
+            }
 
             // Primary substation
-            if (acls != null &&
-                connectionPoint != null &&
+            if (connectionPoint != null &&
                 conductingEquipment != null &&
                 connectionPoint.Substation != null && 
                 connectionPoint.Substation.PSRType == "PrimarySubstation" && 
@@ -140,7 +202,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 var feeder = new Feeder()
                 {
                     ConnectionPoint = connectionPoint,
-                    ACLineSegment = acls,
+                    ConductingEquipment = conductingEquipment,
                     FeederType = FeederType.PrimarySubstation,
                     VoltageLevel = FeederVoltageLevel.MediumVoltage
                 };
@@ -149,8 +211,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             }
 
             // Secondary substation
-            if (acls != null &&
-               connectionPoint != null &&
+            if (connectionPoint != null &&
                conductingEquipment != null &&
                connectionPoint.Substation != null &&
                connectionPoint.Substation.PSRType == "SecondarySubstation" &&
@@ -159,7 +220,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 var feeder = new Feeder()
                 {
                     ConnectionPoint = connectionPoint,
-                    ACLineSegment = acls,
+                    ConductingEquipment = conductingEquipment,
                     FeederType = FeederType.SecondarySubstation,
                     VoltageLevel = FeederVoltageLevel.LowVoltage
                 };
@@ -168,8 +229,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             }
 
             // Cable box
-            if (acls != null &&
-                connectionPoint != null &&
+            if (connectionPoint != null &&
                 conductingEquipment != null &&
                 connectionPoint.Substation != null &&
                 connectionPoint.Substation.PSRType == "CableBox")
@@ -189,7 +249,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                     var feeder = new Feeder()
                     {
                         ConnectionPoint = connectionPoint,
-                        ACLineSegment = acls,
+                        ConductingEquipment = conductingEquipment,
                         FeederType = FeederType.CableBox,
                         VoltageLevel = FeederVoltageLevel.LowVoltage
                     };
@@ -207,34 +267,24 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 {
                     var pt = obj as PowerTransformer;
 
+                    var traceResult = pt.Traverse(ce =>
+                        ce.IsInsideSubstation(_cimContext) &&
+                        !ce.IsOpen() &&
+                        ce.BaseVoltage < pt.GetSubstation(true, _cimContext).GetPrimaryVoltageLevel(_cimContext),
+                        null,
+                        false,
+                        _cimContext
+                     ).ToList();
 
-                
-
-                        var traceResult = pt.Traverse(ce =>
-                            ce.IsInsideSubstation(_cimContext) &&
-                            !ce.IsOpen() &&
-                            ce.BaseVoltage < pt.GetSubstation(true,_cimContext).GetPrimaryVoltageLevel(_cimContext),
-                            null,
-                            false,
-                            _cimContext
-                         ).ToList();
-
-                        foreach (var cimObj in traceResult)
+                    foreach (var cimObj in traceResult)
+                    {
+                        if (cimObj is ConnectivityNode && _connectionPoints.ContainsKey((ConnectivityNode)cimObj))
                         {
-                            if (cimObj is ConnectivityNode && _connectionPoints.ContainsKey((ConnectivityNode)cimObj))
-                            {
-                                var cp = _connectionPoints[(ConnectivityNode)cimObj];
-                                cp.PowerTransformer = pt;
-
-                                if (cp.Substation.name == "BAS")
-                                {
-                                    var asdasd = _connectionPoints.Where(o => o.Value.PowerTransformer == pt).ToList();
-                                }
-                            }
+                            var cp = _connectionPoints[(ConnectivityNode)cimObj];
+                            cp.PowerTransformer = pt;
                         }
-
                     }
-                    
+                }
             }
         }
 
@@ -242,124 +292,193 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
         {
             foreach (var cp in _connectionPoints.Values)
             {
-                foreach (var feeder in cp.Feeders)
+                ////////////////////////////////////////////////////////////////
+                // Line and external network injection feeders 
+
+                if (cp.Kind == ConnectionPointKind.Line || cp.Kind == ConnectionPointKind.ExternalNetworkInjection)
                 {
                     
-                    if (feeder.ACLineSegment.mRID == "c494d297-9d5c-46dd-813d-1971b63d6f86")
+                    foreach (var feeder in cp.Feeders)
                     {
-                    }
-
-                    if (feeder.ConnectionPoint.Bay != null && feeder.ConnectionPoint.Bay.name != null && feeder.ConnectionPoint.Bay.name.StartsWith("03JULI"))
-                    {
-                    }
-
-                    HashSet<string> nodeTypesToPass = new HashSet<string>();
-
-                    if (feeder.FeederType == FeederType.NetworkInjection)
-                    {
-                        nodeTypesToPass.Add("PrimrySubstation");
-                        nodeTypesToPass.Add("Tower");
-                    }
-                    else if (feeder.FeederType == FeederType.PrimarySubstation)
-                    {
-                        if (feeder.ConnectionPoint.PowerTransformer == null)
-                            continue;
-
-                        nodeTypesToPass.Add("SecondarySubstation");
-                        nodeTypesToPass.Add("Tower");
-                    }
-                    else if (feeder.FeederType == FeederType.SecondarySubstation)
-                    {
-                        if (feeder.ConnectionPoint.PowerTransformer == null)
-                            continue;
-
-                        nodeTypesToPass.Add("CableBox");
-                        nodeTypesToPass.Add("Tower");
-                        nodeTypesToPass.Add("T-Junction");
-                    }
-                    else if (feeder.FeederType == FeederType.CableBox)
-                    {
-                        // CableBox we should not pass though nodes.
-                        nodeTypesToPass.Add("T-Junction");
-                    }
-
-                    // Regarding the trace:
-                    // We need a node check on both conducting equipment and connectivity nodes, 
-                    // because otherwise we risk running through the node (from one feeder to another)
-                    // if feeder cables are connected directly to a cn/busbar inside the node.
-                    // We include the power transformer in the trace, no matter if a base voltage is specified.
-                    // We need the transformer, and sometimes the base voltage is not set. That's why.
-
-                    var traceResult = feeder.ACLineSegment.Traverse(
-                        ce =>
-                            (
-                                ce.BaseVoltage == feeder.ACLineSegment.BaseVoltage
-                                ||
-                                ce is PowerTransformer // because power transformers sometimes has no base voltage
-                            )
-                            &&
-                            !ce.IsOpen()
-                            &&
-                            (
-                                (ce.IsInsideSubstation(_cimContext) && nodeTypesToPass.Contains(ce.GetSubstation(true, _cimContext).PSRType))
-                                ||
-                                !ce.IsInsideSubstation(_cimContext)
-                            ),
-                        cn =>
-                            (
-                                (cn.IsInsideSubstation(_cimContext) && nodeTypesToPass.Contains(cn.GetSubstation(true,_cimContext).PSRType))
-                                ||
-                                !cn.IsInsideSubstation(_cimContext)
-                            )
-                            ,
-                        false,
-                        _cimContext
-                        ).ToList();
-
-                    int energyConsumerCount = 0;
-
-                    foreach (var cimObj in traceResult)
-                    {
-                        if (cimObj is EnergyConsumer)
-                            energyConsumerCount++;
-
-                        if (cimObj is ConductingEquipment)
+                        if (feeder.ConductingEquipment is ExternalNetworkInjection)
                         {
-                            var ce = cimObj as ConductingEquipment;
 
-                            if (!_conductingEquipmentFeeders.ContainsKey(ce))
-                                _conductingEquipmentFeeders[ce] = new List<Feeder>() { feeder };
-                            else
-                                _conductingEquipmentFeeders[ce].Add(feeder);
+                        }
 
-                            // Add to internal feeder list
-                            if (ce.InternalFeeders == null)
-                                ce.InternalFeeders = new List<Feeder>();
+                        HashSet<string> nodeTypesToPass = new HashSet<string>();
 
-                            ce.Feeders.Add(feeder);
+                        if (feeder.FeederType == FeederType.NetworkInjection)
+                        {
+                            nodeTypesToPass.Add("PrimarySubstation");
+                            nodeTypesToPass.Add("Tower");
+                        }
+                        else if (feeder.FeederType == FeederType.PrimarySubstation)
+                        {
+                            if (feeder.ConnectionPoint.PowerTransformer == null)
+                                continue;
 
-                            // If a busbar add feeder to substation as well
-                            if (ce is BusbarSection)
+                            nodeTypesToPass.Add("SecondarySubstation");
+                            nodeTypesToPass.Add("Tower");
+                        }
+                        else if (feeder.FeederType == FeederType.SecondarySubstation)
+                        {
+                            if (feeder.ConnectionPoint.PowerTransformer == null)
+                                continue;
+
+                            nodeTypesToPass.Add("CableBox");
+                            nodeTypesToPass.Add("Tower");
+                            nodeTypesToPass.Add("T-Junction");
+                        }
+                        else if (feeder.FeederType == FeederType.CableBox)
+                        {
+                            // CableBox we should not pass though nodes.
+                            nodeTypesToPass.Add("T-Junction");
+                        }
+
+                        // Regarding the trace:
+                        // We need a node check on both conducting equipment and connectivity nodes, 
+                        // because otherwise we risk running through the node (from one feeder to another)
+                        // if feeder cables are connected directly to a cn/busbar inside the node.
+                        // We include the power transformer in the trace, no matter if a base voltage is specified.
+                        // We need the transformer, and sometimes the base voltage is not set. That's why.
+
+                        var traceResult = feeder.ConductingEquipment.Traverse(
+                            ce =>
+                                (
+                                    ce.BaseVoltage == feeder.ConductingEquipment.BaseVoltage
+                                    ||
+                                    ce is PowerTransformer // because power transformers sometimes has no base voltage
+                                )
+                                &&
+                                !ce.IsOpen()
+                                &&
+                                (
+                                    (ce.IsInsideSubstation(_cimContext) && nodeTypesToPass.Contains(ce.GetSubstation(true, _cimContext).PSRType))
+                                    ||
+                                    !ce.IsInsideSubstation(_cimContext)
+                                ),
+                            cn =>
+                                (
+                                    (cn.IsInsideSubstation(_cimContext) && nodeTypesToPass.Contains(cn.GetSubstation(true, _cimContext).PSRType))
+                                    ||
+                                    !cn.IsInsideSubstation(_cimContext)
+                                )
+                                ,
+                            true,
+                            _cimContext
+                            ).ToList();
+
+                        int energyConsumerCount = 0;
+
+                        foreach (var cimObj in traceResult)
+                        {
+                            // kabel før trafo 2 i sho
+                            if (cimObj.mRID == "eb0bed2f-0779-4a2e-ba56-bc2199666509")
                             {
-                                var st = ce.GetSubstation(false, _cimContext);
-
-                                if (st != null)
+                                var connections = _cimContext.GetConnections(cimObj);
+                                /*
+                                foreach (var cn in connections)
                                 {
-                                    if (st.InternalFeeders == null)
-                                        st.InternalFeeders = new List<Feeder>();
+                                    var connections2 = _cimContext.GetConnections(cn.ConnectivityNode);
 
-                                    st.Feeders.Add(feeder);
+                                    foreach (var cn2 in connections2)
+                                    {
+                                        if (cn2.ConductingEquipment is PowerTransformer)
+                                        {
+                                            var st = cn2.ConductingEquipment.GetSubstation();
+                                            var isst = cn2.ConductingEquipment.IsInsideSubstation();
+                                        }
+                                    }
+                                }
+                                */
+                            }
+
+                            if (cimObj is EnergyConsumer)
+                                energyConsumerCount++;
+
+                            if (cimObj is ConductingEquipment)
+                            {
+                                var ce = cimObj as ConductingEquipment;
+
+                                // acls feeder by byg, that don't get feeder
+                                if (ce.mRID == "cbfe60cc-e56c-40ef-a525-10abde3b81e8")
+                                {
+                                }
+
+                                AssignFeederToConductingEquipment(ce, feeder);
+
+                                // If a busbar add feeder to substation as well
+                                if (ce is BusbarSection)
+                                {
+                                    var st = ce.GetSubstation(false, _cimContext);
+
+                                    if (st != null)
+                                    {
+                                        if (st.InternalFeeders == null)
+                                            st.InternalFeeders = new List<Feeder>();
+
+                                        st.Feeders.Add(feeder);
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    if (feeder.ConnectionPoint.PowerTransformer != null)
-                    {
-                        feeder.ConnectionPoint.PowerTransformer.EnergyConsumerCount += energyConsumerCount;
+                        if (feeder.ConnectionPoint.PowerTransformer != null)
+                        {
+                            feeder.ConnectionPoint.PowerTransformer.EnergyConsumerCount += energyConsumerCount;
+                        }
                     }
                 }
+
+                ////////////////////////////////////////////////////////////////
+                // power transformer feeders
+                if (cp.Kind == ConnectionPointKind.PowerTranformer)
+                {
+                    foreach (var feeder in cp.Feeders)
+                    {
+                        var pt = feeder.ConductingEquipment as PowerTransformer;
+
+                        var traceResult = pt.Traverse(ce =>
+                           ce.IsInsideSubstation(_cimContext) &&
+                           !ce.IsOpen() &&
+                           ce.BaseVoltage < pt.GetSubstation(true, _cimContext).GetPrimaryVoltageLevel(_cimContext),
+                           null,
+                           true,
+                           _cimContext
+                        ).ToList();
+
+                        foreach (var cimObj in traceResult)
+                        {
+                            if (cimObj is ConductingEquipment)
+                            {
+                                var ce = cimObj as ConductingEquipment;
+
+                                // We don't want to add feeder to power transformers and ac line segments outsit station.
+                                if (!(ce is PowerTransformer) && !(ce is ACLineSegment && !ce.IsInsideSubstation()))
+                                    AssignFeederToConductingEquipment(ce, feeder);
+                            }
+                        }
+                    }
+                } 
             }
+        }
+
+        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder)
+        {
+            if (!_conductingEquipmentFeeders.ContainsKey(ce))
+                _conductingEquipmentFeeders[ce] = new List<Feeder>() { feeder };
+            else
+            {
+                if (!_conductingEquipmentFeeders[ce].Contains(feeder))
+                    _conductingEquipmentFeeders[ce].Add(feeder);
+            }
+
+            // Add to internal feeder list
+            if (ce.InternalFeeders == null)
+                ce.InternalFeeders = new List<Feeder>();
+
+            if (!ce.InternalFeeders.Contains(feeder))
+                ce.InternalFeeders.Add(feeder);
         }
 
         private void FixTJunctionCustomers()

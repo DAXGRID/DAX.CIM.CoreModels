@@ -36,6 +36,31 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
                     return true;
             }
 
+            if (identifiedObject is VoltageLevel)
+            {
+                var voltageLevel = (VoltageLevel)identifiedObject;
+
+                return voltageLevel.EquipmentContainer1.Get(context).GetSubstation(false, context) != null;
+            }
+
+            if (identifiedObject is BayExt)
+            {
+                var bayExt = (BayExt)identifiedObject;
+
+                return bayExt.VoltageLevel.Get(context).GetSubstation(false, context) != null;
+            }
+
+            if (identifiedObject is PowerTransformerEnd)
+            {
+                var ptEnd = (PowerTransformerEnd)identifiedObject;
+
+                //return bayExt.VoltageLevel.Get(context).GetSubstation(false, context) != null;
+                if (ptEnd.PowerTransformer != null && ptEnd.PowerTransformer.@ref != null)
+                {
+                    return context.GetObject<PowerTransformer>(ptEnd.PowerTransformer.@ref).GetSubstation(false, context) != null;
+                }
+            }
+
             return false;
         }
 

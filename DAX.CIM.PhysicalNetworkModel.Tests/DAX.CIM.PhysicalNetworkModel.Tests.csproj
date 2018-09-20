@@ -72,6 +72,9 @@
     <Compile Include="Data\CimJsonFileReader.cs" />
     <Compile Include="Data\TestMRIDs.cs" />
     <Compile Include="FixtureBase.cs" />
+    <Compile Include="TestFeederInfoHAT_SHO.cs" />
+    <Compile Include="TestPetersonCoilABO.cs" />
+    <Compile Include="TestPetersonCoilBYG.cs" />
     <Compile Include="TestFeederInfoTJunction.cs" />
     <Compile Include="TestAssetInfoSerialization.cs" />
     <Compile Include="TestTraversal.cs" />
@@ -90,10 +93,16 @@
     <None Include="Data\428_tjunction.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\aabo_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\BAS_feederinfo_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\beg_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\byg_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\EBT_feederinfo_anonymized.jsonl">
@@ -103,6 +112,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\fus03lang_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\hat_sho_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\sho_anonymized.jsonl">

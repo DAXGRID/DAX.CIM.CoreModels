@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 {
+    public enum ConnectionPointKind
+    {
+        Line = 1,
+        PowerTranformer = 2,
+        ExternalNetworkInjection = 3
+    }
+
     public class ConnectionPoint
     {
         private List<Feeder> _feeders = null;
+        public ConnectionPointKind Kind { get; set; }
         public ConnectivityNode ConnectivityNode { get; set; }
         public Substation Substation { get; set; }
         public PowerTransformer PowerTransformer { get; set; }

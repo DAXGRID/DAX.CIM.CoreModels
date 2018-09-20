@@ -39,6 +39,20 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
             Assert.IsTrue(feeders[0].ConnectionPoint.Bay.name.StartsWith("03JULI"));
 
         }
+
+        [TestMethod]
+        public void InternalFeederTest()
+        {
+            // Find transformer belonging to station 30071 (Engum Bronx)
+            var pt = _context.GetObject<PowerTransformer>(TestMRIDs.Engum_St_30071_Tr_1);
+            var st = pt.GetSubstation();
+
+            var eqsWithFeeder = st.GetEquipments().Where(e => e.Feeders.Count() == 1).ToList();
+
+            var eqsWithoutFeeder = st.GetEquipments().Where(e => e.Feeders.Count() == 0).ToList();
+
+
+        }
     }
 
 }
