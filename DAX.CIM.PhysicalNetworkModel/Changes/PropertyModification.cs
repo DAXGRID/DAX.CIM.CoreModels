@@ -5,8 +5,9 @@ namespace DAX.CIM.PhysicalNetworkModel.Changes
 {
     [Serializable]
     [XmlType(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public class ObjectReverseModification : ChangeSetMember
+    public class PropertyModification
     {
-        public PropertyModification[] Modifications { get; set; }
+        public string Name { get; set; }
+        public object Value { get; set; }
     }
 }
