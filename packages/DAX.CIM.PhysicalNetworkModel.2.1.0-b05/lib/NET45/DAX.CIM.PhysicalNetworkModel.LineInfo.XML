@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DAX.CIM.PhysicalNetworkModel.LineInfo</name>
+    </assembly>
+    <members>
+        <member name="T:DAX.CIM.PhysicalNetworkModel.LineInfo.LineRelation">
+            <summary>
+            A class used to hold information about the relation between a CIM object and a Line
+            </summary>
+        </member>
+        <member name="P:DAX.CIM.PhysicalNetworkModel.LineInfo.LineRelation.Order">
+            <summary>
+            In the DSO realm elements are typical numbered starting with the substation with the lowest number - e.g. 100-200#1, 100-200#2 and so forth.
+            </summary>
+        </member>
+    </members>
+</doc>

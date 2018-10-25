@@ -35,17 +35,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DAX.CIM.PhysicalNetworkModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DAX.CIM.PhysicalNetworkModel\bin\Debug\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
+    </Reference>
+    <Reference Include="DAX.CIM.PhysicalNetworkModel.FeederInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DAX.CIM.PhysicalNetworkModel.FeederInfo\bin\Debug\DAX.CIM.PhysicalNetworkModel.FeederInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="DAX.CIM.PhysicalNetworkModel.LineInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DAX.CIM.PhysicalNetworkModel.LineInfo\bin\Debug\DAX.CIM.PhysicalNetworkModel.LineInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="DAX.CIM.PhysicalNetworkModel.Traversal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DAX.CIM.PhysicalNetworkModel.Traversal\bin\Debug\DAX.CIM.PhysicalNetworkModel.Traversal.dll</HintPath>
+    </Reference>
     <Reference Include="DAX.Cson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.Cson.0.0.1\lib\NET45\DAX.Cson.dll</HintPath>
+      <HintPath>..\packages\DAX.Cson.1.0.0-b04\lib\NET45\DAX.Cson.dll</HintPath>
     </Reference>
     <Reference Include="Debaser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Debaser.0.9.0\lib\NET45\Debaser.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FastMember, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FastMember.1.1.0\lib\net40\FastMember.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -72,6 +88,7 @@
     <Compile Include="Data\CimJsonFileReader.cs" />
     <Compile Include="Data\TestMRIDs.cs" />
     <Compile Include="FixtureBase.cs" />
+    <Compile Include="TestFeederInfoMLP.cs" />
     <Compile Include="TestFeederInfoHAT_SHO.cs" />
     <Compile Include="TestPetersonCoilABO.cs" />
     <Compile Include="TestPetersonCoilBYG.cs" />
@@ -117,6 +134,9 @@
     <None Include="Data\hat_sho_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\mlp_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\sho_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -127,24 +147,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.FeederInfo\DAX.CIM.PhysicalNetworkModel.FeederInfo.csproj">
-      <Project>{b4a7035d-f1cc-40c7-a429-1138ec234b2f}</Project>
-      <Name>DAX.CIM.PhysicalNetworkModel.FeederInfo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.LineInfo\DAX.CIM.PhysicalNetworkModel.LineInfo.csproj">
-      <Project>{df457603-7cbd-45b8-be11-f1d52f43cedc}</Project>
-      <Name>DAX.CIM.PhysicalNetworkModel.LineInfo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.Traversal\DAX.CIM.PhysicalNetworkModel.Traversal.csproj">
-      <Project>{2fe2e018-b583-4561-a141-44a71fefb352}</Project>
-      <Name>DAX.CIM.PhysicalNetworkModel.Traversal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel\DAX.CIM.PhysicalNetworkModel.csproj">
-      <Project>{f8349941-a0f6-4d91-8dfe-998e778b1aee}</Project>
-      <Name>DAX.CIM.PhysicalNetworkModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

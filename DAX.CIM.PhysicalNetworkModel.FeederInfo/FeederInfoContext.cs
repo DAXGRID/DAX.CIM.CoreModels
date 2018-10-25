@@ -454,7 +454,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 var ce = cimObj as ConductingEquipment;
 
                                 // We don't want to add feeder to power transformers and ac line segments outsit station.
-                                if (!(ce is PowerTransformer) && !(ce is ACLineSegment && !ce.IsInsideSubstation()))
+                                if (!(ce is PowerTransformer) && !(ce is ACLineSegment && !ce.IsInsideSubstation(_cimContext)))
                                     AssignFeederToConductingEquipment(ce, feeder);
                             }
                         }
@@ -469,16 +469,31 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 _conductingEquipmentFeeders[ce] = new List<Feeder>() { feeder };
             else
             {
-                if (!_conductingEquipmentFeeders[ce].Contains(feeder))
-                    _conductingEquipmentFeeders[ce].Add(feeder);
+                var ceFeeders = _conductingEquipmentFeeders[ce];
+
+                if (ceFeeders.Count > 2)
+                {
+
+                }
+
+                // Only add feeder if conducting equipment not already addede to a feeder attached to the same connectivity node
+                if (ceFeeders.Count(f => f.ConnectionPoint == feeder.ConnectionPoint) == 0)
+                {
+                    if (!ceFeeders.Contains(feeder))
+                        ceFeeders.Add(feeder);
+                }
             }
 
             // Add to internal feeder list
             if (ce.InternalFeeders == null)
                 ce.InternalFeeders = new List<Feeder>();
 
-            if (!ce.InternalFeeders.Contains(feeder))
-                ce.InternalFeeders.Add(feeder);
+            // Only add feeder if conducting equipment not already added to a feeder attached to the same connectivity node
+            if (ce.InternalFeeders.Count(f => f.ConnectionPoint == feeder.ConnectionPoint) == 0)
+            {
+                if (!ce.InternalFeeders.Contains(feeder))
+                    ce.InternalFeeders.Add(feeder);
+            }
         }
 
         private void FixTJunctionCustomers()
