@@ -113,11 +113,33 @@ namespace DAX.CIM.PhysicalNetworkModel
                 if (Assets?.@ref != null)
                 {
                     var asset = CimContext.Current.GetObject<Asset>(Assets.@ref);
+
+                    if (asset.name == null)
+                        asset.name = "Ukendt";
+
+                    if (asset.lifecycle == null)
+                        asset.lifecycle = new LifecycleDate() { installationDate = new System.DateTime(1900, 1, 1) };
+
                     return asset;
                 }
 
                 // Return emty asset to avoid problems with null pointer exceptions dotting into cim structure in dynamic linq etc.
-                return new Asset();
+                return new Asset() { name = "Ukendt", lifecycle = new LifecycleDate() { installationDate = new System.DateTime(1900, 1, 1) } };
+            }
+        }
+
+        [IgnoreDataMember]
+        public LocationExt GetLocation
+        {
+            get
+            {
+                if (Location?.@ref != null)
+                {
+                    var loc = CimContext.Current.GetObject<LocationExt>(Location.@ref);
+                    return loc;
+                }
+
+                return null;
             }
         }
 

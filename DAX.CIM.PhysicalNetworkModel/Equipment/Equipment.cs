@@ -1,4 +1,5 @@
 ﻿using DAX.CIM.PhysicalNetworkModel.FeederInfo;
+using DAX.CIM.PhysicalNetworkModel.Traversal;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -92,6 +93,54 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
-       
+        [IgnoreDataMember]
+        /// <summary>
+        ///  Returns a unique name at by traversing the equipment hierarchy
+        /// </summary>
+        public string PathName
+        {
+            get {
+                List<IdentifiedObject> visitedEquipments = new List<IdentifiedObject>();
+
+                string retName = "";
+                return NameTraverse(visitedEquipments, retName);
+            }
+        }
+
+        internal string NameTraverse(List <IdentifiedObject> visitedEquipments, string name)
+        {
+            var context = CimContext.GetCurrent();
+
+            if (!visitedEquipments.Contains(this))
+            {
+                visitedEquipments.Add(this);
+
+                name = this.name;
+
+                if (this is LoadBreakSwitch)
+                    name = "LAST " + name;
+                else if (this is Breaker)
+                    name = "EFFEKT " + name;
+                else if (this is Disconnector)
+                    name = "ADSK " + name;
+                else if (this is Fuse)
+                    name = "SIK " + name;
+                else if (this is BusbarSection)
+                    name = "SKINNE " + name;
+
+
+                if (EquipmentContainer.@ref != null)
+                {
+                    var ec = context.GetObject<EquipmentContainer>(EquipmentContainer.@ref);
+                    return (ec.NameTraverse(visitedEquipments, name));
+                }
+                else
+                    return name;
+            }
+            else
+            {
+                return name;
+            }
+        }
     }
 }

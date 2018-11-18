@@ -168,5 +168,45 @@ namespace DAX.CIM.PhysicalNetworkModel
             }
         }
 
+        /// <summary>
+        /// Returns parent equipment container. Null if the object has no parent.
+        /// </summary>
+        [IgnoreDataMember]
+        public EquipmentContainer Parent
+        {
+            get
+            {
+                var context = CimContext.GetCurrent();
+
+                if (this is Substation)
+                {
+                    return (Substation)this;
+                }
+
+                if (this is VoltageLevel)
+                {
+                    var voltageLevel = (VoltageLevel)this;
+
+                    return voltageLevel.EquipmentContainer1.Get(context);
+                }
+
+                if (this is BayExt)
+                {
+                    var bayExt = (BayExt)this;
+
+                    return bayExt.VoltageLevel.Get(context);
+                }
+
+                if (this is ConductingEquipment)
+                {
+                    var ce = (ConductingEquipment)this;
+
+                    return ce.EquipmentContainer.Get(context);
+                }
+
+                return null;
+            }
+        }
+
     }
 }
