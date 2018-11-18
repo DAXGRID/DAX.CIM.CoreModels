@@ -28,7 +28,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
         }
 
         [TestMethod]
-        public void BEGTest()
+        public void BEGFeederInfoTest()
         {
             // Check cable directly on power transformer in 2189
             var pt = _context.GetObject<ConductingEquipment>(TestMRIDs.St2198_Tr1);
@@ -36,7 +36,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
             Assert.AreEqual(1, feeders.Count);
             Assert.AreEqual("BEG", feeders[0].ConnectionPoint.Substation.name);
             Assert.IsTrue(feeders[0].ConnectionPoint.Bay.name.StartsWith("08BORU"));
-            
+
             // Check feeder cable on 2198
             var feed1cable = _context.GetObject<ConductingEquipment>(TestMRIDs.St2198_Feeder1_Cable);
             feeders = _feederContext.GeConductingEquipmentFeeders(feed1cable);
@@ -62,6 +62,16 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
             feeders = _feederContext.GeConductingEquipmentFeeders(custPt);
             Assert.AreEqual("BEG", feeders[0].ConnectionPoint.Substation.name);
             Assert.IsTrue(feeders[0].ConnectionPoint.Bay.name.StartsWith("04STRA"));
+        }
+
+        [TestMethod]
+        public void BEGNullMridCheck()
+        {
+            foreach (var cn in _context.GetAllObjects())
+            {
+                Assert.IsFalse(cn.mRID == null);
+                Assert.IsFalse(cn.mRID == "00000000-0000-0000-0000-000000000000");
+            }
         }
     }
 

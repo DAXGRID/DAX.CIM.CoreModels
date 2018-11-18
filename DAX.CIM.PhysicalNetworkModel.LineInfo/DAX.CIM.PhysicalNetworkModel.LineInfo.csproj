@@ -42,10 +42,6 @@
     <Compile Include="SimpleLine.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.Traversal\DAX.CIM.PhysicalNetworkModel.Traversal.csproj">
-      <Project>{2fe2e018-b583-4561-a141-44a71fefb352}</Project>
-      <Name>DAX.CIM.PhysicalNetworkModel.Traversal</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel\DAX.CIM.PhysicalNetworkModel.csproj">
       <Project>{f8349941-a0f6-4d91-8dfe-998e778b1aee}</Project>
       <Name>DAX.CIM.PhysicalNetworkModel</Name>

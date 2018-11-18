@@ -88,6 +88,7 @@
     <Compile Include="Data\CimJsonFileReader.cs" />
     <Compile Include="Data\TestMRIDs.cs" />
     <Compile Include="FixtureBase.cs" />
+    <Compile Include="TestFeederInfoMES.cs" />
     <Compile Include="TestFeederInfoMLP.cs" />
     <Compile Include="TestFeederInfoHAT_SHO.cs" />
     <Compile Include="TestPetersonCoilABO.cs" />
@@ -132,6 +133,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\hat_sho_anonymized.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\mes_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\mlp_anonymized.jsonl">

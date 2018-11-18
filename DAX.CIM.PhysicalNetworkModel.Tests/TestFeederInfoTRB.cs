@@ -37,12 +37,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
             Assert.AreEqual("259", feeders.Find(f => f.FeederType == FeederType.SecondarySubstation).ConnectionPoint.Substation.name);
             Assert.AreEqual(0, feeders.Count(f => f.FeederType == FeederType.CableBox));
             Assert.IsTrue(feeders[0].ConnectionPoint.Bay.name.StartsWith("1: STIK BYGNING 220"));
-                   
-            // Check if customer if feeded from TRB
-            var custPt = feeders.Find(f => f.FeederType == FeederType.SecondarySubstation).ConnectionPoint.PowerTransformer;
-            feeders = _feederContext.GeConductingEquipmentFeeders(custPt);
-            Assert.AreEqual("TRB", feeders[0].ConnectionPoint.Substation.name);
-            Assert.IsTrue(feeders[0].ConnectionPoint.Bay.name.StartsWith("06: 153"));
 
             // Check 2304 customer connected directly to power transformer
             cust = _context.GetObject<ConductingEquipment>(TestMRIDs.St259_TrafoCustomer);
@@ -53,7 +47,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
             Assert.IsNull(feeders[0].ConnectionPoint.Bay);
 
             // Check if customer if feeded from TRB
-            custPt = feeders.Find(f => f.FeederType == FeederType.SecondarySubstation).ConnectionPoint.PowerTransformer;
+            var custPt = feeders.Find(f => f.FeederType == FeederType.SecondarySubstation).ConnectionPoint.PowerTransformer;
             feeders = _feederContext.GeConductingEquipmentFeeders(custPt);
             Assert.AreEqual("TRB", feeders[0].ConnectionPoint.Substation.name);
             Assert.IsTrue(feeders[0].ConnectionPoint.Bay.name.StartsWith("06: 153"));

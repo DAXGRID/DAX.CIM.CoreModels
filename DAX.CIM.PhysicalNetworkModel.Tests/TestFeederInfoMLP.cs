@@ -17,8 +17,8 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
 
         protected override void SetUp()
         {
-            //var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Data\mlp_anonymized.jsonl"));
-            var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"C:\temp\cim\complete_net_eq.jsonl"));
+            var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Data\mlp_anonymized.jsonl"));
+            //var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"C:\temp\cim\complete_net_eq.jsonl"));
             
             var objects = reader.Read();
 
@@ -27,6 +27,34 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
 
             _feederContext = new FeederInfoContext(_context);
             _feederContext.CreateFeederObjects();
+        }
+
+        [TestMethod]
+        public void SwitchBetweenSwitchTest()
+        {
+            foreach (var cimObj in _context.GetAllObjects())
+            {
+                if (cimObj is Switch)
+                {
+                    var connections = _context.GetConnections(cimObj);
+
+                    int neighborSwCount = 0;
+
+                    foreach (var con in connections)
+                    {
+                        var cnSwCnt = con.ConnectivityNode.GetNeighborConductingEquipments().Count(c => c is Switch);
+
+                        if (cnSwCnt > 1)
+                            neighborSwCount++;
+                    }
+
+                    if (neighborSwCount > 1)
+                    {
+                        System.Diagnostics.Debug.WriteLine("'" + cimObj.mRID + "',");
+                    }
+                }
+            }
+
         }
 
         [TestMethod]

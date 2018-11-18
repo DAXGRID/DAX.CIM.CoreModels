@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DAX.CIM.PhysicalNetworkModel.FeederInfo</name>
+    </assembly>
+    <members>
+        <member name="T:DAX.CIM.PhysicalNetworkModel.FeederInfo.FeederInfo">
+            <summary>
+            Fat class to hold simplified/flatten-out feeder information that many non-electrical external systems are hungry for.
+            </summary>
+        </member>
+        <member name="M:DAX.CIM.PhysicalNetworkModel.FeederInfo.FeederInfo.CreateFeederInfosFromEquipment(DAX.CIM.PhysicalNetworkModel.FeederInfo.FeederInfoContext,DAX.CIM.PhysicalNetworkModel.Equipment)">
+            <summary>
+            Creates one or more feeder ínfo objects for a given PNM equipment object.
+            If the PNM object is not feeded, a feeder info object with NoFeed = true is returned.
+            If the PNM object is multi feeded, a feeder into object with MultiFeed = true is returned for each source feeding the object.
+            </summary>
+            <param name="cimContext"></param>
+            <param name="eq"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

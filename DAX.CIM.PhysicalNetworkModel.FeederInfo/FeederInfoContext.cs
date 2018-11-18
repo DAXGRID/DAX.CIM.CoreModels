@@ -52,7 +52,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         private void CreateConnectionPointsAndFeeders()
         {
-            // Create feeder connection points in all substation objects
+            // Create feeder connection points in all substations
             foreach (var obj in _cimContext.GetAllObjects())
             {
                 if (obj is Substation)
@@ -82,7 +82,9 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                     {
                                         var cp = CreateConnectionPoint(ConnectionPointKind.Line, cnTc.ConnectivityNode, st, stEq.GetBay(false,_cimContext));
 
-                                        CreateFeeder(cp, cnTc.ConductingEquipment);
+                                        // Don't add feeders where bays are connected to an external network injection
+                                        if (!(cnTc.ConductingEquipment is ExternalNetworkInjection))
+                                            CreateFeeder(cp, cnTc.ConductingEquipment);
                                     }
                                 }
                             }
@@ -91,7 +93,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 }
             }
 
-            // Create trafo connection points in all substation objects
+            // Create trafo connection points in all substation
             foreach (var obj in _cimContext.GetAllObjects())
             {
                 if (obj is PowerTransformer)
@@ -129,13 +131,12 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                     // Find terminal 1
                     if (sourceConnections.Exists(c => c.Terminal.sequenceNumber == "1"))
                     {
-                        var trafoTerminal2Connection = sourceConnections.First(c => c.Terminal.sequenceNumber == "1");
+                        var extTerminal2Connection = sourceConnections.First(c => c.Terminal.sequenceNumber == "1");
 
-                        if (!_connectionPoints.ContainsKey(trafoTerminal2Connection.ConnectivityNode))
-                        {
-                            var cp = CreateConnectionPoint(ConnectionPointKind.ExternalNetworkInjection, trafoTerminal2Connection.ConnectivityNode, null, null);
+                      
+                            var cp = CreateConnectionPoint(ConnectionPointKind.ExternalNetworkInjection, extTerminal2Connection.ConnectivityNode, null, null);
                             CreateFeeder(cp, source);
-                        }
+                      
                     }
                 }
             }
@@ -143,11 +144,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         private ConnectionPoint CreateConnectionPoint(ConnectionPointKind kind, ConnectivityNode cn, Substation st, Bay bay)
         {
-
-            if (st.mRID == "59c15301-79a5-4b2a-9cb3-b58dcdd640d3")
-            {
-            }
-
             if (!_connectionPoints.ContainsKey(cn))
             {
                 var newCp = new ConnectionPoint() { Kind = kind, ConnectivityNode = cn, Substation = st, Bay = bay };
@@ -297,7 +293,10 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                 if (cp.Kind == ConnectionPointKind.Line || cp.Kind == ConnectionPointKind.ExternalNetworkInjection)
                 {
-                    
+                    if (cp.Substation.name == "259")
+                    {
+                    }
+
                     foreach (var feeder in cp.Feeders)
                     {
                         if (feeder.ConductingEquipment is ExternalNetworkInjection)
