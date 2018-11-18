@@ -1,4 +1,7 @@
-﻿namespace DAX.CIM.PhysicalNetworkModel
+﻿using DAX.CIM.PhysicalNetworkModel.Traversal;
+using System.Collections.Generic;
+
+namespace DAX.CIM.PhysicalNetworkModel
 {
     /// <summary>
     /// A modeling construct to provide a root class for containing equipment.
@@ -11,5 +14,27 @@
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public abstract partial class EquipmentContainer : ConnectivityNodeContainer
     {
+        internal string NameTraverse(List<IdentifiedObject> visitedEquipments, string name)
+        {
+            var context = CimContext.GetCurrent();
+
+            if (!visitedEquipments.Contains(this))
+            {
+                visitedEquipments.Add(this);
+
+                name = this.name + ' ' + name;
+
+                if (Parent != null)
+                    return (Parent.NameTraverse(visitedEquipments, name));
+                else
+                    return name;
+            }
+            else
+            {
+                return name;
+            }
+        }
     }
+
+
 }
