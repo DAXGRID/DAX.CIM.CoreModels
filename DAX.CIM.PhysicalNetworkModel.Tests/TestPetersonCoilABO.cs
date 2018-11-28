@@ -53,8 +53,16 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
 
             // Check that disconnector is connected to trafo
             Assert.IsTrue(traf1coilDisConnections.Exists(o => stAboTrafo1Connections.Exists(d => d.ConnectivityNode == o.ConnectivityNode)), "No connection from coil disconnector to trafo");
-            
+
+            var acls60k = _context.GetNeighborConductingEquipments(stAboTrafo1).Find(o => o.BaseVoltage == 60000);
+
+            var acls60kNeighbors = _context.GetNeighborConductingEquipments(acls60k);
+
+            // check that trafo 1 is feeded
+            //Assert.IsTrue(stAboTrafo1.Feeders.Count == 1);
 
         }
+
+
     }
 }

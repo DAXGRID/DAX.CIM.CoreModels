@@ -46,6 +46,8 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
 
         public abstract List<IdentifiedObject> GetAllObjects();
 
+        public abstract List<ConductingEquipment> GetNeighborConductingEquipments(ConductingEquipment ci);
+
         public abstract List<TerminalConnection> GetConnections(ConductingEquipment ci);
 
         public abstract List<TerminalConnection> GetConnections(ConnectivityNode cn);

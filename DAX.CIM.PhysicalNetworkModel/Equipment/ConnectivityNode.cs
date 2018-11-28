@@ -7,5 +7,9 @@
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
     public partial class ConnectivityNode : IdentifiedObject
     {
+        public override string ToString()
+        {
+            return this.GetType().Name + " mRID=" + mRID;
+        }
     }
 }

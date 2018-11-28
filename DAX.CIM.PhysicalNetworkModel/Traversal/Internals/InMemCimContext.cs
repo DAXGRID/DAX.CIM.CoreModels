@@ -354,6 +354,34 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
             terminal.ConnectivityNode = null;
         }
 
+        /// <summary>
+        /// Get the neighbors of a conducting equipment.
+        /// </summary>
+        /// <param name="ci"></param>
+        /// <returns></returns>
+        public override List<ConductingEquipment> GetNeighborConductingEquipments(ConductingEquipment ci)
+        {
+            List<ConductingEquipment> result = new List<ConductingEquipment>();
+
+            var ciConnections = GetConnections(ci);
+
+            foreach (var ciConnection in ciConnections)
+            {
+                if (ciConnection.ConnectivityNode != null)
+                {
+                    var ciCnConnections = GetConnections(ciConnection.ConnectivityNode);
+
+                    foreach (var ciCnConnection in ciCnConnections)
+                    {
+                        if (ciCnConnection.ConductingEquipment != null && ciCnConnection.ConductingEquipment != ci)
+                            result.Add(ciCnConnection.ConductingEquipment);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public override double Tolerance => 0.00001;
     }
 }

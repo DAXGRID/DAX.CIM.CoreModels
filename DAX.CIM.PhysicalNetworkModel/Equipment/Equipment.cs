@@ -115,7 +115,10 @@ namespace DAX.CIM.PhysicalNetworkModel
             {
                 visitedEquipments.Add(this);
 
-                name = this.name;
+                if (this != null)
+                    name = this.name;
+                else
+                    name = "NULL";
 
                 if (this is LoadBreakSwitch)
                     name = "LAST " + name;
@@ -127,9 +130,12 @@ namespace DAX.CIM.PhysicalNetworkModel
                     name = "SIK " + name;
                 else if (this is BusbarSection)
                     name = "SKINNE " + name;
+                else if (this is ACLineSegment)
+                    name = "ACLS " + name;
+                else if (this is ConnectivityNode)
+                    name = "CN " + name;
 
-
-                if (EquipmentContainer.@ref != null)
+                if (EquipmentContainer != null && EquipmentContainer.@ref != null)
                 {
                     var ec = context.GetObject<EquipmentContainer>(EquipmentContainer.@ref);
                     return (ec.NameTraverse(visitedEquipments, name));
@@ -142,5 +148,13 @@ namespace DAX.CIM.PhysicalNetworkModel
                 return name;
             }
         }
+
+
+        public override string ToString()
+        {
+            return this.GetType().Name + ": " + PathName + " PSRType=" + this.PSRType + " mRID=" + mRID;
+        }
     }
+
+  
 }

@@ -293,7 +293,8 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                 if (cp.Kind == ConnectionPointKind.Line || cp.Kind == ConnectionPointKind.ExternalNetworkInjection)
                 {
-                    if (cp.Substation.name == "259")
+                    // 08
+                    if (cp.Substation.name == "ÅSP" && cp.Bay.name != null && cp.Bay.name.Contains("08"))
                     {
                     }
 
@@ -371,6 +372,14 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                         foreach (var cimObj in traceResult)
                         {
+                            if (cimObj is Equipment)
+                            {
+                                var pathName = ((Equipment)cimObj).PathName;
+                            }
+                        }
+
+                            foreach (var cimObj in traceResult)
+                        {
                             // kabel før trafo 2 i sho
                             if (cimObj.mRID == "eb0bed2f-0779-4a2e-ba56-bc2199666509")
                             {
@@ -399,25 +408,26 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                             {
                                 var ce = cimObj as ConductingEquipment;
 
-                                // acls feeder by byg, that don't get feeder
-                                if (ce.mRID == "cbfe60cc-e56c-40ef-a525-10abde3b81e8")
+                                if (ce.IsInsideSubstation(_cimContext) && ce.GetSubstation(false, _cimContext).name == "631" && ce.GetSubstation(false, _cimContext).PSRType == "SecondarySubstation")
+                                {
+                                }
+
+                                if (ce.IsInsideSubstation(_cimContext) && ce.GetSubstation(false, _cimContext).name == "4983" && ce.GetSubstation(false, _cimContext).PSRType == "SecondarySubstation")
+                                {
+                                }
+
+                                if (ce.IsInsideSubstation(_cimContext) && ce.GetSubstation(false, _cimContext).name == "1502" && ce.GetSubstation(false, _cimContext).PSRType == "SecondarySubstation")
                                 {
                                 }
 
                                 AssignFeederToConductingEquipment(ce, feeder);
 
-                                // If a busbar add feeder to substation as well
-                                if (ce is BusbarSection)
+                                // If a busbar or powertransformer inside substation container add feeder to substation as well
+                                if ((ce is BusbarSection || ce is PowerTransformer) && ce.IsInsideSubstation(_cimContext))
                                 {
                                     var st = ce.GetSubstation(false, _cimContext);
 
-                                    if (st != null)
-                                    {
-                                        if (st.InternalFeeders == null)
-                                            st.InternalFeeders = new List<Feeder>();
-
-                                        st.Feeders.Add(feeder);
-                                    }
+                                    AssignFeederToSubstation(st, feeder);
                                 }
                             }
                         }
@@ -492,6 +502,20 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             {
                 if (!ce.InternalFeeders.Contains(feeder))
                     ce.InternalFeeders.Add(feeder);
+            }
+        }
+
+        private void AssignFeederToSubstation(Substation st, Feeder feeder)
+        {
+            // Add to internal feeder list
+            if (st.InternalFeeders == null)
+                st.InternalFeeders = new List<Feeder>();
+
+            // Only add feeder if conducting equipment not already added to a feeder attached to the same connectivity node
+            if (st.InternalFeeders.Count(f => f.ConnectionPoint == feeder.ConnectionPoint) == 0)
+            {
+                if (!st.InternalFeeders.Contains(feeder))
+                    st.InternalFeeders.Add(feeder);
             }
         }
 
