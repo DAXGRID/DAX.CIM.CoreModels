@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAX.CIM.PhysicalNetworkModel
 {
-    public partial class CableInfo : WireInfo
+    public partial class CableInfo : WireInfoExt
     {
         private CableOuterJacketKind outerJacketKindField;
 

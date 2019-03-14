@@ -9,7 +9,7 @@ namespace DAX.CIM.PhysicalNetworkModel
 
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public partial class OverheadWireInfoExt : WireInfo
+    public partial class OverheadWireInfoExt : WireInfoExt
     {
         private int conductorCountField;
 
