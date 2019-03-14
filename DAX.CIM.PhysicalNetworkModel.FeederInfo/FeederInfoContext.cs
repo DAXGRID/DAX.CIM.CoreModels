@@ -100,21 +100,27 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 {
                     var trafo = obj as PowerTransformer;
                     var st = trafo.GetSubstation(false, _cimContext);
-                    var trafoConnections = _cimContext.GetConnections(trafo);
 
-                    // Find terminal 2
-                    if (trafoConnections.Exists(c => c.Terminal.sequenceNumber == "2"))
+                    // Check if local transformer, then don't create connection point
+                    //if (trafo.GetNeighborConductingEquipments(_cimContext).Exists(o => o.BaseVoltage == st.GetPrimaryVoltageLevel(_cimContext)))
+                    if (trafo.name != null && !trafo.name.ToLower().Contains("lokal"))
                     {
-                        var trafoTerminal2Connection = trafoConnections.First(c => c.Terminal.sequenceNumber == "2");
+                        var trafoConnections = _cimContext.GetConnections(trafo);
 
-                        if (!_connectionPoints.ContainsKey(trafoTerminal2Connection.ConnectivityNode))
+                        // Find terminal 2
+                        if (trafoConnections.Exists(c => c.Terminal.sequenceNumber == "2"))
                         {
-                            var cp = CreateConnectionPoint(ConnectionPointKind.PowerTranformer, trafoTerminal2Connection.ConnectivityNode, st, null);
-                            CreateFeeder(cp, trafo);
-                        }
-                        else
-                        {
+                            var trafoTerminal2Connection = trafoConnections.First(c => c.Terminal.sequenceNumber == "2");
 
+                            if (!_connectionPoints.ContainsKey(trafoTerminal2Connection.ConnectivityNode))
+                            {
+                                var cp = CreateConnectionPoint(ConnectionPointKind.PowerTranformer, trafoTerminal2Connection.ConnectivityNode, st, null);
+                                CreateFeeder(cp, trafo);
+                            }
+                            else
+                            {
+
+                            }
                         }
                     }
                 }
@@ -263,7 +269,12 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 {
                     var pt = obj as PowerTransformer;
 
-                    var traceResult = pt.Traverse(ce =>
+                    // Check if local transformer, then don't create connection point
+                    //if (pt.GetNeighborConductingEquipments(_cimContext).Exists(o => o.BaseVoltage == pt.GetSubstation(true, _cimContext).GetPrimaryVoltageLevel(_cimContext)))
+                    if (pt.name != null && !pt.name.ToLower().Contains("lokal"))
+                    {
+
+                        var traceResult = pt.Traverse(ce =>
                         ce.IsInsideSubstation(_cimContext) &&
                         !ce.IsOpen() &&
                         ce.BaseVoltage < pt.GetSubstation(true, _cimContext).GetPrimaryVoltageLevel(_cimContext),
@@ -272,12 +283,13 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         _cimContext
                      ).ToList();
 
-                    foreach (var cimObj in traceResult)
-                    {
-                        if (cimObj is ConnectivityNode && _connectionPoints.ContainsKey((ConnectivityNode)cimObj))
+                        foreach (var cimObj in traceResult)
                         {
-                            var cp = _connectionPoints[(ConnectivityNode)cimObj];
-                            cp.PowerTransformer = pt;
+                            if (cimObj is ConnectivityNode && _connectionPoints.ContainsKey((ConnectivityNode)cimObj))
+                            {
+                                var cp = _connectionPoints[(ConnectivityNode)cimObj];
+                                cp.PowerTransformer = pt;
+                            }
                         }
                     }
                 }
@@ -372,34 +384,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                         foreach (var cimObj in traceResult)
                         {
-                            if (cimObj is Equipment)
-                            {
-                                var pathName = ((Equipment)cimObj).PathName;
-                            }
-                        }
-
-                            foreach (var cimObj in traceResult)
-                        {
-                            // kabel før trafo 2 i sho
-                            if (cimObj.mRID == "eb0bed2f-0779-4a2e-ba56-bc2199666509")
-                            {
-                                var connections = _cimContext.GetConnections(cimObj);
-                                /*
-                                foreach (var cn in connections)
-                                {
-                                    var connections2 = _cimContext.GetConnections(cn.ConnectivityNode);
-
-                                    foreach (var cn2 in connections2)
-                                    {
-                                        if (cn2.ConductingEquipment is PowerTransformer)
-                                        {
-                                            var st = cn2.ConductingEquipment.GetSubstation();
-                                            var isst = cn2.ConductingEquipment.IsInsideSubstation();
-                                        }
-                                    }
-                                }
-                                */
-                            }
 
                             if (cimObj is EnergyConsumer)
                                 energyConsumerCount++;
@@ -407,18 +391,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                             if (cimObj is ConductingEquipment)
                             {
                                 var ce = cimObj as ConductingEquipment;
-
-                                if (ce.IsInsideSubstation(_cimContext) && ce.GetSubstation(false, _cimContext).name == "631" && ce.GetSubstation(false, _cimContext).PSRType == "SecondarySubstation")
-                                {
-                                }
-
-                                if (ce.IsInsideSubstation(_cimContext) && ce.GetSubstation(false, _cimContext).name == "4983" && ce.GetSubstation(false, _cimContext).PSRType == "SecondarySubstation")
-                                {
-                                }
-
-                                if (ce.IsInsideSubstation(_cimContext) && ce.GetSubstation(false, _cimContext).name == "1502" && ce.GetSubstation(false, _cimContext).PSRType == "SecondarySubstation")
-                                {
-                                }
 
                                 AssignFeederToConductingEquipment(ce, feeder);
 

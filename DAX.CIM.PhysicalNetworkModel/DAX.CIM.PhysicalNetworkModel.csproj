@@ -31,18 +31,6 @@
     <DocumentationFile>bin\Release\DAX.CIM.PhysicalNetworkModel.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.3.2\lib\NET45\DAX.CIM.PhysicalNetworkModel.dll</HintPath>
-    </Reference>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel.FeederInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.3.2\lib\NET45\DAX.CIM.PhysicalNetworkModel.FeederInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel.LineInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.3.2\lib\NET45\DAX.CIM.PhysicalNetworkModel.LineInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="DAX.CIM.PhysicalNetworkModel.Traversal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.CIM.PhysicalNetworkModel.2.3.2\lib\NET45\DAX.CIM.PhysicalNetworkModel.Traversal.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -64,6 +52,7 @@
     <Compile Include="Changes\ObjectReverseModification.cs" />
     <Compile Include="Changes\PropertyModification.cs" />
     <Compile Include="Changes\TargetObject.cs" />
+    <Compile Include="Extensions\WireInfoExt.cs" />
     <Compile Include="Traversal\BasicTraversal.cs" />
     <Compile Include="Traversal\CimContext.cs" />
     <Compile Include="Equipment\ACDCTerminal.cs" />
@@ -205,6 +194,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Protection\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

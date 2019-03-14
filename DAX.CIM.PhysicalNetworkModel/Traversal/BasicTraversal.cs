@@ -40,6 +40,12 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
             {
                 IdentifiedObject p = stack.Pop();
 
+                // slet mig - adskiller i byg
+                if (p.mRID == "c8224724-86b7-4223-90d1-7d21c8728242")
+                {
+
+                }
+
                 traverseOrder.Enqueue(p);
 
                 var connections = context.GetConnections(p);

@@ -26,7 +26,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             // To support substations that have no voltage levels
             if (voltageLevel == 0)
             {
-                var eq = st.GetEquipments().Find(cimOBj => cimOBj is PowerTransformer);
+                var eq = st.GetEquipments().Find(cimOBj => cimOBj is PowerTransformer && cimOBj.name != null && !cimOBj.name.ToLower().Contains("lokal"));
                 if (eq != null)
                 {
                     PowerTransformer pt = eq as PowerTransformer;

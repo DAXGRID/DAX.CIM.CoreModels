@@ -37,8 +37,8 @@ namespace DAX.CIM.PhysicalNetworkModel.LineInfo.Tests
             var line = lines.Find(l => l.Name == "637-5465");
             Assert.IsNotNull(line);
 
-            // line consist of 33 ACLS's
-            Assert.AreEqual(33, line.Children.Count);
+            // line consist more than 30 ACLS's
+            Assert.IsTrue(line.Children.Count > 30);
         }
     }
 }

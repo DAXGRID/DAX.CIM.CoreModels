@@ -33,7 +33,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests
             var stByg = _context.GetObject<Substation>("82c69b59-0098-4e02-8bf9-5b12efbec42a");
             Assert.IsNotNull(stByg);
 
-            var stBygTrafo1 = _context.GetObject<PowerTransformer>("2d53c2b6-e8c8-461e-b611-9880bcd83e28");
+            var stBygTrafo1 = _context.GetObject<PowerTransformer>("e4aa6412-6faf-44b9-a369-4f3abad57e93");
             var stBygTrafo1Connections = _context.GetConnections(stBygTrafo1);
 
             // Check that acls from statin if feedeed from trao
