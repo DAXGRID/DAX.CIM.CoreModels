@@ -12,43 +12,52 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
     [TestClass]
     public class TestFeederInfoCompleteNet : FixtureBase
     {
+        // Only run as part of konstant test
+        bool run = false;
+
         CimContext _context;
         FeederInfoContext _feederContext;
 
         protected override void SetUp()
         {
-            var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"C:\temp\nrgi\context-manager-cache-directory\data-18122.jsonl"));
-            
-            var objects = reader.Read();
+            if (run)
+            {
+                var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"C:\temp\nrgi\context-manager-cache-directory\data-18122.jsonl"));
 
-            _context = CimContext.Create(objects);
-            Using(_context);
+                var objects = reader.Read();
 
-            _feederContext = new FeederInfoContext(_context);
-            _feederContext.CreateFeederObjects();
+                _context = CimContext.Create(objects);
+                Using(_context);
+
+                _feederContext = new FeederInfoContext(_context);
+                _feederContext.CreateFeederObjects();
+            }
         }
 
         [TestMethod]
         public void MES_MultipleCablesFromSourceTest()
         {
-            // MES has a source that is connected to two different busbars with 2 cables.
-            // We like to test that feeder info processor don't do multi feed on the HV network from that source
 
-            // Check that HV cable is single feeded from MES source
-            var cable = _context.GetObject<ConductingEquipment>("5fd4f41a-3e6c-4c64-92f4-b25829b492bc") as ACLineSegment;
+            if (run)
+            {
+                // MES has a source that is connected to two different busbars with 2 cables.
+                // We like to test that feeder info processor don't do multi feed on the HV network from that source
 
-            var feeders = _feederContext.GeConductingEquipmentFeeders(cable);
-            Assert.AreEqual(1, feeders.Count);
+                // Check that HV cable is single feeded from MES source
+                var cable = _context.GetObject<ConductingEquipment>("5fd4f41a-3e6c-4c64-92f4-b25829b492bc") as ACLineSegment;
 
-            var feederInfos = FeederInfo.FeederInfo.CreateFeederInfosFromEquipment(_feederContext, cable);
-            Assert.AreEqual(1, feederInfos.Count);
+                var feeders = _feederContext.GeConductingEquipmentFeeders(cable);
+                Assert.AreEqual(1, feeders.Count);
 
-            var allFeeders = _feederContext.GetConductionEquipmentFeeders();
+                var feederInfos = FeederInfo.FeederInfo.CreateFeederInfosFromEquipment(_feederContext, cable);
+                Assert.AreEqual(1, feederInfos.Count);
 
-            var allFeedersForCable = allFeeders.Where(f => f.Key == cable).ToList();
-            Assert.AreEqual(1, allFeedersForCable.Count);
-            Assert.AreEqual(1, allFeedersForCable[0].Value.Count);
+                var allFeeders = _feederContext.GetConductionEquipmentFeeders();
 
+                var allFeedersForCable = allFeeders.Where(f => f.Key == cable).ToList();
+                Assert.AreEqual(1, allFeedersForCable.Count);
+                Assert.AreEqual(1, allFeedersForCable[0].Value.Count);
+            }
         }
     }
 
