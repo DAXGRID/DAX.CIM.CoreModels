@@ -23,7 +23,16 @@
 
         private string maintainerField;
 
+        private string manufacturerNameField;
+
+        private string assetModelNameField;
+
         private AssetAssetInfo assetInfoField;
+
+        private AssetModel[] assetModelField;
+
+        private Manufacturer[] manufacturerField;
+
 
         public string owner
         {
@@ -35,6 +44,18 @@
         {
             get { return maintainerField; }
             set { maintainerField = value; }
+        }
+
+        public string manufacturerName
+        {
+            get { return this.manufacturerNameField; }
+            set { manufacturerNameField = value; }
+        }
+
+        public string assetModeName
+        {
+            get { return assetModelNameField; }
+            set { assetModelNameField = value; }
         }
 
         /// <remarks/>
@@ -99,6 +120,20 @@
             set
             {
                 this.assetInfoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("AssetModel")]
+        public AssetModel[] AssetModel
+        {
+            get
+            {
+                return this.assetModelField;
+            }
+            set
+            {
+                this.assetModelField = value;
             }
         }
 

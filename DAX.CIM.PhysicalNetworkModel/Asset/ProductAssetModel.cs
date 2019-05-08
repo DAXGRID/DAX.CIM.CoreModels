@@ -6,28 +6,25 @@ using System.Threading.Tasks;
 
 namespace DAX.CIM.PhysicalNetworkModel
 {
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public class AssetInfo : IdentifiedObject
+    public class ProductAssetModel : AssetModel
     {
-        private AssetInfoAssetModel assetModelField;
+        private ProductAssetModelManufacturer manufacturerField;
 
         /// <remarks/>
-        public AssetInfoAssetModel AssetModel
+        public ProductAssetModelManufacturer Manufacturer
         {
             get
             {
-                return this.assetModelField;
+                return this.manufacturerField;
             }
             set
             {
-                this.assetModelField = value;
+                this.manufacturerField = value;
             }
         }
     }
 
-    public partial class AssetInfoAssetModel
+    public partial class ProductAssetModelManufacturer
     {
 
         private string referenceTypeField;

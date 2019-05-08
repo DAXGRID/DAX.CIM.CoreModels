@@ -156,15 +156,18 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 _connectionPoints[cn] = newCp;
 
                 // Add to station dict
-                if (!_stConnectionPoints.ContainsKey(st))
-                    _stConnectionPoints[st] = new List<ConnectionPoint>();
+                if (st != null)
+                {
+                    if (!_stConnectionPoints.ContainsKey(st))
+                        _stConnectionPoints[st] = new List<ConnectionPoint>();
 
-                _stConnectionPoints[st].Add(newCp);
+                    _stConnectionPoints[st].Add(newCp);
 
-                if (st.ConnectionPoints == null)
-                    st.ConnectionPoints = new List<ConnectionPoint>();
+                    if (st.ConnectionPoints == null)
+                        st.ConnectionPoints = new List<ConnectionPoint>();
 
-                st.ConnectionPoints.Add(newCp);
+                    st.ConnectionPoints.Add(newCp);
+                }
 
                 return newCp;
             }
@@ -305,11 +308,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                 if (cp.Kind == ConnectionPointKind.Line || cp.Kind == ConnectionPointKind.ExternalNetworkInjection)
                 {
-                    // 08
-                    if (cp.Substation.name == "ÅSP" && cp.Bay.name != null && cp.Bay.name.Contains("08"))
-                    {
-                    }
-
                     foreach (var feeder in cp.Feeders)
                     {
                         if (feeder.ConductingEquipment is ExternalNetworkInjection)

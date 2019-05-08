@@ -81,14 +81,22 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
                         {
                             Terminal = terminal,
                             ConductingEquipment = GetObject<ConductingEquipment>(terminal.ConductingEquipment.@ref),
-                            ConnectivityNode = GetObject<ConnectivityNode>(terminal.ConnectivityNode.@ref)
+                            ConnectivityNode = null
                         };
 
+                        if (terminal.ConnectivityNode != null && terminal.ConnectivityNode.@ref != null && _objects.ContainsKey(terminal.ConnectivityNode.@ref))
+                        {
+                            tc.ConnectivityNode = GetObject<ConnectivityNode>(terminal.ConnectivityNode.@ref);
+                        }
+
                         // Upsert connectivity node connections
-                        if (!_connectivityNodeConnections.ContainsKey(tc.ConnectivityNode))
-                            _connectivityNodeConnections[tc.ConnectivityNode] = new List<TerminalConnection> { tc };
-                        else
-                            _connectivityNodeConnections[tc.ConnectivityNode].Add(tc);
+                        if (tc.ConnectivityNode != null)
+                        {
+                            if (!_connectivityNodeConnections.ContainsKey(tc.ConnectivityNode))
+                                _connectivityNodeConnections[tc.ConnectivityNode] = new List<TerminalConnection> { tc };
+                            else
+                                _connectivityNodeConnections[tc.ConnectivityNode].Add(tc);
+                        }
 
                         // Upsert conducting equipment connections
                         if (!_conductingEquipmentConnections.ContainsKey(tc.ConductingEquipment))
@@ -237,7 +245,9 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Internals
         public override List<TerminalConnection> GetConnections(ConductingEquipment ci)
         {
             if (_conductingEquipmentConnections.ContainsKey(ci))
-                return _conductingEquipmentConnections[ci];
+            {
+                    return _conductingEquipmentConnections[ci];
+            }
             else
                 return new List<TerminalConnection>();
         }

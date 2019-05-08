@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAX.CIM.PhysicalNetworkModel
+﻿namespace DAX.CIM.PhysicalNetworkModel
 {
-    /// <remarks/>
+    /// <summary>
+    /// </summary>
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
-    public class AssetInfo : IdentifiedObject
+    public partial class ProtectionEquipment : Equipment
     {
-        private AssetInfoAssetModel assetModelField;
+
+        private ProtectionEquipmentProtectedSwitches[] protectedSwitchesField;
 
         /// <remarks/>
-        public AssetInfoAssetModel AssetModel
+        [System.Xml.Serialization.XmlElementAttribute("ProtectedSwitches")]
+        public ProtectionEquipmentProtectedSwitches[] ProtectedSwitches
         {
             get
             {
-                return this.assetModelField;
+                return this.protectedSwitchesField;
             }
             set
             {
-                this.assetModelField = value;
+                this.protectedSwitchesField = value;
             }
         }
     }
 
-    public partial class AssetInfoAssetModel
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://daxgrid.net/PhysicalNetworkModel_0_1")]
+    public partial class ProtectionEquipmentProtectedSwitches
     {
 
         private string referenceTypeField;
