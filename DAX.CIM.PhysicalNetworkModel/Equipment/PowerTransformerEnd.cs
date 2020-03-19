@@ -37,6 +37,34 @@
 
         private PowerTransformerEndPowerTransformer powerTransformerField;
 
+        private bool groundedField;
+
+        private string connectionKindField;
+
+        public bool grounded
+        {
+            get
+            {
+                return this.groundedField;
+            }
+            set
+            {
+                this.groundedField = value;
+            }
+        }
+
+        public string connectionKind
+        {
+            get
+            {
+                return this.connectionKindField;
+            }
+            set
+            {
+                this.connectionKindField = value;
+            }
+        }
+
         /// <remarks/>
         public Susceptance b
         {

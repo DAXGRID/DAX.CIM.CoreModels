@@ -12,6 +12,8 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
         readonly Dictionary<ConductingEquipment, List<Feeder>> _conductingEquipmentFeeders = new Dictionary<ConductingEquipment, List<Feeder>>();
         readonly CimContext _cimContext;
 
+        private bool _treatTJunctionsAsCabinets = false;
+
         public FeederInfoContext(CimContext cimContext)
         {
             _cimContext = cimContext;
@@ -19,9 +21,20 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         public List<Feeder> GetFeeders()
         {
-            return _conductingEquipmentFeeders
-                .SelectMany(f => f.Value)
-                .ToList();
+            Dictionary<string, Feeder> result = new Dictionary<string, Feeder>();
+
+            foreach (var connectionPoint in _connectionPoints)
+            {
+                foreach (var feeder in connectionPoint.Value.Feeders)
+                {
+                    if (!result.ContainsKey(feeder.ConductingEquipment.mRID))
+                    {
+                        result.Add(feeder.ConductingEquipment.mRID, feeder);
+                    }
+                }
+            }
+
+            return result.Values.ToList();
         }
 
         public Dictionary<ConductingEquipment, List<Feeder>> GetConductionEquipmentFeeders()
@@ -29,8 +42,10 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             return _conductingEquipmentFeeders;
         }
         
-        public void CreateFeederObjects()
+        public void CreateFeederObjects(bool treatTJunctionsAsCabinets = false)
         {
+            _treatTJunctionsAsCabinets = treatTJunctionsAsCabinets;
+
             CreateConnectionPointsAndFeeders();
             SubstationInternalPowerTransformerTrace();
             TraceAllFeeders();
@@ -202,7 +217,8 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 conductingEquipment != null &&
                 connectionPoint.Substation != null && 
                 connectionPoint.Substation.PSRType == "PrimarySubstation" && 
-                conductingEquipment.BaseVoltage < connectionPoint.Substation.GetPrimaryVoltageLevel(_cimContext))
+                ((conductingEquipment.BaseVoltage < connectionPoint.Substation.GetPrimaryVoltageLevel(_cimContext)) || conductingEquipment.BaseVoltage < 20000)
+                )
             {
                 var feeder = new Feeder()
                 {
@@ -233,17 +249,16 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 connectionPoint.AddFeeder(feeder);
             }
 
-            // Cable box
+            // Cable box (and t-junctions if treated as cable boxed)
             if (connectionPoint != null &&
                 conductingEquipment != null &&
                 connectionPoint.Substation != null &&
-                connectionPoint.Substation.PSRType == "CableBox")
+                (connectionPoint.Substation.PSRType == "CableBox" || (connectionPoint.Substation.PSRType == "T-Junction" && _treatTJunctionsAsCabinets)))
             {
                 // We need to do a trace to figure out if it's a customer feeder
-              
                 var traceResult = conductingEquipment.Traverse(
-                    ci => (!ci.IsInsideSubstation(_cimContext) || (ci.IsInsideSubstation(_cimContext) && ci.GetSubstation(true,_cimContext).PSRType == "T-Junction")), 
-                    cn => (!cn.IsInsideSubstation(_cimContext) || (cn.IsInsideSubstation(_cimContext) && cn.GetSubstation(true,_cimContext).PSRType == "T-Junction")),
+                    ci => (!ci.IsInsideSubstation(_cimContext) || (!_treatTJunctionsAsCabinets && ci.IsInsideSubstation(_cimContext) && ci.GetSubstation(true,_cimContext).PSRType == "T-Junction")), 
+                    cn => (!cn.IsInsideSubstation(_cimContext) || (!_treatTJunctionsAsCabinets && cn.IsInsideSubstation(_cimContext) && cn.GetSubstation(true,_cimContext).PSRType == "T-Junction")),
                     false,
                     _cimContext
                 ).ToList();
@@ -310,16 +325,13 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 {
                     foreach (var feeder in cp.Feeders)
                     {
-                        if (feeder.ConductingEquipment is ExternalNetworkInjection)
-                        {
-
-                        }
-
                         HashSet<string> nodeTypesToPass = new HashSet<string>();
 
                         if (feeder.FeederType == FeederType.NetworkInjection)
                         {
+                            // Pass both primary and secondary, because injection might be placed on secondary side in a primary substation, like Konstants's Anholt injection
                             nodeTypesToPass.Add("PrimarySubstation");
+                            nodeTypesToPass.Add("SecondarySubstation");
                             nodeTypesToPass.Add("Tower");
                         }
                         else if (feeder.FeederType == FeederType.PrimarySubstation)
@@ -340,9 +352,10 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                             nodeTypesToPass.Add("T-Junction");
                         }
                         else if (feeder.FeederType == FeederType.CableBox)
-                        {
-                            // CableBox we should not pass though nodes.
-                            nodeTypesToPass.Add("T-Junction");
+                        { 
+                            // Pass t-junctions, unless they should be treated as cable boxes
+                            if (!_treatTJunctionsAsCabinets)
+                                nodeTypesToPass.Add("T-Junction");
                         }
 
                         // Regarding the trace:

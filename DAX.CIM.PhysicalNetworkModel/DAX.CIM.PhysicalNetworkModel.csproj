@@ -66,6 +66,7 @@
     <Compile Include="Equipment\PotentialTransformer.cs" />
     <Compile Include="Extensions\ProtectionEquipmentExt.cs" />
     <Compile Include="Extensions\WireInfoExt.cs" />
+    <Compile Include="MeterTopology\MeterTopology.cs" />
     <Compile Include="Protection\ProtectionEquipment.cs" />
     <Compile Include="Traversal\BasicTraversal.cs" />
     <Compile Include="Traversal\CimContext.cs" />
