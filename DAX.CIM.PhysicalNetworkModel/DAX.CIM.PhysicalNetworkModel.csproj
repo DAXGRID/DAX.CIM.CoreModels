@@ -39,12 +39,17 @@
   <ItemGroup>
     <Compile Include="Asset\AssetInfo.cs" />
     <Compile Include="Asset\AssetModel .cs" />
-    <Compile Include="Asset\PetersonCoilInfoExt.cs" />
+    <Compile Include="Asset\BusbarSectionInfo.cs" />
+    <Compile Include="Extensions\AssetExt.cs" />
+    <Compile Include="Extensions\UsagePointExt.cs" />
+    <Compile Include="Extensions\SwitchInfoExt.cs" />
+    <Compile Include="Asset\SwitchInfo.cs" />
+    <Compile Include="Extensions\PetersonCoilInfoExt.cs" />
     <Compile Include="Asset\CoolingKind.cs" />
-    <Compile Include="Asset\CurrentTransformerInfoExt.cs" />
+    <Compile Include="Extensions\CurrentTransformerInfoExt.cs" />
     <Compile Include="Asset\PowerTransformerInfo.cs" />
-    <Compile Include="Asset\PotentialTransformerInfoExt.cs" />
-    <Compile Include="Asset\PowerTransformerInfoExt.cs" />
+    <Compile Include="Extensions\PotentialTransformerInfoExt.cs" />
+    <Compile Include="Extensions\PowerTransformerInfoExt.cs" />
     <Compile Include="Asset\CableInfo.cs" />
     <Compile Include="Asset\CableOuterJacketKind.cs" />
     <Compile Include="Asset\CableShieldMaterialKind.cs" />
