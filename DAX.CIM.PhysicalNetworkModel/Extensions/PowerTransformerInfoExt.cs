@@ -15,6 +15,10 @@ namespace DAX.CIM.PhysicalNetworkModel
 
         private PU upperBoundField;
 
+        private PerCent ratingFactorField;
+
+        private bool hasInternalDeltaWindingField;   
+
         /// <remarks/>
         public PU lowerBound
         {
@@ -53,6 +57,34 @@ namespace DAX.CIM.PhysicalNetworkModel
                 this.upperBoundField = value;
             }
         }
+
+        /// <remarks/>
+        public PerCent ratingFactor
+        {
+            get
+            {
+                return this.ratingFactorField;
+            }
+            set
+            {
+                this.ratingFactorField = value;
+            }
+        }
+
+        /// <remarks/>
+        public bool hasInternalDeltaWinding
+        {
+            get
+            {
+                return this.hasInternalDeltaWindingField;
+            }
+            set
+            {
+                this.hasInternalDeltaWindingField = value;
+            }
+        }
+
+
     }
 
 }
