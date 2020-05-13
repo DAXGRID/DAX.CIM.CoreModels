@@ -14,9 +14,7 @@ namespace DAX.CIM.PhysicalNetworkModel
         private ApparentPower thermalRatedSField;
 
         private PU upperBoundField;
-
-        private PerCent ratingFactorField;
-
+     
         private bool hasInternalDeltaWindingField;   
 
         /// <remarks/>
@@ -57,20 +55,7 @@ namespace DAX.CIM.PhysicalNetworkModel
                 this.upperBoundField = value;
             }
         }
-
-        /// <remarks/>
-        public PerCent ratingFactor
-        {
-            get
-            {
-                return this.ratingFactorField;
-            }
-            set
-            {
-                this.ratingFactorField = value;
-            }
-        }
-
+             
         /// <remarks/>
         public bool hasInternalDeltaWinding
         {

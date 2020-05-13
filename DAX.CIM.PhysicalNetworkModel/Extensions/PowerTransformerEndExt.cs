@@ -18,6 +18,8 @@
 
         private PerCent ukField;
 
+        private PerCent ratingFactorField;
+
         /// <remarks/>
         public PerCent excitingCurrentZero
         {
@@ -80,6 +82,19 @@
             set
             {
                 this.ukField = value;
+            }
+        }
+
+        /// <remarks/>
+        public PerCent ratingFactor
+        {
+            get
+            {
+                return this.ratingFactorField;
+            }
+            set
+            {
+                this.ratingFactorField = value;
             }
         }
     }
