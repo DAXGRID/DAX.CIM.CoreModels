@@ -27,6 +27,14 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             {
                 foreach (var feeder in connectionPoint.Value.Feeders)
                 {
+
+                    // SLET DEBUG
+                    if (connectionPoint.Value.Bay != null && connectionPoint.Value.Bay.mRID == "66484140-abb7-4446-bfa4-32646d852467")
+                    {
+
+                    }
+
+
                     if (!result.ContainsKey(feeder.ConductingEquipment.mRID))
                     {
                         result.Add(feeder.ConductingEquipment.mRID, feeder);
@@ -165,6 +173,12 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         private ConnectionPoint CreateConnectionPoint(ConnectionPointKind kind, ConnectivityNode cn, Substation st, Bay bay)
         {
+            // SLET DEBUG
+            if (bay != null && bay.mRID == "66484140-abb7-4446-bfa4-32646d852467")
+            {
+
+            }
+
             if (!_connectionPoints.ContainsKey(cn))
             {
                 var newCp = new ConnectionPoint() { Kind = kind, ConnectivityNode = cn, Substation = st, Bay = bay };
@@ -192,6 +206,12 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         private void CreateFeeder(ConnectionPoint connectionPoint, ConductingEquipment conductingEquipment)
         {
+            // SLET DEBUG
+            if (connectionPoint.Bay != null && connectionPoint.Bay.mRID == "66484140-abb7-4446-bfa4-32646d852467")
+            {
+
+            }
+
             // Don't create feeder if conducting equipment already feederized
             if (connectionPoint.Feeders.Count(c => c.ConductingEquipment == conductingEquipment) > 0)
                 return;

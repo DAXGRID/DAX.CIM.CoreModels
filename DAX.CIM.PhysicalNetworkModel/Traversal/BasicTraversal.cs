@@ -92,5 +92,74 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
 
             return traverseOrder.ToList();
         }
+
+
+        public List<IdentifiedObject> DFSWithHopInfo(Predicate<ConductingEquipment> ciCriteria, Predicate<ConnectivityNode> cnCriteria, bool includeEquipmentsWhereCriteriaIsFalse = false, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            Queue<IdentifiedObject> traverseOrder = new Queue<IdentifiedObject>();
+            Stack<IdentifiedObject> stack = new Stack<IdentifiedObject>();
+            HashSet<IdentifiedObject> visited = new HashSet<IdentifiedObject>();
+
+            stack.Push(_startConductingEquipment);
+            visited.Add(_startConductingEquipment);
+
+            while (stack.Count > 0)
+            {
+                IdentifiedObject p = stack.Pop();
+
+                // slet mig - adskiller i byg
+                if (p.mRID == "c8224724-86b7-4223-90d1-7d21c8728242")
+                {
+
+                }
+
+                traverseOrder.Enqueue(p);
+
+                var connections = context.GetConnections(p);
+
+                foreach (var con in connections)
+                {
+                    // If we're dealing with a connection from a conucting equipment
+                    if (con.ConductingEquipment == p)
+                    {
+                        if (!visited.Contains(con.ConnectivityNode))
+                        {
+                            visited.Add(con.ConnectivityNode);
+
+                            if (cnCriteria == null)
+                                stack.Push(con.ConnectivityNode);
+                            else if (cnCriteria.Invoke(con.ConnectivityNode))
+                                stack.Push(con.ConnectivityNode);
+                            else
+                            {
+                                if (includeEquipmentsWhereCriteriaIsFalse)
+                                    traverseOrder.Enqueue(con.ConnectivityNode);
+                            }
+                        }
+                    }
+                    // We're dealing with a connection from a connectivity node
+                    else
+                    {
+                        if (!visited.Contains(con.ConductingEquipment))
+                        {
+                            visited.Add(con.ConductingEquipment);
+
+                            // If the criteria holds, add the conducting equipment to the stack for further traversal
+                            if (ciCriteria.Invoke(con.ConductingEquipment))
+                                stack.Push(con.ConductingEquipment);
+                            else
+                            {
+                                if (includeEquipmentsWhereCriteriaIsFalse)
+                                    traverseOrder.Enqueue(con.ConductingEquipment);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return traverseOrder.ToList();
+        }
     }
 }
