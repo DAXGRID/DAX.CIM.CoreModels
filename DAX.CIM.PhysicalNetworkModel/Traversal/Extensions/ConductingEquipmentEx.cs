@@ -15,6 +15,15 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             return traversal.DFS(ciCriteria, cnCriteria, includeEquipmentsWhereCriteriaIsFalse, context);
         }
 
+        public static IEnumerable<IdentifiedObjectWithHopInfo> TraverseWithHopInfo(this IdentifiedObject start, Predicate<ConductingEquipment> ciCriteria, Predicate<ConnectivityNode> cnCriteria = null, bool includeEquipmentsWhereCriteriaIsFalse = false, CimContext context = null)
+        {
+            context = context ?? CimContext.GetCurrent();
+
+            var traversal = new BasicTraversal(start);
+
+            return traversal.DFSWithHopInfo(ciCriteria, cnCriteria, includeEquipmentsWhereCriteriaIsFalse, context);
+        }
+
         public static bool IsOpen(this ConductingEquipment conductingEquipment)
         {
             return (conductingEquipment as Switch)?.normalOpen ?? false;

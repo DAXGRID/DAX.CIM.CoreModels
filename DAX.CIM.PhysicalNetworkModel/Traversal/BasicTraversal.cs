@@ -40,12 +40,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
             {
                 IdentifiedObject p = stack.Pop();
 
-                // slet mig - adskiller i byg
-                if (p.mRID == "c8224724-86b7-4223-90d1-7d21c8728242")
-                {
-
-                }
-
                 traverseOrder.Enqueue(p);
 
                 var connections = context.GetConnections(p);
@@ -94,13 +88,14 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
         }
 
 
-        public List<IdentifiedObject> DFSWithHopInfo(Predicate<ConductingEquipment> ciCriteria, Predicate<ConnectivityNode> cnCriteria, bool includeEquipmentsWhereCriteriaIsFalse = false, CimContext context = null)
+        public List<IdentifiedObjectWithHopInfo> DFSWithHopInfo(Predicate<ConductingEquipment> ciCriteria, Predicate<ConnectivityNode> cnCriteria, bool includeEquipmentsWhereCriteriaIsFalse = false, CimContext context = null)
         {
             context = context ?? CimContext.GetCurrent();
 
-            Queue<IdentifiedObject> traverseOrder = new Queue<IdentifiedObject>();
+            Queue<IdentifiedObjectWithHopInfo> traverseOrder = new Queue<IdentifiedObjectWithHopInfo>();
             Stack<IdentifiedObject> stack = new Stack<IdentifiedObject>();
             HashSet<IdentifiedObject> visited = new HashSet<IdentifiedObject>();
+            Stack<IdentifiedObject> visitedStations = new Stack<IdentifiedObject>();
 
             stack.Push(_startConductingEquipment);
             visited.Add(_startConductingEquipment);
@@ -109,15 +104,40 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
             {
                 IdentifiedObject p = stack.Pop();
 
-                // slet mig - adskiller i byg
-                if (p.mRID == "c8224724-86b7-4223-90d1-7d21c8728242")
+                traverseOrder.Enqueue(new IdentifiedObjectWithHopInfo()
                 {
-
-                }
-
-                traverseOrder.Enqueue(p);
+                    IdentifiedObject = p,
+                    stationHop = visitedStations.Count
+                });
 
                 var connections = context.GetConnections(p);
+
+                // Branching checking
+                if (p is ConductingEquipment)
+                {
+                    var ci = p as ConductingEquipment;
+
+                    if (ci.IsInsideSubstation(context))
+                    {
+                        var st = ci.GetSubstation(true, context);
+
+                        if (!visitedStations.Contains(st))
+                            visitedStations.Push(st);
+                        else
+                        {
+                            if (visitedStations.Peek() == st)
+                            {
+                                // We're moving around in the same station, so we're not branched
+                            }
+                            else
+                            {
+                                visitedStations.Pop();
+                                // we have been branching
+                            }
+                        }
+                    }
+                }
+
 
                 foreach (var con in connections)
                 {
@@ -135,7 +155,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
                             else
                             {
                                 if (includeEquipmentsWhereCriteriaIsFalse)
-                                    traverseOrder.Enqueue(con.ConnectivityNode);
+                                    traverseOrder.Enqueue(
+                                        new IdentifiedObjectWithHopInfo()
+                                        {
+                                            IdentifiedObject = con.ConnectivityNode
+                                        });
                             }
                         }
                     }
@@ -152,7 +176,12 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
                             else
                             {
                                 if (includeEquipmentsWhereCriteriaIsFalse)
-                                    traverseOrder.Enqueue(con.ConductingEquipment);
+                                    traverseOrder.Enqueue(
+                                        new IdentifiedObjectWithHopInfo()
+                                        {
+                                            IdentifiedObject = con.ConnectivityNode,
+                                            stationHop = visitedStations.Count
+                                        });
                             }
                         }
                     }
@@ -161,5 +190,11 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
 
             return traverseOrder.ToList();
         }
+    }
+
+    public class IdentifiedObjectWithHopInfo
+    {
+        public IdentifiedObject IdentifiedObject { get; set; }
+        public int stationHop = 0;
     }
 }

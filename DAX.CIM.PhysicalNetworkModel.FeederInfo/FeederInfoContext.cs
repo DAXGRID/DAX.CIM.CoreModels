@@ -9,7 +9,8 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
     {
         readonly Dictionary<ConnectivityNode, ConnectionPoint> _connectionPoints = new Dictionary<ConnectivityNode, ConnectionPoint>();
         readonly Dictionary<Substation, List<ConnectionPoint>> _stConnectionPoints = new Dictionary<Substation, List<ConnectionPoint>>();
-        readonly Dictionary<ConductingEquipment, List<Feeder>> _conductingEquipmentFeeders = new Dictionary<ConductingEquipment, List<Feeder>>();
+        readonly Dictionary<ConductingEquipment, ConductingEquipmentFeederInfo> _conductingEquipmentFeeders = new Dictionary<ConductingEquipment, ConductingEquipmentFeederInfo>();
+     
         readonly CimContext _cimContext;
 
         private bool _treatTJunctionsAsCabinets = false;
@@ -27,14 +28,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             {
                 foreach (var feeder in connectionPoint.Value.Feeders)
                 {
-
-                    // SLET DEBUG
-                    if (connectionPoint.Value.Bay != null && connectionPoint.Value.Bay.mRID == "66484140-abb7-4446-bfa4-32646d852467")
-                    {
-
-                    }
-
-
                     if (!result.ContainsKey(feeder.ConductingEquipment.mRID))
                     {
                         result.Add(feeder.ConductingEquipment.mRID, feeder);
@@ -45,9 +38,21 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             return result.Values.ToList();
         }
 
-        public Dictionary<ConductingEquipment, List<Feeder>> GetConductionEquipmentFeeders()
+        public Dictionary<ConductingEquipment, ConductingEquipmentFeederInfo> GetFeederInfos()
         {
             return _conductingEquipmentFeeders;
+        }
+
+        public Dictionary<ConductingEquipment, List<Feeder>> GetConductionEquipmentFeeders()
+        {
+            Dictionary<ConductingEquipment, List<Feeder>> result = new Dictionary<ConductingEquipment, List<Feeder>>();
+
+            foreach (var feederInfo in _conductingEquipmentFeeders)
+            {
+                result.Add(feederInfo.Key, feederInfo.Value.Feeders);
+            }
+
+            return result;
         }
         
         public void CreateFeederObjects(bool treatTJunctionsAsCabinets = false)
@@ -63,9 +68,17 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
         public List<Feeder> GeConductingEquipmentFeeders(ConductingEquipment ce)
         {
             if (_conductingEquipmentFeeders.ContainsKey(ce))
-                return _conductingEquipmentFeeders[ce];
+                return _conductingEquipmentFeeders[ce].Feeders;
             else
                 return new List<Feeder>();
+        }
+
+        public ConductingEquipmentFeederInfo GeConductingEquipmentFeederInfo(ConductingEquipment ce)
+        {
+            if (_conductingEquipmentFeeders.ContainsKey(ce))
+                return _conductingEquipmentFeeders[ce];
+            else
+                return new ConductingEquipmentFeederInfo();
         }
 
         public List<ConnectionPoint> GetSubstationConnectionPoints(Substation st)
@@ -385,7 +398,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         // We include the power transformer in the trace, no matter if a base voltage is specified.
                         // We need the transformer, and sometimes the base voltage is not set. That's why.
 
-                        var traceResult = feeder.ConductingEquipment.Traverse(
+                        var traceResult = feeder.ConductingEquipment.TraverseWithHopInfo(
                             ce =>
                                 (
                                     ce.BaseVoltage == feeder.ConductingEquipment.BaseVoltage
@@ -416,14 +429,14 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         foreach (var cimObj in traceResult)
                         {
 
-                            if (cimObj is EnergyConsumer)
+                            if (cimObj.IdentifiedObject is EnergyConsumer)
                                 energyConsumerCount++;
 
-                            if (cimObj is ConductingEquipment)
+                            if (cimObj.IdentifiedObject is ConductingEquipment)
                             {
-                                var ce = cimObj as ConductingEquipment;
+                                var ce = cimObj.IdentifiedObject as ConductingEquipment;
 
-                                AssignFeederToConductingEquipment(ce, feeder);
+                                AssignFeederToConductingEquipment(ce, feeder, cimObj.stationHop);
 
                                 // If a busbar or powertransformer inside substation container add feeder to substation as well
                                 if ((ce is BusbarSection || ce is PowerTransformer) && ce.IsInsideSubstation(_cimContext))
@@ -467,7 +480,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                                 // We don't want to add feeder to power transformers and ac line segments outsit station.
                                 if (!(ce is PowerTransformer) && !(ce is ACLineSegment && !ce.IsInsideSubstation(_cimContext)))
-                                    AssignFeederToConductingEquipment(ce, feeder);
+                                    AssignFeederToConductingEquipment(ce, feeder, 0);
                             }
                         }
                     }
@@ -475,18 +488,16 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             }
         }
 
-        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder)
+        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder, int substationHop)
         {
             if (!_conductingEquipmentFeeders.ContainsKey(ce))
-                _conductingEquipmentFeeders[ce] = new List<Feeder>() { feeder };
+            {
+                _conductingEquipmentFeeders[ce] = new ConductingEquipmentFeederInfo() { SubstationHop = substationHop };
+                _conductingEquipmentFeeders[ce].Feeders.Add(feeder);
+            }
             else
             {
-                var ceFeeders = _conductingEquipmentFeeders[ce];
-
-                if (ceFeeders.Count > 2)
-                {
-
-                }
+                var ceFeeders = _conductingEquipmentFeeders[ce].Feeders;
 
                 // Only add feeder if conducting equipment not already addede to a feeder attached to the same connectivity node
                 if (ceFeeders.Count(f => f.ConnectionPoint == feeder.ConnectionPoint) == 0)
@@ -506,6 +517,13 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 if (!ce.InternalFeeders.Contains(feeder))
                     ce.InternalFeeders.Add(feeder);
             }
+
+            /*
+            if (!_conductingEquipmentSubstationHop.ContainsKey(ce))
+            {
+                _conductingEquipmentSubstationHop[ce] = substationHop;
+            }
+            */
         }
 
         private void AssignFeederToSubstation(Substation st, Feeder feeder)
@@ -529,9 +547,9 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 if (cif.Key is EnergyConsumer)
                 {
                     var ec = cif.Key as EnergyConsumer;
-                    var feeders = cif.Value;
+                    var conductingfeederInfo = cif.Value;
 
-                    var cableBoxFeeders = feeders.FindAll(f => f.FeederType == FeederType.CableBox);
+                    var cableBoxFeeders = conductingfeederInfo.Feeders.FindAll(f => f.FeederType == FeederType.CableBox);
 
 
                     // If count is 1 then the feeder is fine.
@@ -593,14 +611,14 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         {
                             List<Feeder> feedersToRemove = new List<Feeder>();
                             // Remove all cable box feeders but this one
-                            foreach (var feeder in feeders)
+                            foreach (var feeder in conductingfeederInfo.Feeders)
                             {
                                 if (feeder.FeederType == FeederType.CableBox && feeder.ConnectionPoint.Substation != cableBoxToKeep)
                                     feedersToRemove.Add(feeder);
                             }
 
                             foreach (var feederToRemove in feedersToRemove)
-                                feeders.Remove(feederToRemove);
+                                conductingfeederInfo.Feeders.Remove(feederToRemove);
                         }
 
                     }
