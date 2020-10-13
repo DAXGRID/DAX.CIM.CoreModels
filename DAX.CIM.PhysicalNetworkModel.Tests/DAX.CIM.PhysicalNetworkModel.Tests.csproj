@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DAX.Cson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DAX.Cson.0.0.1\lib\NET45\DAX.Cson.dll</HintPath>
+      <HintPath>..\packages\DAX.Cson.1.0.0-b04\lib\NET45\DAX.Cson.dll</HintPath>
     </Reference>
     <Reference Include="Debaser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Debaser.0.9.0\lib\NET45\Debaser.dll</HintPath>
@@ -81,7 +81,9 @@
     <Compile Include="TestPetersonCoilBYG.cs" />
     <Compile Include="TestFeederInfoTJunction.cs" />
     <Compile Include="TestAssetInfoSerialization.cs" />
-    <Compile Include="TestStationHopFeederInfo.cs" />
+    <Compile Include="TestStationHopFeederFullNet.cs" />
+    <Compile Include="TestStationHopFeederInfoSHO.cs" />
+    <Compile Include="TestStationHopFeederInfoTOR.cs" />
     <Compile Include="TestTraversal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestFeederInfoEngumArea.cs" />
@@ -134,6 +136,9 @@
     <None Include="Data\sho_anonymized.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\sho_udf2.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\st75_tjunction.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -153,6 +158,10 @@
     <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.LineInfo\DAX.CIM.PhysicalNetworkModel.LineInfo.csproj">
       <Project>{df457603-7cbd-45b8-be11-f1d52f43cedc}</Project>
       <Name>DAX.CIM.PhysicalNetworkModel.LineInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel.Traversal\DAX.CIM.PhysicalNetworkModel.Traversal.csproj">
+      <Project>{2fe2e018-b583-4561-a141-44a71fefb352}</Project>
+      <Name>DAX.CIM.PhysicalNetworkModel.Traversal</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAX.CIM.PhysicalNetworkModel\DAX.CIM.PhysicalNetworkModel.csproj">
       <Project>{f8349941-a0f6-4d91-8dfe-998e778b1aee}</Project>

@@ -44,7 +44,10 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
                 // We like to test that feeder info processor don't do multi feed on the HV network from that source
 
                 // Check that HV cable is single feeded from MES source
-                var cable = _context.GetObject<ConductingEquipment>("5fd4f41a-3e6c-4c64-92f4-b25829b492bc") as ACLineSegment;
+                var cable = _context.GetObject<ConductingEquipment>("6f27795d-65cc-4631-aba5-6918d7482f0f") as ACLineSegment;
+
+                var feederInfo = _feederContext.GeConductingEquipmentFeederInfo(cable);
+
 
                 var feeders = _feederContext.GeConductingEquipmentFeeders(cable);
                 Assert.AreEqual(1, feeders.Count);

@@ -110,7 +110,12 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
                     stationHop = visitedStations.Count
                 });
 
-                var connections = context.GetConnections(p);
+                if (p.mRID == "0a60db7c-f49d-785b-9f6e-d039ec14f184")
+                {
+
+                }
+
+                var connections = SortConnectionsInternalCableLast(context, context.GetConnections(p));
 
                 // Branching checking
                 if (p is ConductingEquipment)
@@ -190,11 +195,37 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
 
             return traverseOrder.ToList();
         }
+
+
+
+        private List<TerminalConnection> SortConnectionsInternalCableLast(CimContext context, List<TerminalConnection> connections)
+        {
+            List<TerminalConnection> result = new List<TerminalConnection>();
+
+            foreach (var con in connections)
+            {
+                if (!con.ConductingEquipment.GetNeighborConductingEquipments(context).Exists(ce => ce is ACLineSegment && ce.PSRType != "InternalCable"))
+                    result.Add(con);
+            }
+
+            foreach (var con in connections)
+            {
+                if (con.ConductingEquipment.GetNeighborConductingEquipments(context).Exists(ce => ce is ACLineSegment && ce.PSRType != "InternalCable"))
+                    result.Add(con);
+            }
+
+            return result;
+        }
     }
 
     public class IdentifiedObjectWithHopInfo
     {
         public IdentifiedObject IdentifiedObject { get; set; }
         public int stationHop = 0;
+        public override string ToString()
+        {
+            return "Hop: " + stationHop + " - " + IdentifiedObject.ToString();
+        }
+
     }
 }
