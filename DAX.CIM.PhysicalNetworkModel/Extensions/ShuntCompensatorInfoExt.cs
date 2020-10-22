@@ -10,10 +10,10 @@ namespace DAX.CIM.PhysicalNetworkModel
     {
         private Voltage ratedVoltageField;
 
-        private ReactivePower maximumReactivePowerField;
-
         private ReactivePower minimumReactivePowerField;
 
+        private ReactivePower maximumReactivePowerField;
+             
         private ReactivePower actualReactivePowerField;
 
         private ActivePower lossField;
@@ -23,19 +23,94 @@ namespace DAX.CIM.PhysicalNetworkModel
         private string technologyField;
 
 
-        public Voltage ratedVoltage => ratedVoltageField;
-      
-        public ReactivePower minimumReactivePower => minimumReactivePowerField;
+        public Voltage ratedVoltage
+        {
+            get
+            {
+                return this.ratedVoltageField;
+            }
+            set
+            {
+                this.ratedVoltageField = value;
+            }
+        }
+       
 
-        public ReactivePower maximumReactivePower => maximumReactivePower;
+        public ReactivePower minimumReactivePower
+        {
+            get
+            {
+                return this.minimumReactivePowerField;
+            }
+            set
+            {
+                this.minimumReactivePowerField = value;
+            }
+        }
 
-        public ReactivePower actualReactivePower => actualReactivePowerField;
+        public ReactivePower maximumReactivePower
+        {
+            get
+            {
+                return this.maximumReactivePowerField;
+            }
+            set
+            {
+                this.maximumReactivePowerField = value;
+            }
+        }
 
-        public ActivePower loss => lossField;
+        public ReactivePower actualReactivePower
+        {
+            get
+            {
+                return this.actualReactivePowerField;
+            }
+            set
+            {
+                this.actualReactivePowerField = value;
+            }
+        }
 
-        public float qualityFactor => qualityFactoryField;
+        public ActivePower loss
+        {
+            get
+            {
+                return this.lossField;
+            }
+            set
+            {
+                this.lossField = value;
+            }
+        }
 
-        public string technology => technologyField;
+
+        public float qualityFactory
+        {
+            get
+            {
+                return this.qualityFactoryField;
+            }
+            set
+            {
+                this.qualityFactoryField = value;
+            }
+        }
+
+        public string technology
+        {
+            get
+            {
+                return this.technologyField;
+            }
+            set
+            {
+                this.technologyField = value;
+            }
+        }
+
+
+
 
     }
 
