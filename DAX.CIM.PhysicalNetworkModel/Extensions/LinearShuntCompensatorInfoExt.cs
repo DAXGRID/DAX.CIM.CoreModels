@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAX.CIM.PhysicalNetworkModel
 {
-    public partial class ShuntCompensatorInfoExt : AssetInfo
+    public partial class LinearShuntCompensatorInfoExt : AssetInfo
     {
         private Voltage ratedVoltageField;
 

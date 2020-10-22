@@ -41,7 +41,7 @@
     <Compile Include="Asset\AssetModel .cs" />
     <Compile Include="Asset\BusbarSectionInfo.cs" />
     <Compile Include="Extensions\AssetExt.cs" />
-    <Compile Include="Extensions\ShuntCompensatorInfoExt.cs" />
+    <Compile Include="Extensions\LinearShuntCompensatorInfoExt.cs" />
     <Compile Include="Extensions\UsagePointExt.cs" />
     <Compile Include="Extensions\SwitchInfoExt.cs" />
     <Compile Include="Asset\SwitchInfo.cs" />
