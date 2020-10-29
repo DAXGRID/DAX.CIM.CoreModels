@@ -427,13 +427,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         int energyConsumerCount = 0;
 
 
-                        // Slet: SHO 2, that har wrong hop
-                        if (feeder.ConductingEquipment.mRID == "8030204c-d959-417b-baa3-5d0c2fd63143")
-                        {
-                            foreach (var obj in traceResult)
-                                System.Diagnostics.Debug.WriteLine(obj);
-                        }
-
                         foreach (var cimObj in traceResult)
                         {
 
@@ -610,7 +603,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                                 if (cableBoxFeeders.Exists(o => o.ConnectionPoint.Substation == cableBox))
                                 {
-                                    cableBoxToKeep = cableBox;
+                                    if (traceObj is Switch && ((Switch)traceObj).normalOpen != true)
+                                    {
+                                        if (cableBoxToKeep == null)
+                                            cableBoxToKeep = cableBox;
+                                    }
                                 }
                             }
                         }

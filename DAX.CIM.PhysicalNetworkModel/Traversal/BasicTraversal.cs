@@ -110,11 +110,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
                     stationHop = visitedStations.Count
                 });
 
-                if (p.mRID == "0a60db7c-f49d-785b-9f6e-d039ec14f184")
-                {
-
-                }
-
                 var connections = SortConnectionsInternalCableLast(context, context.GetConnections(p));
 
                 // Branching checking
