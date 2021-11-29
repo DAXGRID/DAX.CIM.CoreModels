@@ -67,7 +67,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                     foreach (var hspFeeder in hspFeeders)
                     {
-                        FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders);
+                        FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders, feederContext);
                         seqNo++;
 
                         AddMspFeederInfo(mspFeeder, feederInfo);
@@ -81,7 +81,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 // If no hsp feeders just add msp feeder info only
                 if (!hspFeedersFound)
                 {
-                    FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders);
+                    FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders, feederContext);
                     seqNo++;
 
                     AddMspFeederInfo(mspFeeder, feederInfo);
@@ -94,7 +94,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             // HV feeders
             foreach (var hspFeeder in eq.Feeders.Where(f => f.FeederType == FeederType.PrimarySubstation))
             {
-                FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders);
+                FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders, feederContext);
                 seqNo++;
 
                 AddHspFeederInfo(hspFeeder, feederInfo);
@@ -106,7 +106,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             // INJECTION feeders
             foreach (var injectionFeeder in eq.Feeders.Where(f => f.FeederType == FeederType.NetworkInjection))
             {
-                FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders);
+                FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders, feederContext);
                 if (injectionFeeder.ConductingEquipment != null)
                     feederInfo.NetworkInjectionMRID = Guid.Parse(injectionFeeder.ConductingEquipment.mRID);
 
@@ -120,7 +120,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             if (seqNo == 1)
             {
                 // Add feeder info telling that we have no feed
-                FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders);
+                FeederInfo feederInfo = CreateBasicFeederInfo(seqNo, eq, eq.Feeders, feederContext);
                 feederInfo.Multifeed = false;
                 feederInfo.Nofeed = true;
                 feederInfosToAdd.Add(feederInfo);
@@ -189,7 +189,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             }
         }
 
-        static FeederInfo CreateBasicFeederInfo(int seqNo, Equipment equipment, List<Feeder> feeders)
+        static FeederInfo CreateBasicFeederInfo(int seqNo, Equipment equipment, List<Feeder> feeders, FeederInfoContext feederContext)
         {
             var feederInfo = new FeederInfo()
             {
@@ -203,7 +203,16 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             };
 
             if (equipment is ConductingEquipment)
+            {
                 feederInfo.VoltageLevel = (int)((ConductingEquipment)equipment).BaseVoltage;
+
+                var conductingEquipmentfeederInfo = feederContext.GeConductingEquipmentFeederInfo((ConductingEquipment)equipment);
+
+                if (conductingEquipmentfeederInfo != null)
+                {
+                    feederInfo.CustomerFeederCableMRID = conductingEquipmentfeederInfo.FirstCustomerCableId;
+                }
+            }
 
             var cableBoxFeeder = feeders.Find(f => f.FeederType == FeederType.CableBox);
 
@@ -212,11 +221,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 feederInfo.CableBoxMRID = Guid.Parse(cableBoxFeeder.ConnectionPoint.Substation.mRID);
                 feederInfo.CableBoxName = cableBoxFeeder.ConnectionPoint.Substation.name;
 
-                if (cableBoxFeeder.ConductingEquipment != null)
-                {
-                    feederInfo.CustomerFeederCableName = cableBoxFeeder.ConductingEquipment.name;
-                    feederInfo.CustomerFeederCableMRID = Guid.Parse(cableBoxFeeder.ConductingEquipment.mRID);
-                }
             }
 
             return feederInfo;

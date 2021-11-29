@@ -1,5 +1,6 @@
 ﻿using DAX.CIM.PhysicalNetworkModel.Traversal;
 using DAX.CIM.PhysicalNetworkModel.Traversal.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -426,6 +427,8 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                         int energyConsumerCount = 0;
 
+                        bool customerCableFound = false;
+                        Guid customerCableId = Guid.Empty;
 
                         foreach (var cimObj in traceResult)
                         {
@@ -433,11 +436,33 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                             if (cimObj.IdentifiedObject is EnergyConsumer)
                                 energyConsumerCount++;
 
+                            // If we hit a customer cable, save it for feeder info
+                            if (cimObj.IdentifiedObject is ACLineSegment)
+                            {
+                                var acls = cimObj.IdentifiedObject as ACLineSegment;
+
+                                if (acls.PSRType != null && acls.PSRType.ToLower().Contains("customer") && customerCableFound == false)
+                                {
+                                    customerCableFound = true;
+                                    customerCableId = Guid.Parse(acls.mRID);
+                                }
+                                else if (acls.PSRType != null && acls.PSRType.ToLower().Contains("customer") && customerCableFound == true)
+                                {
+                                    // We keep the first id
+                                }
+                                else
+                                {
+                                    // reset the id (because we´re out of the customer part of the net)
+                                    customerCableFound = false;
+                                    customerCableId = Guid.Empty;
+                                }
+                            }
+
                             if (cimObj.IdentifiedObject is ConductingEquipment)
                             {
                                 var ce = cimObj.IdentifiedObject as ConductingEquipment;
 
-                                AssignFeederToConductingEquipment(ce, feeder, cimObj.stationHop);
+                                AssignFeederToConductingEquipment(ce, feeder, cimObj.stationHop, customerCableId);
 
                                 // If a busbar or powertransformer inside substation container add feeder to substation as well
                                 if ((ce is BusbarSection || ce is PowerTransformer) && ce.IsInsideSubstation(_cimContext))
@@ -447,6 +472,8 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                     AssignFeederToSubstation(st, feeder);
                                 }
                             }
+
+                            
                         }
 
                         if (feeder.ConnectionPoint.PowerTransformer != null)
@@ -481,7 +508,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                                 // We don't want to add feeder to power transformers and ac line segments outsit station.
                                 if (!(ce is PowerTransformer) && !(ce is ACLineSegment && !ce.IsInsideSubstation(_cimContext)))
-                                    AssignFeederToConductingEquipment(ce, feeder, 0);
+                                    AssignFeederToConductingEquipment(ce, feeder, 0, Guid.Empty);
                             }
                         }
                     }
@@ -489,11 +516,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             }
         }
 
-        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder, int substationHop)
+        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder, int substationHop, Guid customerCableId)
         {
             if (!_conductingEquipmentFeeders.ContainsKey(ce))
             {
-                _conductingEquipmentFeeders[ce] = new ConductingEquipmentFeederInfo() { SubstationHop = substationHop };
+                _conductingEquipmentFeeders[ce] = new ConductingEquipmentFeederInfo() { SubstationHop = substationHop, FirstCustomerCableId = customerCableId };
                 _conductingEquipmentFeeders[ce].Feeders.Add(feeder);
             }
             else

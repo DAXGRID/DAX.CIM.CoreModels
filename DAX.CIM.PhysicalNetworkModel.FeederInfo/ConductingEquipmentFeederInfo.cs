@@ -10,5 +10,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
     {
         public List<Feeder> Feeders = new List<Feeder>();
         public int SubstationHop { get; set; }
+        public Guid FirstCustomerCableId { get; set; }
     }
 }
