@@ -9,6 +9,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
     public class ConductingEquipmentFeederInfo
     {
         public List<Feeder> Feeders = new List<Feeder>();
+        public int TraversalOrder { get; set; }
         public int SubstationHop { get; set; }
         public Guid FirstCustomerCableId { get; set; }
     }

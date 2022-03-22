@@ -84,6 +84,8 @@
     <Compile Include="TestStationHopFeederFullNet.cs" />
     <Compile Include="TestStationHopFeederInfoSHO.cs" />
     <Compile Include="TestStationHopFeederInfoTOR.cs" />
+    <Compile Include="TestTraversalTER.cs" />
+    <Compile Include="TestTraversalAnholt.cs" />
     <Compile Include="TestTraversal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestFeederInfoEngumArea.cs" />

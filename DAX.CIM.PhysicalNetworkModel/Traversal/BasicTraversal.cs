@@ -104,14 +104,6 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
             {
                 IdentifiedObject p = stack.Pop();
 
-                traverseOrder.Enqueue(new IdentifiedObjectWithHopInfo()
-                {
-                    IdentifiedObject = p,
-                    stationHop = visitedStations.Count
-                });
-
-                var connections = SortConnectionsInternalCableLast(context, context.GetConnections(p));
-
                 // Branching checking
                 if (p is ConductingEquipment)
                 {
@@ -137,6 +129,16 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
                         }
                     }
                 }
+
+                traverseOrder.Enqueue(new IdentifiedObjectWithHopInfo()
+                {
+                    IdentifiedObject = p,
+                    stationHop = visitedStations.Count
+                });
+
+                var connections = SortConnectionsInternalCableLast(context, context.GetConnections(p));
+
+                
 
 
                 foreach (var con in connections)
@@ -197,19 +199,40 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
         {
             List<TerminalConnection> result = new List<TerminalConnection>();
 
-            foreach (var con in connections)
-            {
-                if (!con.ConductingEquipment.GetNeighborConductingEquipments(context).Exists(ce => ce is ACLineSegment && ce.PSRType != "InternalCable"))
-                    result.Add(con);
-            }
+            Dictionary<TerminalConnection, int> sortKey = new Dictionary<TerminalConnection, int>();
 
             foreach (var con in connections)
             {
-                if (con.ConductingEquipment.GetNeighborConductingEquipments(context).Exists(ce => ce is ACLineSegment && ce.PSRType != "InternalCable"))
-                    result.Add(con);
+                // Always trace busbars first
+                if (con.ConductingEquipment is BusbarSection)
+                    sortKey.Add(con, 99);
+                // Trace customer line segments second 
+                else if (con.ConductingEquipment is ACLineSegment && con.ConductingEquipment.PSRType != null && con.ConductingEquipment.PSRType.ToLower().Contains("customer"))
+                    sortKey.Add(con, 98);
+                // Trace non internal cables third
+                else if (con.ConductingEquipment is ACLineSegment && con.ConductingEquipment.PSRType != "InternalCable")
+                    sortKey.Add(con, 97);
+                // If component sitting in a bay, use bay type to dertimine trace order
+                else if (con.ConductingEquipment.HasBay(false, context))
+                {
+                    var bay = con.ConductingEquipment.GetBay(true, context);
+
+                    // Componenets sitting in transformer bay should be traced last
+                    if (bay.PSRType != null && bay.PSRType == "TransformerBay")
+                        sortKey.Add(con, 1);
+                    else
+                        sortKey.Add(con, 96);
+                }
+                else
+                {
+                    sortKey.Add(con, 95);
+                }
             }
 
-            return result;
+            // Notice that the the last connections in the list will be traced first, because they are push to stack by caller!            
+            var sortedConnections = connections.OrderBy(c => sortKey[c]);
+
+            return sortedConnections.ToList();
         }
     }
 

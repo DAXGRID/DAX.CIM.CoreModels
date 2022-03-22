@@ -187,12 +187,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         private ConnectionPoint CreateConnectionPoint(ConnectionPointKind kind, ConnectivityNode cn, Substation st, Bay bay)
         {
-            // SLET DEBUG
-            if (bay != null && bay.mRID == "66484140-abb7-4446-bfa4-32646d852467")
-            {
-
-            }
-
             if (!_connectionPoints.ContainsKey(cn))
             {
                 var newCp = new ConnectionPoint() { Kind = kind, ConnectivityNode = cn, Substation = st, Bay = bay };
@@ -399,6 +393,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         // We include the power transformer in the trace, no matter if a base voltage is specified.
                         // We need the transformer, and sometimes the base voltage is not set. That's why.
 
+                        if (feeder.ConductingEquipment.mRID == "18f0e122-c6b5-42b6-b173-fb4797a43c58")
+                        {
+
+                        }
+
                         var traceResult = feeder.ConductingEquipment.TraverseWithHopInfo(
                             ce =>
                                 (
@@ -430,8 +429,24 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         bool customerCableFound = false;
                         Guid customerCableId = Guid.Empty;
 
+                        int traversalOrder = 0;
+
+                        // store index to busbars
+                        Dictionary<string, IdentifiedObjectWithHopInfo> busbarHopsById = new Dictionary<string, IdentifiedObjectWithHopInfo>();
+
                         foreach (var cimObj in traceResult)
                         {
+                            if (cimObj.IdentifiedObject is BusbarSection)
+                            {
+                                busbarHopsById.Add(cimObj.IdentifiedObject.mRID, cimObj);
+                            }
+                        }
+
+                        HashSet<BusbarSection> busbarProcessed = new HashSet<BusbarSection>();
+
+                        foreach (var cimObj in traceResult)
+                        {
+                            traversalOrder++;
 
                             if (cimObj.IdentifiedObject is EnergyConsumer)
                                 energyConsumerCount++;
@@ -458,11 +473,36 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 }
                             }
 
+                            if (cimObj.IdentifiedObject is ConnectivityNode)
+                            {
+                                var connections = _cimContext.GetConnections((ConnectivityNode)cimObj.IdentifiedObject);
+                                var busbar = connections.FirstOrDefault(c => c.ConductingEquipment is BusbarSection).ConductingEquipment;
+
+                                if (busbar != null)
+                                {
+                                    int stationHop = 0;
+
+                                    if (busbarHopsById.ContainsKey(busbar.mRID))
+                                        stationHop = busbarHopsById[busbar.mRID].stationHop;
+
+                                    busbarProcessed.Add((BusbarSection)busbar);
+
+                                    AssignFeederToConductingEquipment(busbar, feeder, traversalOrder, stationHop, customerCableId);
+                                }
+                            }
+
+
                             if (cimObj.IdentifiedObject is ConductingEquipment)
                             {
                                 var ce = cimObj.IdentifiedObject as ConductingEquipment;
 
-                                AssignFeederToConductingEquipment(ce, feeder, cimObj.stationHop, customerCableId);
+                                if (ce is BusbarSection)
+                                {
+                                    if (!busbarProcessed.Contains(ce))
+                                        AssignFeederToConductingEquipment(ce, feeder, traversalOrder, cimObj.stationHop, customerCableId);
+                                }
+                                else
+                                    AssignFeederToConductingEquipment(ce, feeder, traversalOrder, cimObj.stationHop, customerCableId);
 
                                 // If a busbar or powertransformer inside substation container add feeder to substation as well
                                 if ((ce is BusbarSection || ce is PowerTransformer) && ce.IsInsideSubstation(_cimContext))
@@ -473,7 +513,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 }
                             }
 
-                            
+
                         }
 
                         if (feeder.ConnectionPoint.PowerTransformer != null)
@@ -502,13 +542,17 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                         foreach (var cimObj in traceResult)
                         {
+                            int traversalOrder = 0;
+
                             if (cimObj is ConductingEquipment)
                             {
+                                traversalOrder++;
+
                                 var ce = cimObj as ConductingEquipment;
 
                                 // We don't want to add feeder to power transformers and ac line segments outsit station.
                                 if (!(ce is PowerTransformer) && !(ce is ACLineSegment && !ce.IsInsideSubstation(_cimContext)))
-                                    AssignFeederToConductingEquipment(ce, feeder, 0, Guid.Empty);
+                                    AssignFeederToConductingEquipment(ce, feeder, traversalOrder, 0, Guid.Empty);
                             }
                         }
                     }
@@ -516,11 +560,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             }
         }
 
-        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder, int substationHop, Guid customerCableId)
+        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder, int traversalOrder, int substationHop, Guid customerCableId)
         {
             if (!_conductingEquipmentFeeders.ContainsKey(ce))
             {
-                _conductingEquipmentFeeders[ce] = new ConductingEquipmentFeederInfo() { SubstationHop = substationHop, FirstCustomerCableId = customerCableId };
+                _conductingEquipmentFeeders[ce] = new ConductingEquipmentFeederInfo() { SubstationHop = substationHop, TraversalOrder=traversalOrder, FirstCustomerCableId = customerCableId };
                 _conductingEquipmentFeeders[ce].Feeders.Add(feeder);
             }
             else
