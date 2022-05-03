@@ -209,10 +209,13 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal
                 // Trace customer line segments second 
                 else if (con.ConductingEquipment is ACLineSegment && con.ConductingEquipment.PSRType != null && con.ConductingEquipment.PSRType.ToLower().Contains("customer"))
                     sortKey.Add(con, 98);
+                // Trace switches connected to customer line segmenst second
+                else if (con.ConductingEquipment is Switch && con.ConductingEquipment.GetNeighborConductingEquipments(context).Any(nc => nc.PSRType != null && nc.PSRType.ToLower().Contains("customer")))
+                    sortKey.Add(con, 97);
                 // Trace non internal cables third
                 else if (con.ConductingEquipment is ACLineSegment && con.ConductingEquipment.PSRType != "InternalCable")
                     sortKey.Add(con, 97);
-                // If component sitting in a bay, use bay type to dertimine trace order
+               // If component sitting in a bay, use bay type to dertimine trace order
                 else if (con.ConductingEquipment.HasBay(false, context))
                 {
                     var bay = con.ConductingEquipment.GetBay(true, context);

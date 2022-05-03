@@ -392,12 +392,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         // if feeder cables are connected directly to a cn/busbar inside the node.
                         // We include the power transformer in the trace, no matter if a base voltage is specified.
                         // We need the transformer, and sometimes the base voltage is not set. That's why.
-
-                        if (feeder.ConductingEquipment.mRID == "18f0e122-c6b5-42b6-b173-fb4797a43c58")
-                        {
-
-                        }
-
                         var traceResult = feeder.ConductingEquipment.TraverseWithHopInfo(
                             ce =>
                                 (
