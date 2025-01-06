@@ -12,5 +12,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
         public int TraversalOrder { get; set; }
         public int SubstationHop { get; set; }
         public Guid FirstCustomerCableId { get; set; }
+        public Guid CustomerProtectiveDeviceId { get; set; }
+        public Guid FirstNetworkConnectionPointId { get; set; }
     }
 }

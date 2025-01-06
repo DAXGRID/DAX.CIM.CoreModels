@@ -85,6 +85,7 @@
     <Compile Include="TestStationHopFeederInfoSHO.cs" />
     <Compile Include="TestStationHopFeederInfoTOR.cs" />
     <Compile Include="TestLarsTMuffe.cs" />
+    <Compile Include="TestEnergyConsumerFuseTraversal.cs" />
     <Compile Include="TestTraversalTER.cs" />
     <Compile Include="TestTraversalAnholt.cs" />
     <Compile Include="TestTraversal.cs" />

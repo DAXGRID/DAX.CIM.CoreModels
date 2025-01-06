@@ -56,7 +56,10 @@ namespace DAX.CIM.PhysicalNetworkModel.Traversal.Extensions
             {
                 var bayExt = (BayExt)identifiedObject;
 
-                return bayExt.VoltageLevel.Get(context).GetSubstation(false, context) != null;
+                if (bayExt.VoltageLevel != null)
+                    return bayExt.VoltageLevel.Get(context).GetSubstation(false, context) != null;
+                else
+                    return false;
             }
 
             if (identifiedObject is PowerTransformerEnd)

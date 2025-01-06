@@ -13,7 +13,7 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
     public class TestFeederInfoCompleteNet : FixtureBase
     {
         // Only run as part of konstant test
-        bool run = false;
+        bool run = true;
 
         CimContext _context;
         FeederInfoContext _feederContext;
@@ -22,7 +22,8 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
         {
             if (run)
             {
-                var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"C:\temp\nrgi\context-manager-cache-directory\data-18122.jsonl"));
+                //var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"C:\temp\nrgi\context-manager-cache-directory\data-129164.jsonl"));
+                var reader = new CimJsonFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"C:\temp\nrgi\context-manager-cache-directory\data-104532.jsonl"));
 
                 var objects = reader.Read();
 
@@ -45,6 +46,9 @@ namespace DAX.CIM.PhysicalNetworkModel.Tests.Traversal
 
                 // Check that HV cable is single feeded from MES source
                 var cable = _context.GetObject<ConductingEquipment>("6f27795d-65cc-4631-aba5-6918d7482f0f") as ACLineSegment;
+
+                var ec = _context.GetObject<ConductingEquipment>("A62107B8-E1A1-4296-BEB6-4B306AA0A667") as ACLineSegment;
+                var ecFeederInfos = FeederInfo.FeederInfo.CreateFeederInfosFromEquipment(_feederContext, ec);
 
                 var feederInfo = _feederContext.GeConductingEquipmentFeederInfo(cable);
 

@@ -117,11 +117,13 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                     // If connected to some conducting outside station we have a connection point
                                     if (!cnTc.ConductingEquipment.IsInsideSubstation(_cimContext))
                                     {
-                                        var cp = CreateConnectionPoint(ConnectionPointKind.Line, cnTc.ConnectivityNode, st, stEq.GetBay(false,_cimContext));
 
-                                        // Don't add feeders where bays are connected to an external network injection
+                                        // Don't add dp where bays are connected to an external network injection
                                         if (!(cnTc.ConductingEquipment is ExternalNetworkInjection))
+                                        {
+                                            var cp = CreateConnectionPoint(ConnectionPointKind.Line, cnTc.ConnectivityNode, st, stEq.GetBay(false, _cimContext));
                                             CreateFeeder(cp, cnTc.ConductingEquipment);
+                                        }
                                     }
                                 }
                             }
@@ -168,6 +170,12 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             {
                 if (obj is ExternalNetworkInjection)
                 {
+                    if (obj.name == "HSK")
+                    {
+                        // 7a8cc7b6-07c8-701c-b52b-f006cef44408
+                    }
+
+
                     var source = obj as ExternalNetworkInjection;
                     var sourceConnections = _cimContext.GetConnections(source);
 
@@ -187,6 +195,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
         private ConnectionPoint CreateConnectionPoint(ConnectionPointKind kind, ConnectivityNode cn, Substation st, Bay bay)
         {
+            if (cn.mRID == "7a8cc7b6-07c8-701c-b52b-f006cef44408")
+            {
+
+            }
+
             if (!_connectionPoints.ContainsKey(cn))
             {
                 var newCp = new ConnectionPoint() { Kind = kind, ConnectivityNode = cn, Substation = st, Bay = bay };
@@ -351,6 +364,12 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                 if (cp.Kind == ConnectionPointKind.Line || cp.Kind == ConnectionPointKind.ExternalNetworkInjection)
                 {
+                    if (cp.ConnectivityNode.mRID == "7a8cc7b6-07c8-701c-b52b-f006cef44408")
+                        {
+
+                        }
+
+
                     foreach (var feeder in cp.Feeders)
                     {
                         HashSet<string> nodeTypesToPass = new HashSet<string>();
@@ -385,6 +404,36 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                             if (!_treatTJunctionsAsCabinets)
                                 nodeTypesToPass.Add("T-Junction");
                         }
+
+                        // Find protective device in bay
+                        Guid customerProtectiveDeviceId = Guid.Empty;
+
+                                             
+                        if (feeder.ConnectionPoint.Bay != null)
+                        {
+
+                            if (feeder.ConnectionPoint.Bay.mRID == "64ed07d7-7d6c-43b4-abde-381d11964c2b")
+                            {
+
+                            }
+
+                            if (feeder.ConnectionPoint.Bay.mRID == "8fedbd9f-a186-4247-9d7b-d482eb84ab78")
+                            {
+
+                            }
+
+                            var substationChildren = _cimContext.GetSubstationEquipments(feeder.ConnectionPoint.Substation);
+
+                            var bayChildren = substationChildren.Where(sc => sc.Parent == feeder.ConnectionPoint.Bay);
+
+                            // Try to find fuse first
+                            foreach (var child in bayChildren)
+                            {
+                                if (child is Fuse)
+                                    customerProtectiveDeviceId = Guid.Parse(child.mRID);
+                            }
+                        }
+                        
 
                         // Regarding the trace:
                         // We need a node check on both conducting equipment and connectivity nodes, 
@@ -421,7 +470,12 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                         int energyConsumerCount = 0;
 
                         bool customerCableFound = false;
+                        bool cableBoxCustomerCableFound = false;
+
                         Guid customerCableId = Guid.Empty;
+
+                        bool firstNetworkConnectionPointFound = false;
+                        Guid firstNetworkConnectionPoint = Guid.Empty;
 
                         int traversalOrder = 0;
 
@@ -454,6 +508,14 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 {
                                     customerCableFound = true;
                                     customerCableId = Guid.Parse(acls.mRID);
+
+                                    // Check if cable is connected to cable box
+                                    var cableNeighbors = _cimContext.GetNeighborConductingEquipments(acls);
+
+                                    if (cableNeighbors.Exists(cn => cn.IsInsideSubstation(_cimContext) && cn.GetSubstation(true,_cimContext).PSRType == "CableBox"))
+                                    {
+                                        cableBoxCustomerCableFound = false;
+                                    }
                                 }
                                 else if (acls.PSRType != null && acls.PSRType.ToLower().Contains("customer") && customerCableFound == true)
                                 {
@@ -465,6 +527,51 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                     customerCableFound = false;
                                     customerCableId = Guid.Empty;
                                 }
+                            }
+
+                            // If we hit connection point with installations
+                            if (cimObj.IdentifiedObject is ConnectivityNode)
+                            {
+                                if (!firstNetworkConnectionPointFound)
+                                {
+                                    var cn = cimObj.IdentifiedObject as ConnectivityNode;
+
+                                    var cnNeighborEquipments = cn.GetNeighborConductingEquipments(_cimContext);
+
+                                    foreach (var cnNeighbor in cnNeighborEquipments)
+                                    {
+                                        if (cnNeighbor is EnergyConsumer)
+                                        {
+                                            firstNetworkConnectionPoint = Guid.Parse(cn.mRID);
+                                            firstNetworkConnectionPointFound = true;
+                                        }
+                                        else if (cnNeighbor is ACLineSegment)
+                                        {
+                                            var aclsNeighborEquipments = cnNeighbor.GetNeighborConductingEquipments(_cimContext);
+
+                                            if (aclsNeighborEquipments.Exists(a => a is EnergyConsumer))
+                                            {
+                                                firstNetworkConnectionPoint = Guid.Parse(cn.mRID);
+                                                firstNetworkConnectionPointFound = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // If we hit a busbar or switch, then set found to false
+                            if (cimObj.IdentifiedObject is BusbarSection || cimObj.IdentifiedObject is Switch)
+                            {
+                                firstNetworkConnectionPointFound = false;
+                            }
+
+
+                            // If we hit a a switch, reset customer cable id, if current feeder cable is not connected to a cable box
+                            // This the support customer cables connected to t-junctions
+                            if (cimObj.IdentifiedObject is Switch && !cableBoxCustomerCableFound)
+                            {
+                                customerCableFound = false;
+                                customerCableId = Guid.Empty;
                             }
 
                             if (cimObj.IdentifiedObject is ConnectivityNode)
@@ -481,7 +588,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                                     busbarProcessed.Add((BusbarSection)busbar);
 
-                                    AssignFeederToConductingEquipment(busbar, feeder, traversalOrder, stationHop, customerCableId);
+                                    AssignFeederToConductingEquipment(busbar, feeder, traversalOrder, stationHop, customerCableId, customerProtectiveDeviceId, firstNetworkConnectionPoint);
                                 }
                             }
 
@@ -493,10 +600,10 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                                 if (ce is BusbarSection)
                                 {
                                     if (!busbarProcessed.Contains(ce))
-                                        AssignFeederToConductingEquipment(ce, feeder, traversalOrder, cimObj.stationHop, customerCableId);
+                                        AssignFeederToConductingEquipment(ce, feeder, traversalOrder, cimObj.stationHop, customerCableId, customerProtectiveDeviceId, firstNetworkConnectionPoint);
                                 }
                                 else
-                                    AssignFeederToConductingEquipment(ce, feeder, traversalOrder, cimObj.stationHop, customerCableId);
+                                    AssignFeederToConductingEquipment(ce, feeder, traversalOrder, cimObj.stationHop, customerCableId, customerProtectiveDeviceId, firstNetworkConnectionPoint);
 
                                 // If a busbar or powertransformer inside substation container add feeder to substation as well
                                 if ((ce is BusbarSection || ce is PowerTransformer) && ce.IsInsideSubstation(_cimContext))
@@ -546,7 +653,7 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
 
                                 // We don't want to add feeder to power transformers and ac line segments outsit station.
                                 if (!(ce is PowerTransformer) && !(ce is ACLineSegment && !ce.IsInsideSubstation(_cimContext)))
-                                    AssignFeederToConductingEquipment(ce, feeder, traversalOrder, 0, Guid.Empty);
+                                    AssignFeederToConductingEquipment(ce, feeder, traversalOrder, 0, Guid.Empty, Guid.Empty, Guid.Empty);
                             }
                         }
                     }
@@ -554,11 +661,11 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
             }
         }
 
-        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder, int traversalOrder, int substationHop, Guid customerCableId)
+        private void AssignFeederToConductingEquipment(ConductingEquipment ce, Feeder feeder, int traversalOrder, int substationHop, Guid customerCableId, Guid customerProtectiveDeviceId, Guid firstNetworkConnectionPoint)
         {
             if (!_conductingEquipmentFeeders.ContainsKey(ce))
             {
-                _conductingEquipmentFeeders[ce] = new ConductingEquipmentFeederInfo() { SubstationHop = substationHop, TraversalOrder=traversalOrder, FirstCustomerCableId = customerCableId };
+                _conductingEquipmentFeeders[ce] = new ConductingEquipmentFeederInfo() { SubstationHop = substationHop, TraversalOrder=traversalOrder, FirstCustomerCableId = customerCableId, CustomerProtectiveDeviceId = customerProtectiveDeviceId, FirstNetworkConnectionPointId = firstNetworkConnectionPoint };
                 _conductingEquipmentFeeders[ce].Feeders.Add(feeder);
             }
             else
@@ -583,13 +690,6 @@ namespace DAX.CIM.PhysicalNetworkModel.FeederInfo
                 if (!ce.InternalFeeders.Contains(feeder))
                     ce.InternalFeeders.Add(feeder);
             }
-
-            /*
-            if (!_conductingEquipmentSubstationHop.ContainsKey(ce))
-            {
-                _conductingEquipmentSubstationHop[ce] = substationHop;
-            }
-            */
         }
 
         private void AssignFeederToSubstation(Substation st, Feeder feeder)
